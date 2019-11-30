@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kangtutu.sponge.blog.mapper.BlogMapper">
+
+    <!-- 新增数据 -->
+    <insert id="saveBlog" parameterType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        insert into sk_blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="author != null">author,</if>
+            <if test="title != null">title,</if>
+            <if test="content != null">content,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="blogNature != null">blog_nature,</if>
+            <if test="labelName != null">label_name,</if>
+            <if test="typeName != null">type_name,</if>
+            <if test="labelId != null">label_id,</if>
+            <if test="typeId != null">type_id,</if>
+            <if test="readingQuantity != null">reading_quantity,</if>
+            <if test="likeNumInt != null">like_num_int,</if>
+            <if test="isOpenHomeRecommend != null">is_open_home_recommend,</if>
+            <if test="isOpenCopyright != null">is_open_copyright,</if>
+            <if test="isOpenComment != null">is_open_comment,</if>
+            <if test="status != null">status,</if>
+            <if test="publishYear != null">publish_year,</if>
+            <if test="publishMonth != null">publish_month,</if>
+            <if test="creationUser != null">creation_user,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="author != null">#{author},</if>
+            <if test="title != null">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="blogNature != null">#{blogNature},</if>
+            <if test="labelName != null">#{labelName},</if>
+            <if test="typeName != null">#{typeName},</if>
+            <if test="labelId != null">#{labelId},</if>
+            <if test="typeId != null">#{typeId},</if>
+            <if test="readingQuantity != null">#{readingQuantity},</if>
+            <if test="likeNumInt != null">#{likeNumInt},</if>
+            <if test="isOpenHomeRecommend != null">#{isOpenHomeRecommend},</if>
+            <if test="isOpenCopyright != null">#{isOpenCopyright},</if>
+            <if test="isOpenComment != null">#{isOpenComment},</if>
+            <if test="status != null">#{status},</if>
+            <if test="publishYear != null">#{publishYear},</if>
+            <if test="publishMonth != null">#{publishMonth},</if>
+            <if test="creationUser != null">#{creationUser},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime}</if>
+        </trim>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="updateBlog" parameterType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        update sk_blog
+        <trim prefix="set" suffixOverrides=",">
+            <if test="author != null">author=#{author},</if>
+            <if test="title != null">title=#{title},</if>
+            <if test="content != null">content=#{content},</if>
+            <if test="imageUrl != null">image_url=#{imageUrl},</if>
+            <if test="blogNature != null">blog_nature=#{blogNature},</if>
+            <if test="labelName != null">label_name=#{labelName},</if>
+            <if test="typeName != null">type_name=#{typeName},</if>
+            <if test="labelId != null">label_id=#{labelId},</if>
+            <if test="typeId != null">type_id=#{typeId},</if>
+            <if test="readingQuantity != null">reading_quantity=#{readingQuantity},</if>
+            <if test="likeNumInt != null">like_num_int=#{likeNumInt},</if>
+            <if test="isOpenHomeRecommend != null">is_open_home_recommend=#{isOpenHomeRecommend},</if>
+            <if test="isOpenCopyright != null">is_open_copyright=#{isOpenCopyright},</if>
+            <if test="isOpenComment != null">is_open_comment=#{isOpenComment},</if>
+            <if test="status != null">status=#{status},</if>
+            <if test="publishYear != null">publish_year=#{publishYear},</if>
+            <if test="publishMonth != null">publish_month=#{publishMonth},</if>
+            <if test="updateUser != null">update_user=#{updateUser},</if>
+            <if test="updateTime != null">update_time=#{updateTime}</if>
+        </trim>
+        where blog_id=#{blogId}
+    </update>
+
+    <!-- 删除指定id数据 -->
+    <delete id="deleteBlogById" parameterType="java.lang.Integer">
+        delete from sk_blog where blog_id=#{blogId};
+    </delete>
+
+    <!-- 查询指定id -->
+    <select id="queryBlogById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        select * from sk_blog where blog_id=#{blogId};
+    </select>
+
+    <!-- 按照条件查询 -->
+    <select id="queryBlogByTerm" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        select * from sk_blog
+        <where>
+            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
+            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
+            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
+            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
+            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
+            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
+            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
+            <if test="term.status != null">and status=#{term.status}</if>
+        </where>
+        order by creation_time desc
+    </select>
+
+    <!-- 按照条件分页查询 -->
+    <select id="queryBlogByTermAndLimit" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        select * from sk_blog
+        <where>
+            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
+            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
+            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
+            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
+            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
+            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
+            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
+            <if test="term.status != null">and status=#{term.status}</if>
+        </where>
+        order by creation_time desc limit ${topCurrPage},${pageSize};
+    </select>
+
+    <!-- 查询热门博客文章 -->
+    <select id="queryHotBlogByReadingQuantity" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        select * from sk_blog where status=#{status} order by reading_quantity desc limit #{topCurrPage},#{pageSize};
+    </select>
+
+    <!-- 查询总条数 -->
+    <select id="queryBlogTotal" resultType="java.lang.Integer">
+        select count(*) from sk_blog where status=#{status};
+    </select>
+
+    <!-- 按条件查询总条数 -->
+    <select id="queryBlogByTermAndTotal" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="java.lang.Integer">
+        select count(*) from sk_blog
+        <where>
+            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
+            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
+            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
+            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
+            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
+            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
+            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
+            <if test="term.status != null">and status=#{term.status}</if>
+        </where>
+    </select>
+
+    <!-- 查询表中存在哪些年份的文章 -->
+    <select id="queryBlogPublishYear" resultType="java.lang.Integer">
+        select publish_year from sk_blog group by publish_year;
+    </select>
+
+</mapper>

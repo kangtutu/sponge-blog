@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h2>index</h2>
+<h3>首页分页列表数据</h3>
+<div th:text="${blogLimitList}"></div>
+<h3>首页热门博客</h3>
+<div th:text="${hotBlog}"></div>
+<h3>首页推荐博客</h3>
+<div th:text="${recommendBlog}"></div>
+<h3>首页年份</h3>
+<div th:text="${publishYears}"></div>
+</body>
+</html>

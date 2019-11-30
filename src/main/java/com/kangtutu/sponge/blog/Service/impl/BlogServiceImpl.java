@@ -1,0 +1,98 @@
+package com.kangtutu.sponge.blog.Service.impl;
+
+import com.kangtutu.sponge.blog.Service.BlogService;
+import com.kangtutu.sponge.blog.mapper.BlogMapper;
+import com.kangtutu.sponge.blog.pojo.SKBlog;
+import com.kangtutu.sponge.blog.pojo.SKTerm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
+//博客文章服务层
+@Service
+public class BlogServiceImpl implements BlogService {
+
+    @Autowired
+    private BlogMapper blogMapper;
+
+    //通过id查询
+    @Override
+    public SKBlog getBlogById(Integer blogId) {
+        return blogMapper.querySKBlogById(blogId);
+    }
+
+    //按条件分页查询
+    @Override
+    public List<SKBlog> getBlogByTermAndLimit(SKTerm skTerm, Integer pageSize, Integer topCurrPage) {
+        Integer pageIndex = (topCurrPage-1)*pageSize;//计算从第几条开始
+        return blogMapper.queryBlogByTermAndLimit(skTerm,pageSize,pageIndex);
+    }
+
+    //按条件查询
+    @Override
+    public List<SKBlog> getBlogByTerm(SKTerm skTerm) {
+        return blogMapper.queryBlogByTerm(skTerm);
+    }
+
+    //查询热门文章
+    @Override
+    public List<SKBlog> getHotBlogByReadingQuantity(Integer pageSize, Integer topCurrPage) {
+        return blogMapper.queryHotBlogByReadingQuantity(true,pageSize,topCurrPage);
+    }
+
+    //查询总条数
+    @Override
+    public Integer getBlogTotal() {
+        return blogMapper.queryBlogTotal(true);
+    }
+
+    //按条件查询总条数
+    @Override
+    public Integer getBlogByTermAndTotal(SKTerm skTerm) {
+        return blogMapper.queryBlogByTermAndTotal(skTerm);
+    }
+
+    //查询表中存在哪些年份的数据
+    @Override
+    public List<Integer> getBlogPublishYear() {
+        return blogMapper.queryBlogPublishYear();
+    }
+
+    //添加数据
+    @Override
+    public void saveBlog(SKBlog skBlog) {
+        //初始化参数
+        initParam(skBlog);
+        blogMapper.saveBlog(skBlog);
+    }
+
+    //更新数据
+    @Override
+    public void updateBlog(SKBlog skBlog) {
+        blogMapper.updateBlog(skBlog);
+    }
+
+    //删除数据
+    @Override
+    public void deleteBlogById(Integer blogId) {
+        blogMapper.deleteBlogById(blogId);
+    }
+
+    //初始化参数
+    private void initParam(SKBlog skBlog){
+        Date date = new Date();
+        String str = "admin";
+        skBlog.setCreationUser(str);
+        skBlog.setCreationTime(date);
+        skBlog.setUpdateUser(str);
+        skBlog.setUpdateTime(date);
+        skBlog.setPublishYear("2019");
+        skBlog.setPublishMonth("11");
+        skBlog.setStatus(true);
+        skBlog.setOpenHomeRecommend(true);
+        skBlog.setOpenComment(true);
+        skBlog.setOpenCopyright(true);
+    }
+}
