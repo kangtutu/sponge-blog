@@ -29,6 +29,6 @@ hs_err_pid*
 *.iml
 out
 gen
-LICENSE
 .gitignore
+target
 

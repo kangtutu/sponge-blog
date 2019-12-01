@@ -48,7 +48,7 @@ public class BlogController {
      * @return
      */
     @GetMapping("/index")
-    public String indexs(Model model) {
+    public String list(Model model) {
         //查询总条数
         Integer total = blogService.getBlogTotal();
         //创建条件对象
@@ -84,32 +84,28 @@ public class BlogController {
     }
 
     /**
-     * 对应标签分页查询数据
-     * @param labelId
+     * 对应标签与分类分页查询数据
+     * @param name
+     * @param id
      * @param currPage
      * @return
      */
-    @GetMapping("/page/label/{labelId}/{currPage}")
+    @GetMapping("/page/{name}/{Id}/{currPage}")
     @ResponseBody
-    public Object getLabelLimitBlog(@PathVariable("labelId") Integer labelId,@PathVariable("currPage") Integer currPage){
+    public Object getLabelLimitBlog(@PathVariable("name") Integer name,@PathVariable("id") Integer id,@PathVariable("currPage") Integer currPage){
+        /**
+         * name参数作为灵活参数，当此参数为null时则查询全量的博客文章
+         * 1. 当name值为label时则查询对应的标签博客数据，id为对应的标签id
+         * 2. 当name值为type时则查询对应的分类博客数据，id为对应的类型id
+         */
         SKTerm skTerm = new SKTerm();
         skTerm.setStatus(true);
-        skTerm.setLabelId(labelId);
-        return blogService.getBlogByTermAndLimit(skTerm,PAGE_SIZE,currPage);
-    }
-
-    /**
-     * 对应分类分页查询数据
-     * @param typeId
-     * @param currPage
-     * @return
-     */
-    @GetMapping("/page/type/{typeId}/{currPage}")
-    @ResponseBody
-    public Object getLimitBlog(@PathVariable("typeId") Integer typeId,@PathVariable("currPage") Integer currPage){
-        SKTerm skTerm = new SKTerm();
-        skTerm.setStatus(true);
-        skTerm.setTypeId(typeId);
+        if(name.equals("label")){
+            skTerm.setLabelId(id);
+        }
+        if (name.equals("type")){
+            skTerm.setTypeId(id);
+        }
         return blogService.getBlogByTermAndLimit(skTerm,PAGE_SIZE,currPage);
     }
 
@@ -145,7 +141,7 @@ public class BlogController {
         //查询指定博客数据
         SKBlog blog = blogService.getBlogById(blogId);
         //查询指定博客id对应的评论数据
-        commentService.getCommentByBlogId();
+        commentService.getCommentByBlogId(blogId);
         blog.setComments(null);
         model.addAttribute("blog",blog);
         return blog;

@@ -20,7 +20,7 @@ public interface CommentMapper {
      * @param code 1-父级  2-子级
      * @return
      */
-    List<SKComment> queryParentCommentByBlogId(@Param("blogId") Integer blogId, @Param("code") Integer code);
+    List<SKComment> queryCommentByBlogId(@Param("blogId") Integer blogId, @Param("code") Integer code);
 
     //查询指定博客id评论信息总条数
     Integer queryCommentTotal(@Param("blogId") Integer blogId);

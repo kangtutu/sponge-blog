@@ -50,7 +50,7 @@
     </update>
 
     <!-- 查询指定id的父级或子级评论信息 -->
-    <select id="queryParentCommentByBlogId" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKComment">
+    <select id="queryCommentByBlogId" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKComment">
         select * from sk_comment
         <where>
             <if test="blogId != null">and blog_id=#{blogId}</if>

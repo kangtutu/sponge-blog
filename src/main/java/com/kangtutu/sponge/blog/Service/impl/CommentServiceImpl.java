@@ -29,21 +29,17 @@ public class CommentServiceImpl implements CommentService {
         commentMapper.updateComment(skComment);
     }
 
+    //按照分页查询
     @Override
-    public List<SKComment> getCommentByBlogId(Integer blogId, Integer code) {
+    public List<Map<String,Object>> getCommentByBlogId(Integer blogId) {
         //获取父级评论信息
-
+        List<SKComment> parentComment = commentMapper.queryCommentByBlogId(blogId, 1);
         //获取子级评论信息
-
+        List<SKComment> sonComment = commentMapper.queryCommentByBlogId(blogId, 2);
         List<Map<String,Object>> comments = new ArrayList<>();
-        Map<String,Object> map = new HashMap<>();
-        //父级评论信息 k-parent
-        map.put("parent",new SKComment());
-        //子级评论信息 k-son
-        List<SKComment> son = new ArrayList<>();
-        map.put("son",son);
-        comments.add(map);
-        return commentMapper.queryParentCommentByBlogId(blogId,code);
+        //调用方法处理评论数据
+        commentByBlogId(comments,parentComment,sonComment);
+        return comments;
     }
 
     @Override
@@ -54,6 +50,30 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteCommentById(Integer commentId) {
         commentMapper.deleteCommentById(commentId);
+    }
+
+    //封装评论信息
+    private void commentByBlogId(List<Map<String,Object>> comments,List<SKComment> parentComment,List<SKComment> sonComment){
+        if(parentComment!=null && parentComment.size()>0){
+            for(int i=0;i<parentComment.size();i++){
+                SKComment parent = parentComment.get(i);
+                Map<String,Object> map = new HashMap<>();
+                //父级评论信息 k-parent
+                map.put("parent",parent);
+                if(sonComment!=null && sonComment.size()>0){
+                    List<SKComment> sonList = new ArrayList<>();
+                    for(int k=0;k<sonComment.size();k++){
+                        SKComment son = sonComment.get(k);
+                        if(parent.getCommentId() == son.getParentCommentId()){
+                            sonList.add(son);
+                        }
+                    }
+                    //子级评论信息 k-son
+                    map.put("son",sonList);
+                    comments.add(map);
+                }
+            }
+        }
     }
 
     //初始化参数
