@@ -2,6 +2,7 @@ package com.kangtutu.sponge.blog.controller;
 
 import com.kangtutu.sponge.blog.Service.BlogService;
 import com.kangtutu.sponge.blog.pojo.SKBlog;
+import com.kangtutu.sponge.blog.pojo.SKLimitResultVO;
 import com.kangtutu.sponge.blog.pojo.SKTerm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,12 @@ public class ArticleArchivingController {
         int size = (topCurrPage-1)*pageSize;
         skTerm.setTopCurrPage(size);
         List<SKBlog> blogs = blogService.getBlogByTerm(skTerm);
-        return blogs;
+
+        //查询对应条件的总条数
+        Integer total = blogService.getBlogByTermAndTotal(skTerm);
+
+        SKLimitResultVO skLimitResultVO = setResult(blogs, topCurrPage, total);
+        return skLimitResultVO;
     }
 
     //分页查询
@@ -61,16 +67,14 @@ public class ArticleArchivingController {
         return blogs;
     }
 
-    @RequestMapping(value = "/demo",method = RequestMethod.POST)
-    @ResponseBody
-    public String demo(@RequestParam("namespace") String namespace,@RequestParam("value")String value){
-        System.out.println(namespace);
-        System.out.println(value);
-        return "Success";
+    //封装查询及返回结果的方法
+    public SKLimitResultVO setResult(List<SKBlog> blogs,Integer topCurrPage,Integer total){
+        SKLimitResultVO slrv = new SKLimitResultVO();
+        slrv.setPageIndex(topCurrPage);
+        slrv.setTotalNumber(total);
+        slrv.setPageSize(pageSize);
+        slrv.setData(blogs);
+        return slrv;
     }
 
-    @GetMapping("/demo/html")
-    public String d(){
-        return "error";
-    }
 }

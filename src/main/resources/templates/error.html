@@ -5,25 +5,16 @@
     <title>error异常处理页面</title>
 </head>
 <body>
-<!--<p>-->
-<!--    【<span th:text="${code}"></span>】<br>-->
-<!--    <span th:text="${message}"></span><br>-->
-<!--    <span th:text="${url}"></span>-->
-<!--</p>-->
 
-<div>
-    <form th:action="@{/blog/archiving/demo}" method="post">
-        <input type="text" name="namespace" value="kube-system">
-        <textarea name="value" class="ddd"></textarea>
-        <button type="submit">提交</button>
-    </form>
-</div>
+<p>
+    【<span th:text="${code}"></span>】<br>
+    <span th:text="${message}"></span><br>
+    <span th:text="${url}"></span>
+</p>
 
-<div>
-    <h1>异步调用</h1>
-    <textarea name="value" class="ccc"></textarea>
-    <button type="submit" onclick="dianji()">提交</button>
-</div>
+
+
+
 
 <!-- 相关JS -->
 <th:block th:replace="_fragment :: script">
@@ -31,23 +22,6 @@
     <script src="../static/js/bootstrap/bootstrap.min.js"></script>
     <script src="../static/js/bootstrap/popper.min.js"></script>
 </th:block>
-<script>
 
-    function dianji(){
-
-        var str = $(".ccc").val();
-
-        $.ajax({
-            url:"/blog/archiving/demo",
-            dataType:"json",
-            type:"post",
-            data:{"namespace":"kube-system","value":str},
-            success:function(d){
-                alert(d);
-            }
-        })
-    }
-
-</script>
 </body>
 </html>

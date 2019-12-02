@@ -51,6 +51,7 @@ public class BlogController {
      */
     @GetMapping("/index")
     public String list(Model model) {
+        setBlog();
         //查询总条数
         Integer total = blogService.getBlogTotal();
         //创建条件对象
@@ -188,6 +189,19 @@ public class BlogController {
             blog.setTypeName("测试类型");
             blog.setImageUrl("www.baidu.com");
             blog.setBlogNature(1);
+            Random ran = new Random();
+            int a = ran.nextInt(4);
+            String y = "2019";
+            String m = random.nextInt(11)+1+"";
+            if(a==0){
+                y="2017";
+            }else if(a==1){
+                y="2016";
+            }else if(a==2){
+                y="2018";
+            }
+            blog.setPublishYear(y);
+            blog.setPublishMonth(m);
             blog.setReadingQuantity(random.nextInt(1000));
             blog.setLikeNumInt(random.nextInt(1000));
             blogService.saveBlog(blog);

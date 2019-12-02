@@ -81,11 +81,10 @@ public class BlogServiceImpl implements BlogService {
         skBlog.setCreationTime(date);
         skBlog.setUpdateUser(str);
         skBlog.setUpdateTime(date);
-        skBlog.setPublishYear("2019");
-        skBlog.setPublishMonth("11");
         skBlog.setStatus(true);
         skBlog.setOpenHomeRecommend(true);
         skBlog.setOpenComment(true);
         skBlog.setOpenCopyright(true);
+        skBlog.setBlogNature(1);
     }
 }
