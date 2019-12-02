@@ -57,146 +57,27 @@
     </div>
 </nav>
 
-<!-- 轮播图 -->
-<div class="container mt-4">
-    <div class="row">
-        <!-- 首页推荐文章轮播图 -->
-        <div class="col-9">
-            <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-                <!-- 指示符 -->
-                <ul class="carousel-indicators">
-                    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel" data-slide-to="1"></li>
-                    <li data-target="#carousel" data-slide-to="2"></li>
-                </ul>
-                <!-- 轮播图片 -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_fjords_wide.jpg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>One</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_nature_wide.jpg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>Two</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="rounded img-fluid" src="../static/image/lb-2.jpeg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>Three</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- 左右切换按钮 -->
-                <a class="carousel-control-prev" href="#carousel" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#carousel" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
-        </div>
-        <!-- 树型列表 -->
-        <div class="col-3 pt-3 pb-3">
-            <!-- 图片 -->
-            <div class="m-auto" style="height: 160px;width: 160px;">
-                <img src="../static/image/cxy.jpg" th:src="@{/image/cxy.jpg}" class="img-fluid">
-            </div>
-            <!-- 标语介绍 -->
-            <div class="text-center pt-4 pb-2">
-                <h5>Sponge博客</h5>
-                <p class="small">
-                    <span class="badge badge-danger">中国·北京</span>
-                    <span class="badge badge-warning">Java开发</span>
-                </p>
-            </div>
-            <!-- 联系方式 -->
-            <div class="text-center">
-                <a href="#" class="btn btn-primary mr-2" data-toggle="modal" data-target="#QQCode"><i class="fa fa-qq"
-                                                                                                      aria-hidden="true"></i></a>
-                <div class="modal fade" id="QQCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                QQ二维码
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="btn btn-primary mr-2" data-toggle="modal" data-target="#wechatCode"><i
-                        class="fa fa-weixin" aria-hidden="true"></i></a>
-                <div class="modal fade" id="wechatCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                微信二维码
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gitCode"><i class="fa fa-github"
-                                                                                                  aria-hidden="true"></i></a>
-                <div class="modal fade" id="gitCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                GitHub连接
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 内容部分 -->
+<!-- 内容区 -->
 <div class="container mt-4 mb-5">
     <div class="row">
+        <!-- 标签 / 分类 / 归档说明 -->
         <div class="col-9">
+
+            <div class="mb-4 overflow-hidden">
+                <div class="float-left">
+                    <!--<i class="fa fa-calendar fa-3x" aria-hidden="true"></i>-->
+                    <i class="fa fa-clipboard fa-3x" aria-hidden="true"></i>
+                </div>
+                <div class="float-left ml-3">
+                    <h5 class="font-weight-bold" style="margin: 0 0 0 0 !important;">文章归档</h5>
+                    <span class="small" style="color: #b6b6b6">按照不同标签查找阅读想要的文章</span>
+                </div>
+            </div>
+
             <!-- 首页文章列表 -->
             <div>
                 <!--<h4 class=" mb-3 font-weight-bold text-danger">博客列表</h4>-->
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="../static/image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -226,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -256,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -286,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -316,7 +197,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -346,7 +227,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -376,7 +257,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -406,7 +287,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -436,7 +317,37 @@
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
+                <div class="card mb-3">
+                    <div class="card-body overflow-hidden">
+                        <a href="#" class="text-decoration-none">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
+                                    <p class="card-text small mt-2 text-dark">
+                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                    </p>
+                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-footer bg-transparent border-light small text-secondary">
+                        <!-- 作者 -->
+                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
+                        <!-- 时间 -->
+                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                        <!-- 浏览 -->
+                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
+                        <!-- 评论 -->
+                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
                     <div class="card-body overflow-hidden">
                         <a href="#" class="text-decoration-none">
                             <div class="row">
@@ -474,6 +385,84 @@
 
         </div>
         <div class="col-3">
+            <!-- 年份选项列表 -->
+            <div class="accordion mb-4" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne" style="padding: .1rem 0 .1rem .1rem !important;">
+                        <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">2019
+                        </button>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">1</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">2</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">3</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">4</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">5</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">6</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">7</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">8</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">9</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">10</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">11</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">12</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="heading2" style="padding: .1rem 0 .1rem .1rem !important;">
+                        <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse2"
+                                aria-expanded="true" aria-controls="collapse2">2018
+                        </button>
+                    </div>
+                    <div id="collapse2" class="collapse" aria-labelledby="heading2"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">1</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">2</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">3</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">4</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">5</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">6</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">7</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">8</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">9</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">10</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">11</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">12</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="heading3" style="padding: .1rem 0 .1rem .1rem !important;">
+                        <button class="btn btn-link text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse3"
+                                aria-expanded="false" aria-controls="collapse3">2017
+                        </button>
+                    </div>
+                    <div id="collapse3" class="collapse" aria-labelledby="heading3"
+                         data-parent="#accordionExample">
+                        <div class="card-body">
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">1</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">2</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">3</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">4</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">5</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">6</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">7</a>
+                            <a href="#" class="btn btn-sm btn-primary mt-2 mb-2" style="width: 23%">8</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">9</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">10</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">11</a>
+                            <a href="#" class="btn btn-sm btn-primary" style="width: 23%">12</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--阅读排行(前10篇)-->
             <div class="card mb-4">
                 <h6 class="card-header font-weight-bold text-danger">阅读排行</h6>
@@ -545,60 +534,6 @@
                         <span class="text-dark">博客文章标题博客文章标题...</span>
                     </a>
 
-                </div>
-            </div>
-
-            <!-- 最新发布-按发布时间取前5篇 -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
-                <div class="card-body">
-                    <a href="#" class="d-block small text-decoration-none border-bottom pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none  pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- 标签墙 -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
-                <div class="pt-2 pl-2 pr-2">
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>JAVA</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Git</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Docker</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Linux</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Ngnix</span><span
-                            class="badge badge-light ml-1">9</span></a>
                 </div>
             </div>
 

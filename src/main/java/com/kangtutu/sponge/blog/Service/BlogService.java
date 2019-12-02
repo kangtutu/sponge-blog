@@ -15,16 +15,7 @@ public interface BlogService {
     SKBlog getBlogById(Integer blogId);
 
     /**
-     * 按条件分页查询
-     * @param skTerm 条件对象
-     * @param pageSize 每页显示条数
-     * @param topCurrPage 当前页码
-     * @return
-     */
-    List<SKBlog> getBlogByTermAndLimit(SKTerm skTerm, Integer pageSize,Integer topCurrPage);
-
-    /**
-     * 按条件查询
+     * 按条件查询，支持分页查询
      * @param skTerm 条件对象
      * @return
      */

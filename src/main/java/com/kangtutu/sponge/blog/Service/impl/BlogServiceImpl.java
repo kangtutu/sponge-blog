@@ -23,13 +23,6 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.querySKBlogById(blogId);
     }
 
-    //按条件分页查询
-    @Override
-    public List<SKBlog> getBlogByTermAndLimit(SKTerm skTerm, Integer pageSize, Integer topCurrPage) {
-        Integer pageIndex = (topCurrPage-1)*pageSize;//计算从第几条开始
-        return blogMapper.queryBlogByTermAndLimit(skTerm,pageSize,pageIndex);
-    }
-
     //按条件查询
     @Override
     public List<SKBlog> getBlogByTerm(SKTerm skTerm) {

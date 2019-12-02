@@ -8,6 +8,7 @@ import com.kangtutu.sponge.blog.pojo.SKBlog;
 import com.kangtutu.sponge.blog.pojo.SKLimitResultVO;
 import com.kangtutu.sponge.blog.pojo.SKTerm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,8 @@ import java.util.Random;
 public class BlogController {
 
     //分页查询每页显示条数
-    private static final Integer PAGE_SIZE = 10;
+    @Value("${blog.limit.page-size}")
+    private Integer pageSize;
 
     @Autowired
     private BlogService blogService;
@@ -53,14 +55,16 @@ public class BlogController {
         Integer total = blogService.getBlogTotal();
         //创建条件对象
         SKTerm skTerm = new SKTerm();
-        skTerm.setStatus(true);//页面中展示的博客文章状态必须是启用的否则不予显示
+        skTerm.setPageSize(pageSize);
+        skTerm.setTopCurrPage(0);
         //需要将分页数据进行封装
-        SKLimitResultVO blogLimitList = setSKLimitResultVO(skTerm, total,PAGE_SIZE, 1);
+        SKLimitResultVO blogLimitList = setSKLimitResultVO(skTerm, total,pageSize,1);
         //热门文章-首页轮播图部分提供跳转入口，查询数据只要阅读量排序的前5条
         List<SKBlog> hotBlog = blogService.getHotBlogByReadingQuantity(5,1);
         //首页推荐相关博客
         skTerm.setOpenHomeRecommend(true);
-        List<SKBlog> recommendBlog = blogService.getBlogByTermAndLimit(skTerm,5,1);
+        skTerm.setPageSize(5);
+        List<SKBlog> recommendBlog = blogService.getBlogByTerm(skTerm);
         //查询表中存在的哪些年份
         List<Integer> publishYears = blogService.getBlogPublishYear();
         model.addAttribute("blogLimitList",blogLimitList);
@@ -79,8 +83,10 @@ public class BlogController {
     @ResponseBody
     public Object getLimitBlog(@PathVariable("currPage") Integer currPage){
         SKTerm skTerm = new SKTerm();
-        skTerm.setStatus(true);
-        return blogService.getBlogByTermAndLimit(skTerm,PAGE_SIZE,currPage);
+        skTerm.setPageSize(pageSize);
+        int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
+        skTerm.setTopCurrPage(topCurrPage);
+        return blogService.getBlogByTerm(skTerm);
     }
 
     /**
@@ -99,14 +105,17 @@ public class BlogController {
          * 2. 当name值为type时则查询对应的分类博客数据，id为对应的类型id
          */
         SKTerm skTerm = new SKTerm();
-        skTerm.setStatus(true);
         if(name.equals("label")){
             skTerm.setLabelId(id);
         }
         if (name.equals("type")){
             skTerm.setTypeId(id);
         }
-        return blogService.getBlogByTermAndLimit(skTerm,PAGE_SIZE,currPage);
+        skTerm.setPageSize(pageSize);
+        int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
+        skTerm.setTopCurrPage(topCurrPage);
+
+        return blogService.getBlogByTerm(skTerm);
     }
 
     /**
@@ -125,7 +134,11 @@ public class BlogController {
         if(month != 0){
             skTerm.setPublishMonth(month);
         }
-        return blogService.getBlogByTermAndLimit(skTerm,PAGE_SIZE,currPage);
+        skTerm.setPageSize(pageSize);
+        int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
+        skTerm.setTopCurrPage(topCurrPage);
+
+        return blogService.getBlogByTerm(skTerm);
     }
 
     /**
@@ -152,7 +165,7 @@ public class BlogController {
     //封装分页数据查询
     private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer totalNumber,Integer pageSize,Integer topCurrPage){
         //查询首页分页数据，默认按照发布时间进行排序
-        List<SKBlog> blogList = blogService.getBlogByTermAndLimit(skTerm,pageSize,topCurrPage);
+        List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
         SKLimitResultVO skLimitResultVO = new SKLimitResultVO();
         skLimitResultVO.setPageSize(pageSize);
         skLimitResultVO.setTotalNumber(totalNumber);

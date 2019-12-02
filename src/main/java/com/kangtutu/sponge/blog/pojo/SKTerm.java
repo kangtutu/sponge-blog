@@ -10,6 +10,8 @@ public class SKTerm implements Serializable {
 
     private static SKTerm skTerm = new SKTerm();
 
+    private Integer topCurrPage;//从第几条开始查询 [ 分页查询需要的参数 ]
+    private Integer pageSize; //每页显示的条数 [ 分页查询需要的参数 ]
     private Integer blogId;//博客id
     private Integer labelId;//标签id
     private Integer typeId;//分类id
@@ -22,7 +24,7 @@ public class SKTerm implements Serializable {
     private Boolean isOpenHomeRecommend; //首页推荐
     private Boolean isOpenCopyright; //版权信息
     private Boolean isOpenComment; //评论功能
-    private Boolean status; //状态
+    private Boolean status = true; //状态
 
     public SKTerm() {}
 
@@ -132,5 +134,21 @@ public class SKTerm implements Serializable {
 
     public void setPublishMonth(Integer publishMonth) {
         this.publishMonth = publishMonth;
+    }
+
+    public Integer getTopCurrPage() {
+        return topCurrPage;
+    }
+
+    public void setTopCurrPage(Integer topCurrPage) {
+        this.topCurrPage = topCurrPage;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

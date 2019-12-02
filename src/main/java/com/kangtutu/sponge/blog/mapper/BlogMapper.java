@@ -16,20 +16,11 @@ public interface BlogMapper {
     SKBlog querySKBlogById(@Param("blogId")Integer blogId);
 
     /**
-     * 按条件分页查询
-     * @param skTerm 条件对象
-     * @param pageSize 每页显示条数
-     * @param topCurrPage 当前页码
-     * @return
-     */
-    List<SKBlog> queryBlogByTermAndLimit(@Param("term") SKTerm skTerm,@Param("pageSize") Integer pageSize,@Param("topCurrPage") Integer topCurrPage);
-
-    /**
-     * 按条件查询
+     * 按条件查询，支持分页查询
      * @param skTerm 条件对象
      * @return
      */
-    List<SKBlog> queryBlogByTerm(@Param("term") SKTerm skTerm);
+    List<SKBlog> queryBlogByTerm(SKTerm skTerm);
 
     /**
      * 查询热门文章
@@ -51,7 +42,7 @@ public interface BlogMapper {
      * @param skTerm
      * @return
      */
-    Integer queryBlogByTermAndTotal(@Param("term") SKTerm skTerm);
+    Integer queryBlogByTermAndTotal(SKTerm skTerm);
 
     /**
      * 查询表中有哪些年份的数据

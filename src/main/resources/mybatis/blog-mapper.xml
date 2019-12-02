@@ -92,36 +92,25 @@
         select * from sk_blog where blog_id=#{blogId};
     </select>
 
-    <!-- 按照条件查询 -->
+    <!-- 按照条件查询，支持分页查询 -->
     <select id="queryBlogByTerm" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
         select * from sk_blog
         <where>
-            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
-            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
-            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
-            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
-            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
-            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
-            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
-            <if test="term.status != null">and status=#{term.status}</if>
+            <if test="labelId != null">and label_id=#{labelId}</if>
+            <if test="typeId != null">and type_id=#{typeId}</if>
+            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
+            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
+            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
+            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
+            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
+            <if test="publishYear != null">and publish_year=#{publishYear}</if>
+            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
+            <if test="status != null">and status=#{status}</if>
         </where>
         order by creation_time desc
-    </select>
-
-    <!-- 按照条件分页查询 -->
-    <select id="queryBlogByTermAndLimit" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
-        select * from sk_blog
-        <where>
-            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
-            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
-            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
-            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
-            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
-            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
-            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
-            <if test="term.status != null">and status=#{term.status}</if>
-        </where>
-        order by creation_time desc limit ${topCurrPage},${pageSize};
+        <if test="topCurrPage != null and pageSize != null">
+            limit ${topCurrPage},${pageSize};
+        </if>
     </select>
 
     <!-- 查询热门博客文章 -->
@@ -138,14 +127,16 @@
     <select id="queryBlogByTermAndTotal" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="java.lang.Integer">
         select count(*) from sk_blog
         <where>
-            <if test="term.labelId != null">and label_id=#{term.labelId}</if>
-            <if test="term.typeId != null">and type_id=#{term.typeId}</if>
-            <if test="term.readingQuantity != null">and reading_quantity=#{term.readingQuantity}</if>
-            <if test="term.likeNumInt != null">and like_num_int=#{term.likeNumInt}</if>
-            <if test="term.isOpenHomeRecommend != null">and is_open_home_recommend=#{term.isOpenHomeRecommend}</if>
-            <if test="term.isOpenCopyright != null">and is_open_copyright=#{term.isOpenCopyright}</if>
-            <if test="term.isOpenComment != null">and is_open_comment=#{term.isOpenComment}</if>
-            <if test="term.status != null">and status=#{term.status}</if>
+            <if test="labelId != null">and label_id=#{labelId}</if>
+            <if test="typeId != null">and type_id=#{typeId}</if>
+            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
+            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
+            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
+            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
+            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
+            <if test="publishYear != null">and publish_year=#{publishYear}</if>
+            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
+            <if test="status != null">and status=#{status}</if>
         </where>
     </select>
 
