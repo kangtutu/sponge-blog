@@ -151,4 +151,25 @@ public class SKTerm implements Serializable {
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
+
+    @Override
+    public String toString() {
+        return "SKTerm{" +
+                "topCurrPage=" + topCurrPage +
+                ", pageSize=" + pageSize +
+                ", blogId=" + blogId +
+                ", labelId=" + labelId +
+                ", typeId=" + typeId +
+                ", commentId=" + commentId +
+                ", publishYear=" + publishYear +
+                ", publishMonth=" + publishMonth +
+                ", readingQuantity=" + readingQuantity +
+                ", likeNumInt=" + likeNumInt +
+                ", waitForReply=" + waitForReply +
+                ", isOpenHomeRecommend=" + isOpenHomeRecommend +
+                ", isOpenCopyright=" + isOpenCopyright +
+                ", isOpenComment=" + isOpenComment +
+                ", status=" + status +
+                '}';
+    }
 }

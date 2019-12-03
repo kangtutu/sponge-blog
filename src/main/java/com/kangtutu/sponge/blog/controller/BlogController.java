@@ -191,14 +191,14 @@ public class BlogController {
             blog.setBlogNature(1);
             Random ran = new Random();
             int a = ran.nextInt(4);
-            String y = "2019";
-            String m = random.nextInt(11)+1+"";
+            int y = 2019;
+            int m = random.nextInt(11)+1;
             if(a==0){
-                y="2017";
+                y=2017;
             }else if(a==1){
-                y="2016";
+                y=2016;
             }else if(a==2){
-                y="2018";
+                y=2018;
             }
             blog.setPublishYear(y);
             blog.setPublishMonth(m);

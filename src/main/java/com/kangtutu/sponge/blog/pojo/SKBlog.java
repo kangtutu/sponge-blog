@@ -16,8 +16,8 @@ public class SKBlog implements Serializable {
     private String content; //内容
     private String imageUrl; //首图地址
     private String labelName;//标签名称
-    private String publishYear;//发布年份
-    private String publishMonth;//发布月份
+    private Integer publishYear;//发布年份
+    private Integer publishMonth;//发布月份
     private Integer labelId;//标签ID
     private Integer typeId;//类型ID
     private String typeName;//类型名称
@@ -202,12 +202,20 @@ public class SKBlog implements Serializable {
         return creationTime;
     }
 
-    public String getPublishYear() {
+    public Integer getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(String publishYear) {
+    public void setPublishYear(Integer publishYear) {
         this.publishYear = publishYear;
+    }
+
+    public Integer getPublishMonth() {
+        return publishMonth;
+    }
+
+    public void setPublishMonth(Integer publishMonth) {
+        this.publishMonth = publishMonth;
     }
 
     @Override
@@ -219,8 +227,8 @@ public class SKBlog implements Serializable {
                 ", content='" + content + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", labelName='" + labelName + '\'' +
-                ", publishYear='" + publishYear + '\'' +
-                ", publishMonth='" + publishMonth + '\'' +
+                ", publishYear=" + publishYear +
+                ", publishMonth=" + publishMonth +
                 ", labelId=" + labelId +
                 ", typeId=" + typeId +
                 ", typeName='" + typeName + '\'' +
@@ -237,14 +245,6 @@ public class SKBlog implements Serializable {
                 ", updateUser='" + updateUser + '\'' +
                 ", updateTime=" + updateTime +
                 '}';
-    }
-
-    public String getPublishMonth() {
-        return publishMonth;
-    }
-
-    public void setPublishMonth(String publishMonth) {
-        this.publishMonth = publishMonth;
     }
 }
 

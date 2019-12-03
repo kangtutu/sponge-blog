@@ -145,4 +145,25 @@
         select publish_year from sk_blog group by publish_year;
     </select>
 
+    <!-- 按照年份及月份进行分页查询并进行降序排序 -->
+    <select id="queryBlogByYearAndMonth" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+        select * from sk_blog
+        <where>
+            <if test="labelId != null">and label_id=#{labelId}</if>
+            <if test="typeId != null">and type_id=#{typeId}</if>
+            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
+            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
+            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
+            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
+            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
+            <if test="publishYear != null">and publish_year=#{publishYear}</if>
+            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
+            <if test="status != null">and status=#{status}</if>
+        </where>
+        order by publish_month desc
+        <if test="topCurrPage != null and pageSize != null">
+            limit ${topCurrPage},${pageSize};
+        </if>
+    </select>
+
 </mapper>

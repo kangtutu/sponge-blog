@@ -26,6 +26,7 @@ public class BlogServiceImpl implements BlogService {
     //按条件查询
     @Override
     public List<SKBlog> getBlogByTerm(SKTerm skTerm) {
+        System.out.println(skTerm);
         return blogMapper.queryBlogByTerm(skTerm);
     }
 
@@ -51,6 +52,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Integer> getBlogPublishYear() {
         return blogMapper.queryBlogPublishYear();
+    }
+
+    //按照月份及年份进行分页查询并进行降序排序
+    @Override
+    public List<SKBlog> getBlogByYearAndMonth(SKTerm skTerm) {
+        return blogMapper.queryBlogByYearAndMonth(skTerm);
     }
 
     //添加数据

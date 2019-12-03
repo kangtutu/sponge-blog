@@ -49,6 +49,13 @@ public interface BlogService {
     List<Integer> getBlogPublishYear();
 
     /**
+     * 按照年份与月份查询全量数据并按照年份及月份进行降序排序
+     * @param skTerm
+     * @return
+     */
+    List<SKBlog> getBlogByYearAndMonth(SKTerm skTerm);
+
+    /**
      * 新增博客数据
      * @param skBlog
      */
