@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
@@ -51,7 +52,6 @@ public class BlogController {
      */
     @GetMapping("/index")
     public String list(Model model) {
-        setBlog();
         //查询总条数
         Integer total = blogService.getBlogTotal();
         //创建条件对象
@@ -66,6 +66,7 @@ public class BlogController {
         skTerm.setOpenHomeRecommend(true);
         skTerm.setPageSize(5);
         List<SKBlog> recommendBlog = blogService.getBlogByTerm(skTerm);
+        System.out.println(recommendBlog);
         //查询表中存在的哪些年份
         List<Integer> publishYears = blogService.getBlogPublishYear();
         model.addAttribute("blogLimitList",blogLimitList);
@@ -164,12 +165,13 @@ public class BlogController {
 
 
     //封装分页数据查询
-    private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer totalNumber,Integer pageSize,Integer topCurrPage){
+    private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer total,Integer pageSize,Integer topCurrPage){
         //查询首页分页数据，默认按照发布时间进行排序
         List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
         SKLimitResultVO skLimitResultVO = new SKLimitResultVO();
         skLimitResultVO.setPageSize(pageSize);
-        skLimitResultVO.setTotalNumber(totalNumber);
+        int pageTotal = new BigDecimal(total).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
+        skLimitResultVO.setTotalNumber(pageTotal);//总页数
         skLimitResultVO.setPageIndex(topCurrPage);
         skLimitResultVO.setData(blogList);
         return skLimitResultVO;

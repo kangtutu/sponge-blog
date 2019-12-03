@@ -20,7 +20,7 @@ public class BlogServiceImpl implements BlogService {
     //通过id查询
     @Override
     public SKBlog getBlogById(Integer blogId) {
-        return blogMapper.querySKBlogById(blogId);
+        return blogMapper.queryBlogById(blogId);
     }
 
     //按条件查询

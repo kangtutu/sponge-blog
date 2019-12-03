@@ -65,36 +65,40 @@
             <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
                 <!-- 指示符 -->
                 <ul class="carousel-indicators">
-                    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel" data-slide-to="1"></li>
-                    <li data-target="#carousel" data-slide-to="2"></li>
+                    <!-- 循环遍历展示轮播图下方滑动块 -->
+                    <li th:each="blog,num : ${recommendBlog}" data-target="#carousel" th:attr="data-slide-to=${num.count}"  class="" th:classappend="${num.count == 1}?'active'"></li>
                 </ul>
                 <!-- 轮播图片 -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_fjords_wide.jpg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>One</h3>
-                            <p>描述文字!</p>
-                        </div>
+                    <!-- 遍历首页推荐数据 -->
+                    <div th:each="blog,num : ${recommendBlog}" class="carousel-item" th:classappend="${num.count == 1}?'active'">
+                        <a class="text-decoration-none" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}">
+                            <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_fjords_wide.jpg"
+                                 style="height: 350px;width: 100%">
+                            <div class="carousel-caption">
+                                <h3 th:text="${blog.title}">One</h3>
+                                <p th:text="${blog.title}">描述文字!</p>
+                            </div>
+                        </a>
                     </div>
-                    <div class="carousel-item">
-                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_nature_wide.jpg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>Two</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="rounded img-fluid" src="../static/image/lb-2.jpeg"
-                             style="height: 350px;width: 100%">
-                        <div class="carousel-caption">
-                            <h3>Three</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
+
+<!--                    <div class="carousel-item">-->
+<!--                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_nature_wide.jpg"-->
+<!--                             style="height: 350px;width: 100%">-->
+<!--                        <div class="carousel-caption">-->
+<!--                            <h3>Two</h3>-->
+<!--                            <p>描述文字!</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    <div class="carousel-item">-->
+<!--                        <img class="rounded img-fluid" src="../static/image/lb-2.jpeg"-->
+<!--                             style="height: 350px;width: 100%">-->
+<!--                        <div class="carousel-caption">-->
+<!--                            <h3>Three</h3>-->
+<!--                            <p>描述文字!</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
                 <!-- 左右切换按钮 -->
                 <a class="carousel-control-prev" href="#carousel" data-slide="prev">

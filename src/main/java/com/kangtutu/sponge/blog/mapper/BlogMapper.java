@@ -13,7 +13,7 @@ public interface BlogMapper {
      * @param blogId 博客id
      * @return
      */
-    SKBlog querySKBlogById(@Param("blogId")Integer blogId);
+    SKBlog queryBlogById(@Param("blogId")Integer blogId);
 
     /**
      * 按条件查询，支持分页查询
