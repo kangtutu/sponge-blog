@@ -33,13 +33,13 @@
                 <a class="nav-link" th:classappend="${n == 4}?'active'" href="#" th:href="@{/blog/label}">标签</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" th:classappend="${n == 5}?'active'" href="#" th:href="@{/blog/archive}">归档</a>
+                <a class="nav-link" th:classappend="${n == 5}?'active'" href="#" th:href="@{/blog/archiving}">归档</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
                 <a class="nav-link" th:classappend="${n == 6}?'active'" href="#" th:href="@{/blog/isme}">关于</a>
             </li>
             <li class="nav-item pl-2 pr-2">
-                <a class="nav-link" th:classappend="${n == 7}?'active'" href="#" th:href="@{/blog/comment}">留言</a>
+                <a class="nav-link" th:classappend="${n == 7}?'active'" href="#" th:href="@{/blog/message}">留言</a>
             </li>
         </ul>
         <form th:action="@{/blog/search}" th:method="post" class="form-inline bg-light ml-4" style="border-radius: 5px">

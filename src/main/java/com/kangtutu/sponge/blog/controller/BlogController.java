@@ -59,14 +59,13 @@ public class BlogController {
         skTerm.setPageSize(pageSize);
         skTerm.setTopCurrPage(0);
         //需要将分页数据进行封装
-        SKLimitResultVO blogLimitList = setSKLimitResultVO(skTerm, total,pageSize,1);
+        SKLimitResultVO blogLimitList = setSKLimitResultVO(skTerm,1);
         //热门文章-首页轮播图部分提供跳转入口，查询数据只要阅读量排序的前5条
         List<SKBlog> hotBlog = blogService.getHotBlogByReadingQuantity(5,1);
         //首页推荐相关博客
         skTerm.setOpenHomeRecommend(true);
         skTerm.setPageSize(5);
         List<SKBlog> recommendBlog = blogService.getBlogByTerm(skTerm);
-        System.out.println(recommendBlog);
         //查询表中存在的哪些年份
         List<Integer> publishYears = blogService.getBlogPublishYear();
         model.addAttribute("blogLimitList",blogLimitList);
@@ -78,69 +77,18 @@ public class BlogController {
 
     /**
      * 全量博客数据分页查询数据
-     * @param currPage
+     * @param currPage 当前页码数
      * @return
      */
     @GetMapping("/page/{currPage}")
     @ResponseBody
-    public Object getLimitBlog(@PathVariable("currPage") Integer currPage){
+    public SKLimitResultVO getLimitBlog(@PathVariable("currPage") Integer currPage){
         SKTerm skTerm = new SKTerm();
         skTerm.setPageSize(pageSize);
         int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
         skTerm.setTopCurrPage(topCurrPage);
-        return blogService.getBlogByTerm(skTerm);
-    }
-
-    /**
-     * 对应标签与分类分页查询数据
-     * @param name
-     * @param id
-     * @param currPage
-     * @return
-     */
-    @GetMapping("/page/{name}/{Id}/{currPage}")
-    @ResponseBody
-    public Object getLabelLimitBlog(@PathVariable("name") Integer name,@PathVariable("id") Integer id,@PathVariable("currPage") Integer currPage){
-        /**
-         * name参数作为灵活参数，当此参数为null时则查询全量的博客文章
-         * 1. 当name值为label时则查询对应的标签博客数据，id为对应的标签id
-         * 2. 当name值为type时则查询对应的分类博客数据，id为对应的类型id
-         */
-        SKTerm skTerm = new SKTerm();
-        if(name.equals("label")){
-            skTerm.setLabelId(id);
-        }
-        if (name.equals("type")){
-            skTerm.setTypeId(id);
-        }
-        skTerm.setPageSize(pageSize);
-        int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
-        skTerm.setTopCurrPage(topCurrPage);
-
-        return blogService.getBlogByTerm(skTerm);
-    }
-
-    /**
-     * 按照年份及月份分页查询数据
-     * @param year
-     * @param month
-     * @param currPage
-     * @return
-     */
-    @GetMapping("/page/time/{year}/{month}/{currPage}")
-    @ResponseBody
-    public Object getLimitBlog(@PathVariable("year") Integer year,@PathVariable("month") Integer month,@PathVariable("currPage") Integer currPage){
-        SKTerm skTerm = new SKTerm();
-        skTerm.setStatus(true);
-        skTerm.setPublishYear(year);
-        if(month != 0){
-            skTerm.setPublishMonth(month);
-        }
-        skTerm.setPageSize(pageSize);
-        int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
-        skTerm.setTopCurrPage(topCurrPage);
-
-        return blogService.getBlogByTerm(skTerm);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(skTerm, currPage);
+        return skLimitResultVO;
     }
 
     /**
@@ -165,14 +113,17 @@ public class BlogController {
 
 
     //封装分页数据查询
-    private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer total,Integer pageSize,Integer topCurrPage){
+    private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer topCurrPage){
+        //查询总条数
+        Integer total = blogService.getBlogTotal();
         //查询首页分页数据，默认按照发布时间进行排序
         List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
         SKLimitResultVO skLimitResultVO = new SKLimitResultVO();
         skLimitResultVO.setPageSize(pageSize);
+        //计算总页数
         int pageTotal = new BigDecimal(total).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
         skLimitResultVO.setTotalNumber(pageTotal);//总页数
-        skLimitResultVO.setPageIndex(topCurrPage);
+        skLimitResultVO.setPageIndex(topCurrPage);//当前页数
         skLimitResultVO.setData(blogList);
         return skLimitResultVO;
     }

@@ -99,7 +99,7 @@
                         <!-- 作者 -->
                         <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                         <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime,'yyyy-MM-dd HH:mm:ss')}">2019-11-12 12:36</span></span>
+                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime,'yyyy-MM-dd')}">2019-11-12 12:36</span></span>
                         <!-- 浏览 -->
                         <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
                         <!-- 评论 -->

@@ -16,13 +16,25 @@ import java.util.Map;
 
 //评论信息相关
 @Controller
-@RequestMapping("/comment")
-public class CommentController {
+@RequestMapping("/blog/message")
+public class MessageBoardController {
 
-    private static final Logger log = LoggerFactory.getLogger(CommentController.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageBoardController.class);
 
     @Autowired
     private CommentService commentService;
+
+    @GetMapping
+    public String message(){
+        return "redirect:/blog/message/index";
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "messageBoard";
+    }
+
+
 
     //异步调用直接返回结果，页面进行自动刷新
     @GetMapping("/add")

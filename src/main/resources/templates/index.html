@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         /*阴影设置*/
-        .m-card-box-shadow{
+        .m-card-box-shadow {
             border: transparent;
-            box-shadow: 0 0 8px rgba(0,0,0,0.12);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
         }
     </style>
 </head>
 <body>
+<!-- https://picsum.photos/images -->
 <!-- 导航 -->
 <nav th:replace="_fragment :: navbar(1)" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#" th:href="@{/blog}">
@@ -66,15 +67,16 @@
                 <!-- 指示符 -->
                 <ul class="carousel-indicators">
                     <!-- 循环遍历展示轮播图下方滑动块 -->
-                    <li th:each="blog,num : ${recommendBlog}" data-target="#carousel" th:attr="data-slide-to=${num.count}"  class="" th:classappend="${num.count == 1}?'active'"></li>
+                    <li th:each="blog,num : ${hotBlog}" data-target="#carousel"
+                        th:attr="data-slide-to=${num.count}" class="" th:classappend="${num.count == 1}?'active'"></li>
                 </ul>
                 <!-- 轮播图片 -->
                 <div class="carousel-inner">
                     <!-- 遍历首页推荐数据 -->
-                    <div th:each="blog,num : ${recommendBlog}" class="carousel-item" th:classappend="${num.count == 1}?'active'">
+                    <div th:each="blog,num : ${hotBlog}" class="carousel-item"
+                         th:classappend="${num.count == 1}?'active'">
                         <a class="text-decoration-none" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}">
-                            <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_fjords_wide.jpg"
-                                 style="height: 350px;width: 100%">
+                            <img class="rounded img-fluid" th:attr="src=${blog.imageUrl}" style="height: 350px;width: 100%">
                             <div class="carousel-caption">
                                 <h3 th:text="${blog.title}">One</h3>
                                 <p th:text="${blog.title}">描述文字!</p>
@@ -82,23 +84,6 @@
                         </a>
                     </div>
 
-<!--                    <div class="carousel-item">-->
-<!--                        <img class="rounded img-fluid" src="https://static.runoob.com/images/mix/img_nature_wide.jpg"-->
-<!--                             style="height: 350px;width: 100%">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <h3>Two</h3>-->
-<!--                            <p>描述文字!</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    -->
-<!--                    <div class="carousel-item">-->
-<!--                        <img class="rounded img-fluid" src="../static/image/lb-2.jpeg"-->
-<!--                             style="height: 350px;width: 100%">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <h3>Three</h3>-->
-<!--                            <p>描述文字!</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <!-- 左右切换按钮 -->
                 <a class="carousel-control-prev" href="#carousel" data-slide="prev">
@@ -169,311 +154,40 @@
         <div class="col-9">
             <!-- 首页文章列表 -->
             <div>
-                <!--<h4 class=" mb-3 font-weight-bold text-danger">博客列表</h4>-->
-                <div class="card mb-3 m-card-box-shadow">
+                <!-- 博客列表 -->
+                <div th:each="blog : ${blogLimitList.data}" class="card mb-3 m-card-box-shadow">
                     <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="../static/image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="../static/image/lb-2.jpeg" th:src="@{/image/lb-2.jpeg}" style="width: 100%;" class="rounded">
                             </div>
-                        </a>
+                            <div class="col-10">
+                                <h5 class="text-dark" th:text="${blog.title}">SpringBoot自动装配原理</h5>
+                                <p class="card-text small mt-2 text-dark" th:text="${blog.content}">
+                                    博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                    博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                </p>
+                                <a href="#" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" class="btn btn-primary btn-sm float-right">查看更多</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer bg-transparent border-light small text-secondary">
                         <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
+                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                         <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime,'yyyy-MM-dd')}"></span></span>
                         <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
+                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}"></span></span>
                         <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
+                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}"></span></span>
                     </div>
                 </div>
 
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
-
-                <div class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <a href="#" class="text-decoration-none">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="text-dark">SpringBoot自动装配原理</h5>
-                                    <p class="card-text small mt-2 text-dark">
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                        博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                    </div>
-                </div>
             </div>
             <!-- 分页导航 -->
             <div class="overflow-hidden mt-4">
-                <a href="#" class="btn btn-sm btn-primary">上一页</a>
-                <a href="#" class="btn btn-sm btn-primary float-right">下一页</a>
+                <a href="#" th:href="@{/blog/page/{pageIndex}(pageIndex=${blogLimitList.pageIndex-1})}" th:if="${blogLimitList.pageIndex > 1}" class="btn btn-sm btn-primary">上一页</a>
+                <a href="#" th:href="@{/blog/page/{pageIndex}(pageIndex=${blogLimitList.pageIndex+1})}" th:if="${blogLimitList.lastPage}" class="btn btn-sm btn-primary float-right">下一页</a>
             </div>
 
         </div>

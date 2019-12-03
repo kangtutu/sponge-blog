@@ -26,7 +26,6 @@ public class BlogServiceImpl implements BlogService {
     //按条件查询
     @Override
     public List<SKBlog> getBlogByTerm(SKTerm skTerm) {
-        System.out.println(skTerm);
         return blogMapper.queryBlogByTerm(skTerm);
     }
 
