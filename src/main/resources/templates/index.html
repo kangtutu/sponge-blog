@@ -12,6 +12,12 @@
             border: transparent;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
         }
+        /* 设置轮播图背景色 */
+        .m-background-color{
+            padding: .1rem 0;
+            color: #333333 !important;
+            background: -webkit-linear-gradient(left,rgba(255,255,255,0.05),rgba(255,255,255,0.8),rgba(255,255,255,0.05));
+        }
     </style>
 </head>
 <body>
@@ -76,8 +82,8 @@
                         <a class="text-decoration-none" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}">
                             <img class="rounded img-fluid" th:attr="src=${blog.imageUrl}" style="height: 350px;width: 100%">
                             <div class="carousel-caption">
-                                <h3 th:text="${blog.title}">One</h3>
-                                <p th:text="${blog.title}">描述文字!</p>
+                                <!--<h3 th:text="${blog.title}">One</h3>-->
+                                <p class="font-weight-bold m-background-color" th:text="${blog.title}">描述文字!</p>
                             </div>
                         </a>
                     </div>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kangtutu.sponge.blog.mapper.LabelMapper">
+
+    <!-- 新增数据 -->
+    <insert id="saveLabel" parameterType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        insert into sk_label
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="labelName != null">label_name,</if>
+            <if test="status != null">status,</if>
+            <if test="creationUser != null">creation_user,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="labelName != null">#{labelName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="creationUser != null">#{creationUser},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime}</if>
+        </trim>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="updateLabel" parameterType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        update sk_label
+        <trim prefix="set" suffixOverrides=",">
+            <if test="labelName != null">label_name=#{labelName},</if>
+            <if test="status != null">status=#{status},</if>
+            <if test="updateUser != null">update_user=#{updateUser},</if>
+            <if test="updateTime != null">update_time=#{updateTime}</if>
+        </trim>
+        where label_id=#{labelId};
+    </update>
+
+    <!-- 删除指定id数据 -->
+    <delete id="deleteLabelById" parameterType="java.lang.Integer">
+        delete from sk_label where label_id=#{labelId};
+    </delete>
+
+    <!-- 查询指定id -->
+    <select id="queryLabelById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        select * from sk_label where label_id=#{labelId};
+    </select>
+
+    <!-- 查询已经启用的标签数据 -->
+    <select id="queryLabelByStatus" parameterType="java.lang.Boolean" resultType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        select * from sk_label where status=#{status};
+    </select>
+
+    <!-- 查询全量数据 -->
+    <select id="queryLabelAll" resultType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        select * from sk_label;
+    </select>
+
+    <!-- 查询已经启用的标签对应的博客数据 -->
+    <select id="queryBlogByLabelStatus" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKLabel">
+        select * from sk_blog blog left join sk_label label on blog.label_id=label.label_id where label.status=#{status} and blog.status=#{status};
+    </select>
+
+</mapper>

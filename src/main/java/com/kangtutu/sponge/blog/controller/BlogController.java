@@ -139,6 +139,9 @@ public class BlogController {
         skLimitResultVO.setTotalNumber(pageTotal);//总页数
         skLimitResultVO.setPageIndex(topCurrPage);//当前页数
         skLimitResultVO.setData(blogList);
+        if(topCurrPage>=pageTotal){
+            skLimitResultVO.setLastPage(false);
+        }
         return skLimitResultVO;
     }
 

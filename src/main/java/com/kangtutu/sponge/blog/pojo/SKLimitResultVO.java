@@ -8,6 +8,7 @@ public class SKLimitResultVO implements Serializable {
     private Integer totalNumber;//总条数
     private Integer pageIndex;//当前页数
     private Boolean lastPage = true;//是否存在末页
+    private Integer objId;//数据id
     private Object data;//数据体
 
     @Override
@@ -17,6 +18,7 @@ public class SKLimitResultVO implements Serializable {
                 ", totalNumber=" + totalNumber +
                 ", pageIndex=" + pageIndex +
                 ", lastPage=" + lastPage +
+                ", objId=" + objId +
                 ", data=" + data +
                 '}';
     }
@@ -59,5 +61,13 @@ public class SKLimitResultVO implements Serializable {
 
     public void setLastPage(Boolean lastPage) {
         this.lastPage = lastPage;
+    }
+
+    public Integer getObjId() {
+        return objId;
+    }
+
+    public void setObjId(Integer objId) {
+        this.objId = objId;
     }
 }
