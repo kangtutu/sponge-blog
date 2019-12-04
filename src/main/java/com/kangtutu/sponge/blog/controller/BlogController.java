@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -41,12 +42,12 @@ public class BlogController {
 
     /**
      * 博客首页
-     * 1. 获取首页推荐博客文章，此处按照发布时间进行降序排序取前5篇
-     * 2. 获取热门博客文章，此处按照浏览量进行降序排序取前5篇
-     * 3. 获取首页博客列表数据，按照发布时间降序排序进行分页查找展示
-     * 3.1 页面每次显示15篇，可以分页查询两次，然后页面显示查看更多按钮，跳转到博客文章列表页
-     * 4. 页面中的右侧联系方式部分也可以通过数据库进行存储，实时的增删改查(后续补充)
-     * 5. 按照发布年份查询出有哪些年份的文章，然后通过右侧进行年份和月份的展示
+     * 1. 轮播图-首页推荐文章-按照首页推荐字段进行查询取前5条
+     * 2. 最新发布-按照发布时间取前10条数据
+     * 3. 热门文章-按照阅读量字段进行降序排序取前10条
+     * 4. 首页文章列表-按照发布时间进行排序并分页查询全量数据进行展示
+     * 5. 页面中的右侧联系方式部分也可以通过数据库进行存储，实时的增删改查(后续补充)
+     * 6. 标签墙(后续补充)
      * @param model
      * @return
      */
@@ -58,20 +59,24 @@ public class BlogController {
         SKTerm skTerm = new SKTerm();
         skTerm.setPageSize(pageSize);
         skTerm.setTopCurrPage(0);
+        //查询首页分页数据，默认按照发布时间进行排序
+        List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
         //需要将分页数据进行封装
-        SKLimitResultVO blogLimitList = setSKLimitResultVO(skTerm,1);
-        //热门文章-首页轮播图部分提供跳转入口，查询数据只要阅读量排序的前5条
-        List<SKBlog> hotBlog = blogService.getHotBlogByReadingQuantity(5,1);
-        //首页推荐相关博客
+        SKLimitResultVO blogLimitList = setSKLimitResultVO(blogList,1);
+        //最新发布
+        List<SKBlog> newPublish = subList(blogList,5);
+        //热门文章
+        List<SKBlog> hotBlog = blogService.getHotBlogByReadingQuantity(pageSize,1);
+        //首页推荐相关博客-首页轮播图部分提供跳转入口
         skTerm.setOpenHomeRecommend(true);
         skTerm.setPageSize(5);
         List<SKBlog> recommendBlog = blogService.getBlogByTerm(skTerm);
-        //查询表中存在的哪些年份
-        List<Integer> publishYears = blogService.getBlogPublishYear();
+
         model.addAttribute("blogLimitList",blogLimitList);
-        model.addAttribute("hotBlog",hotBlog);
-        model.addAttribute("recommendBlog",recommendBlog);
-        model.addAttribute("publishYears",publishYears);
+        model.addAttribute("hotBlog",hotBlog);//热门文章
+        model.addAttribute("recommendBlog",recommendBlog);//首页推荐
+        model.addAttribute("newPublish",newPublish);//最新发布
+        //标签墙
         return "index";
     }
 
@@ -87,7 +92,8 @@ public class BlogController {
         skTerm.setPageSize(pageSize);
         int topCurrPage = (currPage-1)*pageSize;//计算从第几条开始查询
         skTerm.setTopCurrPage(topCurrPage);
-        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(skTerm, currPage);
+        List<SKBlog> blogByTerm = blogService.getBlogByTerm(skTerm);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogByTerm, currPage);
         return skLimitResultVO;
     }
 
@@ -110,14 +116,22 @@ public class BlogController {
         return blog;
     }
 
-
+    //截取list集合中前几条数据
+    private List<SKBlog> subList(List<SKBlog> blogs,int num){
+        if(blogs != null && blogs.size()>=5){
+            List<SKBlog> list = new ArrayList<>();
+            for(int i=0;i<num;i++){
+                list.add(blogs.get(i));
+            }
+            return list;
+        }
+        return null;
+    }
 
     //封装分页数据查询
-    private SKLimitResultVO setSKLimitResultVO(SKTerm skTerm,Integer topCurrPage){
+    private SKLimitResultVO setSKLimitResultVO(List<SKBlog> blogList,Integer topCurrPage){
         //查询总条数
         Integer total = blogService.getBlogTotal();
-        //查询首页分页数据，默认按照发布时间进行排序
-        List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
         SKLimitResultVO skLimitResultVO = new SKLimitResultVO();
         skLimitResultVO.setPageSize(pageSize);
         //计算总页数

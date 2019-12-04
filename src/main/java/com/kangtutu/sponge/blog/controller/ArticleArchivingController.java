@@ -48,7 +48,6 @@ public class ArticleArchivingController {
         List<Integer> year = blogService.getBlogPublishYear();
         model.addAttribute("limitResult",skLimitResultVO);
         model.addAttribute("years",year);
-        System.out.println(skLimitResultVO);
         return "articleArchiving";
     }
 

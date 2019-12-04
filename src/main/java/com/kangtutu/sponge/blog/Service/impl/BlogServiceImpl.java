@@ -32,7 +32,8 @@ public class BlogServiceImpl implements BlogService {
     //查询热门文章
     @Override
     public List<SKBlog> getHotBlogByReadingQuantity(Integer pageSize, Integer topCurrPage) {
-        return blogMapper.queryHotBlogByReadingQuantity(true,pageSize,topCurrPage);
+        Integer topPage= (topCurrPage-1)*pageSize;
+        return blogMapper.queryHotBlogByReadingQuantity(true,pageSize,topPage);
     }
 
     //查询总条数

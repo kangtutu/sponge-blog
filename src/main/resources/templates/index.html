@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragment :: head(~{::title},~{::style})">
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sponge博客 - 首页</title>
@@ -16,7 +15,6 @@
     </style>
 </head>
 <body>
-<!-- https://picsum.photos/images -->
 <!-- 导航 -->
 <nav th:replace="_fragment :: navbar(1)" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#" th:href="@{/blog}">
@@ -67,13 +65,13 @@
                 <!-- 指示符 -->
                 <ul class="carousel-indicators">
                     <!-- 循环遍历展示轮播图下方滑动块 -->
-                    <li th:each="blog,num : ${hotBlog}" data-target="#carousel"
+                    <li th:each="blog,num : ${recommendBlog}" data-target="#carousel"
                         th:attr="data-slide-to=${num.count}" class="" th:classappend="${num.count == 1}?'active'"></li>
                 </ul>
                 <!-- 轮播图片 -->
                 <div class="carousel-inner">
                     <!-- 遍历首页推荐数据 -->
-                    <div th:each="blog,num : ${hotBlog}" class="carousel-item"
+                    <div th:each="blog,num : ${recommendBlog}" class="carousel-item"
                          th:classappend="${num.count == 1}?'active'">
                         <a class="text-decoration-none" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}">
                             <img class="rounded img-fluid" th:attr="src=${blog.imageUrl}" style="height: 350px;width: 100%">
@@ -192,40 +190,14 @@
 
         </div>
         <div class="col-3">
-            <!--阅读排行(前10篇)-->
+            <!-- 最新发布-按发布时间取前5篇 -->
             <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">阅读排行</h6>
+                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
                 <div class="card-body">
-                    <a href="#" class="d-block small text-decoration-none border-bottom pb-2">
-                        <span class="badge badge-secondary mr-2">1</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
+                    <a th:each="blog,num : ${newPublish}" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" href="#" class="d-block small text-decoration-none border-bottom pb-2" th:classappend="${num.count != 1}?'pt-2'">
+                        <span class="badge badge-secondary mr-2" th:text="${num.count}">11/21</span>
+                        <span class="text-dark" th:text="${blog.title}">博客文章标题博客文章标题...</span>
                     </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">2</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">3</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">4</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">5</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none  pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">6</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
                 </div>
             </div>
 
@@ -233,73 +205,10 @@
             <div class="card mb-4">
                 <h6 class="card-header font-weight-bold text-danger">热门文章</h6>
                 <div class="card-body">
-                    <a href="#" class="d-block small text-decoration-none border-bottom pb-2">
-                        <span class="badge badge-secondary mr-2">1</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
+                    <a th:each="blog,num : ${hotBlog}" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" href="#" class="d-block small text-decoration-none border-bottom pb-2" th:classappend="${num.count != 1}?'pt-2'">
+                        <span class="badge badge-secondary mr-2" th:text="${num.count}">11/21</span>
+                        <span class="text-dark" th:text="${blog.title}">博客文章标题博客文章标题...</span>
                     </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">2</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">3</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">4</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">5</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none  pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">6</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- 最新发布-按发布时间取前5篇 -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
-                <div class="card-body">
-                    <a href="#" class="d-block small text-decoration-none border-bottom pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none border-bottom pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
-                    <a href="#" class="d-block small text-decoration-none  pt-2 pb-2">
-                        <span class="badge badge-secondary mr-2">11/21</span>
-                        <span class="text-dark">博客文章标题博客文章标题...</span>
-                    </a>
-
                 </div>
             </div>
 

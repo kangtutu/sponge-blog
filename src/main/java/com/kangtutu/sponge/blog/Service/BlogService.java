@@ -8,6 +8,24 @@ import java.util.List;
 public interface BlogService {
 
     /**
+     * 新增博客数据
+     * @param skBlog
+     */
+    void saveBlog(SKBlog skBlog);
+
+    /**
+     * 更新博客数据
+     * @param skBlog
+     */
+    void updateBlog(SKBlog skBlog);
+
+    /**
+     * 删除博客数据
+     * @param blogId
+     */
+    void deleteBlogById(Integer blogId);
+
+    /**
      * 查询指定id博客
      * @param blogId 博客id
      * @return
@@ -54,23 +72,5 @@ public interface BlogService {
      * @return
      */
     List<SKBlog> getBlogByYearAndMonth(SKTerm skTerm);
-
-    /**
-     * 新增博客数据
-     * @param skBlog
-     */
-    void saveBlog(SKBlog skBlog);
-
-    /**
-     * 更新博客数据
-     * @param skBlog
-     */
-    void updateBlog(SKBlog skBlog);
-
-    /**
-     * 删除博客数据
-     * @param blogId
-     */
-    void deleteBlogById(Integer blogId);
 
 }
