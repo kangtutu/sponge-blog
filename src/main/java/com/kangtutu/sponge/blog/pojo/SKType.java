@@ -9,7 +9,7 @@ import java.util.Date;
 public class SKType implements Serializable {
     private Integer typeId;
     private String typeName;//分类名称
-    private Integer status; //状态 0-启动 1-禁用
+    private Boolean status; //状态 0-启动 1-禁用
     private String creationUser; //创建者
     private Date creationTime; //创建时间
     private String updateUser; //更新者
@@ -44,11 +44,11 @@ public class SKType implements Serializable {
         this.typeName = typeName;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

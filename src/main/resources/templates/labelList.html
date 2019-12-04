@@ -91,7 +91,7 @@
                                         博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
                                         博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
                                     </p>
-                                    <!--<a href="#" class="btn btn-primary btn-sm float-right">查看更多</a>-->
+                                    <a href="#" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" class="btn btn-primary btn-sm float-right">查看更多</a>
                                 </div>
                             </div>
                         </a>
@@ -111,8 +111,8 @@
             </div>
             <!-- 分页导航 -->
             <div class="overflow-hidden mt-4">
-                <a href="#" class="btn btn-sm btn-primary">上一页</a>
-                <a href="#" class="btn btn-sm btn-primary float-right">下一页</a>
+                <a href="#" th:href="@{'/blog/label/page/'+${blogLimit.objId}+'/'+${blogLimit.pageIndex-1}}" class="btn btn-sm btn-primary" th:if="${blogLimit.pageIndex > 1}">上一页</a>
+                <a href="#" th:href="@{'/blog/label/page/'+${blogLimit.objId}+'/'+${blogLimit.pageIndex+1}}" class="btn btn-sm btn-primary float-right" th:if="${blogLimit.lastPage}">下一页</a>
             </div>
 
         </div>
@@ -121,7 +121,7 @@
             <div class="card mb-4">
                 <h6 class="card-header font-weight-bold text-danger">标签列表</h6>
                 <div class="pt-2 pl-2 pr-2">
-                    <a th:each="label : ${labelList}" th:href="@{'/blog/label/page/'+${label.labelId}+'/1'}" th:text="${label.labelName}" class="btn btn-sm btn-primary mb-2" style="width: 49%">技术文档</a>
+                    <a th:each="label : ${labelList}" th:href="@{'/blog/label/page/'+${label.labelId}+'/1'}" th:text="${label.labelName}" class="btn btn-sm btn-primary mb-2 mr-1" style="width: 48%">技术文档</a>
 <!--                    <a href="#" class="btn btn-sm btn-primary  mb-2"><span>日常随笔</span><span-->
 <!--                            class="badge badge-light ml-1">9</span></a>-->
                 </div>
