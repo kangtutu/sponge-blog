@@ -32,22 +32,24 @@ public class LabelController {
     @Value("${blog.limit.page-size}")
     private Integer pageSize;
 
+    /**
+     * 标签首页连接
+     * 1. 首次进入标签页查询出来的列表是按照发布时间排序分页查询出来的数据
+     * 1.1 当传入的objId值为926999时表示从全量的博客列表数据中查询不区分标签
+     * 2. 查询数据库标签表中启用的标签数据
+     * @param model
+     * @return
+     */
     @GetMapping
-    public String type(){
-        return "redirect:/blog/label/list";
-    }
-
-    @GetMapping("/list")
-    public String list(Model model){
+    public String label(Model model){
         SKTerm skTerm = new SKTerm();
         skTerm.setPageSize(pageSize);
         skTerm.setTopCurrPage(0);
         //查询所有标签列表
         List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
-        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogList,10999, 1);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogList,926999, 1);
         //查询出所有的标签数据
         List<SKLabel> labelList = labelService.getLabelByStatus(true);
-
         model.addAttribute("blogLimit",skLimitResultVO);
         model.addAttribute("labelList",labelList);
         return "labelList";
@@ -55,22 +57,22 @@ public class LabelController {
 
     /**
      * 分页查询指定标签id的数据
-     * @param labelId 10999-按照全量数据进行分页
-     * @param currPage
+     * @param objId 926999-按照全量数据进行分页
+     * @param currPage 当前查询第几页数据
      * @return
      */
-    @GetMapping("/page/{labelId}/{currPage}")
+    @GetMapping("/page/{objId}/{currPage}")
     @ResponseBody
-    public SKLimitResultVO getLimitBlog(@PathVariable("labelId") Integer labelId,@PathVariable("currPage") Integer currPage){
+    public SKLimitResultVO getLimitBlog(@PathVariable("objId") Integer objId,@PathVariable("currPage") Integer currPage){
         SKTerm skTerm = new SKTerm();
-        if(labelId != 10999){
-            skTerm.setLabelId(labelId);
+        if(objId != 926999){
+            skTerm.setLabelId(objId);
         }
         skTerm.setPageSize(pageSize);
         Integer num = (currPage-1)*pageSize;
         skTerm.setTopCurrPage(num);
         List<SKBlog> blogByTerm = blogService.getBlogByTerm(skTerm);
-        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogByTerm, labelId,currPage);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogByTerm, objId,currPage);
         return skLimitResultVO;
     }
 

@@ -32,19 +32,22 @@ public class TypeController {
     @Value("${blog.limit.page-size}")
     private Integer pageSize;
 
+    /**
+     * 分类首页连接
+     * 1. 首次进入分类页查询出来的列表是按照发布时间排序分页查询出来的数据
+     * 1.1 当传入的objId值为926999时表示从全量的博客列表数据中查询不区分分类
+     * 2. 查询数据库分类表中启用的分类数据
+     * @param model
+     * @return
+     */
     @GetMapping
-    public String type(){
-        return "redirect:/blog/type/list";
-    }
-
-    @GetMapping("/list")
-    public String list(Model model){
+    public String type(Model model){
         SKTerm skTerm = new SKTerm();
         skTerm.setPageSize(pageSize);
         skTerm.setTopCurrPage(0);
         //查询所有标签列表
         List<SKBlog> blogList = blogService.getBlogByTerm(skTerm);
-        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogList,10999, 1);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogList,926999, 1);
         //查询出所有的标签数据
         List<SKType> typeList = typeService.getTypeByStatus(true);
 
@@ -55,22 +58,22 @@ public class TypeController {
 
     /**
      * 分页查询指定标签id的数据
-     * @param typeId 10999-按照全量数据进行分页
+     * @param objId 926999-按照全量数据进行分页
      * @param currPage
      * @return
      */
-    @GetMapping("/page/{typeId}/{currPage}")
+    @GetMapping("/page/{objId}/{currPage}")
     @ResponseBody
-    public SKLimitResultVO getLimitBlog(@PathVariable("typeId") Integer typeId,@PathVariable("currPage") Integer currPage){
+    public SKLimitResultVO getLimitBlog(@PathVariable("objId") Integer objId,@PathVariable("currPage") Integer currPage){
         SKTerm skTerm = new SKTerm();
-        if(typeId != 10999){
-            skTerm.setTypeId(typeId);
+        if(objId != 10999){
+            skTerm.setTypeId(objId);
         }
         skTerm.setPageSize(pageSize);
         Integer num = (currPage-1)*pageSize;
         skTerm.setTopCurrPage(num);
         List<SKBlog> blogByTerm = blogService.getBlogByTerm(skTerm);
-        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogByTerm, typeId,currPage);
+        SKLimitResultVO skLimitResultVO = setSKLimitResultVO(blogByTerm, objId,currPage);
         return skLimitResultVO;
     }
 
