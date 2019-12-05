@@ -34,9 +34,11 @@ public class MessageBoardController {
         return "messageBoard";
     }
 
-
-
-    //异步调用直接返回结果，页面进行自动刷新
+    /**
+     * 异步调用直接返回结果，页面进行自动刷新
+     * @param skComment
+     * @return
+     */
     @GetMapping("/add")
     @ResponseBody
     public String addComment(SKComment skComment){
@@ -45,13 +47,19 @@ public class MessageBoardController {
         return "OK";
     }
 
-    //通过博客id查询对应的评论数据并进行封装
-    @GetMapping("/{blogId}")
+    /**
+     * 通过博客id / 留言id 查询对应的评论数据并进行封装
+     * @param objId
+     * @return
+     */
+    @GetMapping("/get/{objId}")
     @ResponseBody
-    public Object Storm(@PathVariable("blogId")Integer blogId){
-        List<Map<String, Object>> comments = commentService.getCommentByBlogId(blogId);
+    public Object Storm(@PathVariable("objId")Integer objId){
+        List<Map<String, Object>> comments = commentService.getCommentByBlogId(objId);
         return comments;
     }
+
+
 
     //添加评论测试数据
     public void addComments(){
