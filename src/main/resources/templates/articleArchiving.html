@@ -17,7 +17,7 @@
 </head>
 <body>
 <!-- 导航 -->
-<nav th:replace="_fragment :: navbar(5)" class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav th:replace="_fragment :: navbar(4)" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#" th:href="@{/blog}">
         <img src="../static/image/logo.png" width="30" height="30" alt="">
         <span class="small font-weight-bold">Sponge博客</span>
@@ -28,9 +28,6 @@
             <li class="nav-item pl-2 pr-2 mr-1">
                 <a class="nav-link" href="#" th:href="@{/blog}">首页</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#" th:href="@{/blog/diary}">日记</a>
-            </li>
             <li class="nav-item pl-2 pr-2 mr-1">
                 <a class="nav-link" href="#" th:href="@{/blog/type}">分类</a>
             </li>
@@ -39,9 +36,6 @@
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
                 <a class="nav-link active" href="#" th:href="@{/blog/archive}">归档</a>
-            </li>
-            <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog/isme}">关于</a>
             </li>
             <li class="nav-item pl-2 pr-2">
                 <a class="nav-link" href="#" th:href="@{/blog/comment}">留言</a>
