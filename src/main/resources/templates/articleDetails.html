@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
         /*阴影设置*/
-        .m-card-box-shadow{
+        .m-card-box-shadow {
             border: transparent;
-            box-shadow: 0 0 8px rgba(0,0,0,0.12);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
         }
     </style>
 </head>
@@ -65,17 +65,32 @@
             <div>
                 <!-- 标题部分 -->
                 <div class="border-bottom">
-                    <h3>标题部分</h3>
-                    <p class="small">
-                        <span>作者</span>
-                        <span>类型</span>
-                        <span>标签</span>
-                        <span>2019-11-12</span>
-                        <span>点赞</span>
-                        <span>阅读</span>
+                    <h3 th:text="${blog.title}">标题部分</h3>
+                    <p class="small pt-2">
+                        <!-- 作者 -->
+                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span
+                                th:text="${blog.author}">kangtutu</span></span>
+                        <!-- 时间 -->
+                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span
+                                th:text="${#dates.format(blog.creationTime,'yyyy-MM-dd')}"></span></span>
+                        <!-- 浏览 -->
+                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span
+                                th:text="${blog.readingQuantity}"></span></span>
+                        <!-- 评论 -->
+                        <span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span
+                                th:text="${blog.likeNumInt}"></span></span>
+
+                        <!-- 分类 -->
+                        <span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span
+                                th:text="${blog.typeName}"></span></span>
+
+                        <!-- 标签 -->
+                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span
+                                th:text="${blog.labelName}"></span></span>
+
                     </p>
                 </div>
-                <div class="mt-3">
+                <div class="mt-3" th:text="${blog.content}">
                     还要再坚持吗？再坚持还有什么意见呢？男孩心里一直思考着这个问题。可现在在想这些又有什么用呢？虽然知道没有任何用，但男孩还是会忍不住的想，忍不住的胡思乱想，他害怕，害怕自己停下来会心痛的喘不过气。他以为自己早就习惯了这种难过，他以为他早就接受了女孩不想和他在一起的事实，可是男孩却不知道，原来在自己内心深处，还是相信着女孩会和他在一起，他从未把女孩从自己的未来中抹去。
 
                     　　可是现在他能怎么做呢？是放弃还继续坚持的去挽留？男孩不想他的人生因为这次退缩而留下遗憾。
@@ -110,7 +125,8 @@
                 </div>
             </div>
             <!-- 版权相关 -->
-            <div class="card bg-danger mt-4" style="background-color: rgba(255,0,0,0.18) !important;border: transparent">
+            <div class="card bg-danger mt-4"
+                 style="background-color: rgba(255,0,0,0.18) !important;border: transparent">
                 <div class="card-body text-danger">
                     <ul>
                         <li class="pt-3 pb-2">信息1</li>
@@ -155,15 +171,20 @@
                                 </div>
                                 <div class="col-11">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -180,15 +201,20 @@
                                 </div>
                                 <div class="col-10">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -210,15 +236,20 @@
                                 </div>
                                 <div class="col-11">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -235,15 +266,20 @@
                                 </div>
                                 <div class="col-10">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -265,15 +301,20 @@
                                 </div>
                                 <div class="col-11">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -290,15 +331,20 @@
                                 </div>
                                 <div class="col-10">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">
@@ -320,15 +366,20 @@
                                 </div>
                                 <div class="col-11">
                                     <p class="">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
-                                        Some quick example text to build on the card title and make up the bulk of the card's
+                                        Some quick example text to build on the card title and make up the bulk of the
+                                        card's
                                         content.
                                     </p>
                                     <p class="small border-top pt-1">

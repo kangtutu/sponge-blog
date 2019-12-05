@@ -105,15 +105,14 @@ public class BlogController {
      * @return
      */
     @GetMapping("/get/{blogId}")
-    @ResponseBody
-    public Object getBlogById(@PathVariable("blogId")Integer blogId,Model model){
+    public String getBlogById(@PathVariable("blogId")Integer blogId,Model model){
         //查询指定博客数据
         SKBlog blog = blogService.getBlogById(blogId);
         //查询指定博客id对应的评论数据
         commentService.getCommentByBlogId(blogId);
         blog.setComments(null);
         model.addAttribute("blog",blog);
-        return blog;
+        return "articleDetails";
     }
 
     //截取list集合中前几条数据
