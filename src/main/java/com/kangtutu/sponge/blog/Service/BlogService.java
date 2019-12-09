@@ -1,7 +1,8 @@
 package com.kangtutu.sponge.blog.Service;
 
-import com.kangtutu.sponge.blog.pojo.SKBlog;
-import com.kangtutu.sponge.blog.pojo.SKTerm;
+import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 
 import java.util.List;
 
@@ -9,68 +10,48 @@ public interface BlogService {
 
     /**
      * 新增博客数据
-     * @param skBlog
+     * @param spongeBlogDO
      */
-    void saveBlog(SKBlog skBlog);
+    ResultObjectDTO saveBlog(SpongeBlogDO spongeBlogDO);
 
     /**
      * 更新博客数据
-     * @param skBlog
+     * @param spongeBlogDO
      */
-    void updateBlog(SKBlog skBlog);
-
-    /**
-     * 删除博客数据
-     * @param blogId
-     */
-    void deleteBlogById(Integer blogId);
+    ResultObjectDTO updateBlog(SpongeBlogDO spongeBlogDO);
 
     /**
      * 查询指定id博客
      * @param blogId 博客id
      * @return
      */
-    SKBlog getBlogById(Integer blogId);
+    ResultObjectDTO getBlogById(Integer blogId);
 
     /**
-     * 按条件查询，支持分页查询
-     * @param skTerm 条件对象
+     * 查询阅读量排行前10的文章，按照阅读数及发布时间进行降序排序
+     * @param spongeTermDO
      * @return
      */
-    List<SKBlog> getBlogByTerm(SKTerm skTerm);
+    ResultObjectDTO getBlogByReadingQuantity(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询热门文章
-     * @param pageSize
-     * @param topCurrPage
+     * 按照标签id查询
+     * @param spongeTermDO
      * @return
      */
-    List<SKBlog> getHotBlogByReadingQuantity(Integer pageSize,Integer topCurrPage);
+    ResultObjectDTO getBlogByLabelOrTypeByTerm(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询总条数
+     * 按条件查询总条数
+     * @param spongeTermDO
      * @return
      */
-    Integer getBlogTotal();
+    ResultObjectDTO getCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
-     * 按条件查询总数
-     * @param skTerm
-     * @return
+     * 删除博客数据
+     * @param blogId
      */
-    Integer getBlogByTermAndTotal(SKTerm skTerm);
-
-    /**
-     * 查询表中有哪些年份的数据
-     * @return
-     */
-    List<Integer> getBlogPublishYear();
-
-    /**
-     * 按照年份与月份查询全量数据并按照年份及月份进行降序排序
-     * @param skTerm
-     * @return
-     */
-    List<SKBlog> getBlogByYearAndMonth(SKTerm skTerm);
+    ResultObjectDTO deleteBlogById(Integer blogId);
 
 }

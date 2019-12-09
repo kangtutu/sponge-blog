@@ -1,27 +1,21 @@
 package com.kangtutu.sponge.blog.Service;
 
-import com.kangtutu.sponge.blog.pojo.SKBlog;
-import com.kangtutu.sponge.blog.pojo.SKLabel;
-
-import java.util.List;
+import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface LabelService {
 
-    //新增
-    void saveLabel(SKLabel skLabel);
+    //添加
+    ResultObjectDTO saveLabel(SpongeLabelDO spongeLabelDO);
 
     //修改
-    void updateLabel(SKLabel skLabel);
+    ResultObjectDTO updateLabel(SpongeLabelDO spongeLabelDO);
 
-    //查询已经启用的标签数据
-    List<SKLabel> getLabelByStatus(Boolean status);
-
-    //查询已经启用的标签数据
-    List<SKLabel> getLabelAll();
-
-    //查询已经启用的标签对应的博客数据
-    List<SKBlog> queryBlogByLabelStatus(Boolean status);
+    //查询全量数据
+    ResultObjectDTO getLabelAll(Boolean status);
 
     //删除
-    void deleteLabelById(Integer labelId);
+    ResultObjectDTO deleteLabelById(Integer labelId);
+
 }

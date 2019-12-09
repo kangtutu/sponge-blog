@@ -1,231 +1,119 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragment :: head(~{::title},~{::style})">
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sponge博客 - 首页</title>
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>Sponge-K 博客</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
+        /*隐藏border边框*/
+        .m-border-0 {
+            border: transparent;
+        }
+
+        .m-border-0:hover {
+            box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);
+        }
+
         /*阴影设置*/
         .m-card-box-shadow {
-            border: transparent;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+            /*border: transparent;*/
+            box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);
         }
-        /* 设置轮播图背景色 */
-        .m-background-color{
-            padding: .1rem 0;
-            color: #333333 !important;
-            background: -webkit-linear-gradient(left,rgba(255,255,255,0.05),rgba(255,255,255,0.8),rgba(255,255,255,0.05));
+        #topPage{
+            text-decoration: none;
+            color: white;
+            border: 1px #333333 solid;
+            border-radius: 1rem;
+            padding: .3rem .8rem;
+            background-color: #333333
+        }
+        #topPage:hover{
+            padding: .3rem 1.5rem;
         }
     </style>
 </head>
 <body>
 <!-- 导航 -->
-<nav th:replace="_fragment :: navbar(1)" class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#" th:href="@{/blog}">
-        <img src="../static/image/logo.png" width="30" height="30" alt="">
-        <span class="small font-weight-bold">Sponge博客</span>
+<nav th:replace="_fragment :: navbar" class="navbar navbar-expand-lg pt-3 pb-3 pl-5 pr-5">
+    <a class="navbar-brand" href="#">
+        <img src="../static/image/logo.png" width="50" height="50" alt="">
     </a>
 
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog}">首页</a>
+                <a class="nav-link text-dark" href="index.html">首页</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog/type}">分类</a>
+                <a class="nav-link text-dark" href="typeList.html">分类</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog/label}">标签</a>
+                <a class="nav-link text-dark" href="labelList.html">标签</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link active" href="#" th:href="@{/blog/archive}">归档</a>
+                <a class="nav-link text-dark" href="archive.html">归档</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="isme.html">关于</a>
             </li>
             <li class="nav-item pl-2 pr-2">
-                <a class="nav-link" href="#" th:href="@{/blog/comment}">留言</a>
+                <a class="nav-link text-dark" href="messageBoard.html">留言</a>
             </li>
         </ul>
-        <form th:action="@{/blog/search}" th:method="post" class="form-inline bg-light ml-4" style="border-radius: 5px">
+        <form class="form-inline bg-light ml-4" style="border-radius: 5px">
             <div class="input-group-sm">
                 <input class="form-control" type="search" placeholder="search"
-                       style="border: none;background-color:transparent;width: 100px" name="search">
+                       style="border: none;background-color:transparent;width: 100px">
             </div>
             <button class="btn btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
     </div>
 </nav>
 
-<!-- 轮播图 -->
-<div class="container mt-4">
-    <div class="row">
-        <!-- 首页推荐文章轮播图 -->
-        <div class="col-9">
-            <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-                <!-- 指示符 -->
-                <ul class="carousel-indicators">
-                    <!-- 循环遍历展示轮播图下方滑动块 -->
-                    <li th:each="blog,num : ${recommendBlog}" data-target="#carousel"
-                        th:attr="data-slide-to=${num.count}" class="" th:classappend="${num.count == 1}?'active'"></li>
-                </ul>
-                <!-- 轮播图片 -->
-                <div class="carousel-inner">
-                    <!-- 遍历首页推荐数据 -->
-                    <div th:each="blog,num : ${recommendBlog}" class="carousel-item"
-                         th:classappend="${num.count == 1}?'active'">
-                        <a class="text-decoration-none" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}">
-                            <img class="rounded img-fluid" th:attr="src=${blog.imageUrl}" style="height: 350px;width: 100%">
-                            <div class="carousel-caption">
-                                <!--<h3 th:text="${blog.title}">One</h3>-->
-                                <p class="font-weight-bold m-background-color" th:text="${blog.title}">描述文字!</p>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-                <!-- 左右切换按钮 -->
-                <a class="carousel-control-prev" href="#carousel" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#carousel" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
-        </div>
-        <!-- 树型列表 -->
-        <div class="col-3 pt-3 pb-3">
-            <!-- 图片 -->
-            <div class="m-auto" style="height: 160px;width: 160px;">
-                <img src="../static/image/cxy.jpg" th:src="@{/image/cxy.jpg}" class="img-fluid">
-            </div>
-            <!-- 标语介绍 -->
-            <div class="text-center pt-4 pb-2">
-                <h5>Sponge博客</h5>
-                <p class="small">
-                    <span class="badge badge-danger">中国·北京</span>
-                    <span class="badge badge-warning">Java开发</span>
-                </p>
-            </div>
-            <!-- 联系方式 -->
-            <div class="text-center">
-                <a href="#" class="btn btn-primary mr-2" data-toggle="modal" data-target="#QQCode"><i class="fa fa-qq"
-                                                                                                      aria-hidden="true"></i></a>
-                <div class="modal fade" id="QQCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                QQ二维码
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="btn btn-primary mr-2" data-toggle="modal" data-target="#wechatCode"><i
-                        class="fa fa-weixin" aria-hidden="true"></i></a>
-                <div class="modal fade" id="wechatCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                微信二维码
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gitCode"><i class="fa fa-github"
-                                                                                                  aria-hidden="true"></i></a>
-                <div class="modal fade" id="gitCode" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                GitHub连接
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- 内容部分 -->
-<div class="container mt-4 mb-5">
-    <div class="row">
-        <div class="col-9">
-            <!-- 首页文章列表 -->
-            <div>
-                <!-- 博客列表 -->
-                <div th:each="blog : ${blogLimitList.data}" class="card mb-3 m-card-box-shadow">
-                    <div class="card-body overflow-hidden">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="../static/image/lb-2.jpeg" th:attr="src=${blog.imageUrl}" style="width: 100%;" class="rounded">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="text-dark" th:text="${blog.title}">SpringBoot自动装配原理</h5>
-                                <p class="card-text small mt-2 text-dark" th:text="${blog.content}">
-                                    博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                    博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                </p>
-                                <a href="#" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" class="btn btn-primary btn-sm float-right">查看更多</a>
-                            </div>
+<div class="container" style="margin-top: 2rem;margin-bottom: 7rem">
+    <div class="text-center" style="padding: 5rem 0;margin-bottom: 5rem">
+        <h4>博客</h4>
+        <span class="font-weight-light">康涂涂先生博客专注分享技术、设计、知说！！</span>
+    </div>
+    <div id="blogLimitPage">
+        <!-- 首页文章列表 -->
+        <div id="blogList">
+
+            <div th:each="blog : ${blogs}" class="card m-border-0 mb-4">
+                <div class="card-body overflow-hidden">
+                    <div class="row">
+                        <div class="col-3">
+                            <img th:attr="src=${blog.imageUrl}" style="width: 100%;" class="rounded">
+                        </div>
+                        <div class="col-9">
+                            <h4 class="text-dark mb-3" th:text="${blog.title}">SpringBoot自动装配原理</h4>
+                            <p class="card-text font-weight-light mt-2 text-dark" th:text="${blog.content}">
+                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
+                            </p>
+                            <a th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" class="btn btn-outline-dark btn-sm float-right">查看详情</a>
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent border-light small text-secondary">
-                        <!-- 作者 -->
-                        <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
-                        <!-- 时间 -->
-                        <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime,'yyyy-MM-dd')}"></span></span>
-                        <!-- 浏览 -->
-                        <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}"></span></span>
-                        <!-- 评论 -->
-                        <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}"></span></span>
-                    </div>
                 </div>
-
-            </div>
-            <!-- 分页导航 -->
-            <div class="overflow-hidden mt-4">
-                <a href="#" th:href="@{/blog/page/{pageIndex}(pageIndex=${blogLimitList.pageIndex-1})}" th:if="${blogLimitList.pageIndex > 1}" class="btn btn-sm btn-primary">上一页</a>
-                <a href="#" th:href="@{/blog/page/{pageIndex}(pageIndex=${blogLimitList.pageIndex+1})}" th:if="${blogLimitList.lastPage}" class="btn btn-sm btn-primary float-right">下一页</a>
-            </div>
-
-        </div>
-        <div class="col-3">
-            <!-- 最新发布-按发布时间取前5篇 -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
-                <div class="card-body">
-                    <a th:each="blog,num : ${newPublish}" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" href="#" class="d-block small text-decoration-none border-bottom pb-2" th:classappend="${num.count != 1}?'pt-2'">
-                        <span class="badge badge-secondary mr-2" th:text="${num.count}">11/21</span>
-                        <span class="text-dark" th:text="${blog.title}">博客文章标题博客文章标题...</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 热门文章(前6篇) -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">热门文章</h6>
-                <div class="card-body">
-                    <a th:each="blog,num : ${hotBlog}" th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" href="#" class="d-block small text-decoration-none border-bottom pb-2" th:classappend="${num.count != 1}?'pt-2'">
-                        <span class="badge badge-secondary mr-2" th:text="${num.count}">11/21</span>
-                        <span class="text-dark" th:text="${blog.title}">博客文章标题博客文章标题...</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- 标签墙 -->
-            <div class="card mb-4">
-                <h6 class="card-header font-weight-bold text-danger">最新发布</h6>
-                <div class="pt-2 pl-2 pr-2">
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>JAVA</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Git</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Docker</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Linux</span><span
-                            class="badge badge-light ml-1">9</span></a>
-                    <a href="#" class="btn btn-sm btn-primary mb-2"><span>Ngnix</span><span
-                            class="badge badge-light ml-1">9</span></a>
+                <div class="card-footer bg-transparent border-light small text-secondary">
+                    <!-- 作者 -->
+                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
+                    <!-- 时间 -->
+                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                    <!-- 浏览 -->
+                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
+                    <!-- 点赞 -->
+                    <span class="mr-4"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}">18</span></span>
+                    <!-- 分类 -->
+                    <span class="mr-4"><i class="fa fa-folder mr-1" aria-hidden="true"></i><span th:text="${blog.typeName}">分类</span></span>
+                    <!-- 标签 -->
+                    <span class="mr-4"><i class="fa fa-tag mr-1" aria-hidden="true"></i><span th:text="${blog.labelName}">标签</span></span>
                 </div>
             </div>
 
@@ -234,17 +122,33 @@
 </div>
 
 <!-- 页脚 -->
-<footer th:replace="_fragment :: footer" class="container-fluid bg-dark text-white pt-3 pb-3">
-    <div class="text-center small">
-        &copy;&nbsp;2019&nbsp;|&nbsp;Sponge博客版权所有&nbsp;|&nbsp;京备案88888-2345687
+<footer th:replace="_fragment :: footer" class="container-fluid pt-3 pb-1 text-center " style="background-color: rgba(194,189,255,0.12);color: #333333;">
+    <div class="pt-1 pb-1 small">
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">关于博主</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">热门文章</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章分类</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章标签</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">年度归档</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">留言板</a>
     </div>
+    <div class="pt-2 pb-2" style="color: #868686;font-size: .7rem">
+        <span>友情链接:</span>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+    </div>
+    <p class="pt-1 pb-1 small">Copyright&nbsp;&copy;&nbsp;2019&nbsp;康涂涂先生-sponge-k.com 冀ICP备88886666号 站长统计 · Powered By
+        WordPress · Theme By Simplify</p>
 </footer>
 
-<!-- 相关JS -->
 <th:block th:replace="_fragment :: script">
     <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.min.js"></script>
-    <script src="../static/js/bootstrap/popper.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+
 </body>
 </html>

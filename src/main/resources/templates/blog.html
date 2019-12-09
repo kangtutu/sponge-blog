@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: head(~{::title},~{::style})">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sponge-K 博客</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- mk样式包 -->
+    <link rel="stylesheet" href="../static/lib/editor.mb-master/css/editormd.min.css">
+    <style>
+        .m-btn-css {
+            border: 1px #666666 solid;
+            color: #666666;
+        }
+
+        .m-btn-css:hover {
+            color: white;
+            border: 1px #666666 solid;
+            background-color: #666666;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航 -->
+<nav class="navbar navbar-expand-lg pt-3 pb-3 pl-5 pr-5">
+    <a class="navbar-brand" href="#">
+        <img src="../static/image/logo.png" width="50" height="50" alt="">
+    </a>
+
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="index.html">首页</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="typeList.html">分类</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="labelList.html">标签</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="archive.html">归档</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="isme.html">关于</a>
+            </li>
+            <li class="nav-item pl-2 pr-2">
+                <a class="nav-link text-dark" href="messageBoard.html">留言</a>
+            </li>
+        </ul>
+        <form class="form-inline bg-light ml-4" style="border-radius: 5px">
+            <div class="input-group-sm">
+                <input class="form-control" type="search" placeholder="search"
+                       style="border: none;background-color:transparent;width: 100px">
+            </div>
+            <button class="btn btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    </div>
+</nav>
+
+<!-- 内容部分 -->
+<div class="container" style="margin-top: 2rem;margin-bottom: 6rem">
+    <div class="row">
+        <!-- 文章详情 -->
+        <div class="col-9">
+            <h4 class="" th:text="${blog.title}">溃疡回家金克拉记录卡撒旦解放了看似简单</h4>
+            <div class="small mt-3 mb-5 text-secondary">
+                <!-- 作者 -->
+                <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
+                <!-- 时间 -->
+                <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                <!-- 浏览 -->
+                <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
+                <!-- 点赞 -->
+                <span class="mr-4"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}">18</span></span>
+                <!-- 分类 -->
+                <span class="mr-4"><i class="fa fa-folder mr-1" aria-hidden="true"></i><span th:text="${blog.typeName}">分类</span></span>
+                <!-- 标签 -->
+                <span class="mr-4"><i class="fa fa-tag mr-1" aria-hidden="true"></i><span th:text="${blog.labelName}">标签</span></span>
+            </div>
+
+            <div th:text="${blog.content}">
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+                看到结果来看的设计灵感枯竭的是独立思考
+            </div>
+
+            <div style="margin: 4rem 0 6rem 0">
+                <!-- 版权信息 -->
+                <p class="small mt-3">本文由 @康涂涂先生 原创发布。如若转载，请注明出处：《XX文章标题》</p>
+                <!-- 对应的标签及分类 -->
+                <div class="mb-2">
+                    <!-- 点击我喜欢 -->
+                    <button class="btn btn-outline-danger btn-sm mr-3"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i>喜欢(18)</button>
+                    <!-- 文章分类及标签 -->
+                    <a href="#" class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
+                </div>
+            </div>
+
+            <!-- 评论输入框 -->
+            <div class="overflow-hidden">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="nickName">昵称</label>
+                            <input type="text" class="form-control" id="nickName" placeholder="请输入昵称">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email" placeholder="请输入邮箱">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="urlPath">昵称</label>
+                            <input type="text" class="form-control" id="urlPath" placeholder="请输入网址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">评论信息</label>
+                        <textarea class="form-control" id="inputAddress" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn m-btn-css float-right">提交评论</button>
+                </form>
+            </div>
+
+            <!-- 评论列表 -->
+            <div class=" mb-4" id="commentLimitList">
+                <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span>66条</span></h5>
+
+                <div class="card mb-4 border-bottom" style="border: transparent;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-1 pt-2 pb-2">
+                                <p class="font-weight-bold m-auto"
+                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                                    S</p>
+                            </div>
+                            <div class="col-11">
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Som</span>
+                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                                </div>
+                                <p class="font-weight-light">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-1 col-1 pt-2 pb-2">
+                                <p class="font-weight-bold m-auto"
+                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                                    S</p>
+                            </div>
+                            <div class="col-10">
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Som</span>
+                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                                </div>
+                                <p class="font-weight-light">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 border-bottom" style="border: transparent;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-1 pt-2 pb-2">
+                                <p class="font-weight-bold m-auto"
+                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                                    S</p>
+                            </div>
+                            <div class="col-11">
+                                <div class="mb-2">
+                                    <span class="font-weight-bold">Som</span>
+                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                                </div>
+                                <p class="font-weight-light">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- 右侧内容 -->
+        <div class="col-3"></div>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="container-fluid pt-3 pb-1 text-center " style="background-color: rgba(194,189,255,0.12);color: #333333;">
+    <div class="pt-1 pb-1 small">
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">关于博主</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">热门文章</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章分类</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章标签</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">年度归档</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">留言板</a>
+    </div>
+    <div class="pt-2 pb-2" style="color: #868686;font-size: .7rem">
+        <span>友情链接:</span>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+    </div>
+    <p class="pt-1 pb-1 small">Copyright&nbsp;&copy;&nbsp;2019&nbsp;康涂涂先生-sponge-k.com 冀ICP备88886666号 站长统计 · Powered By
+        WordPress · Theme By Simplify</p>
+</footer>
+
+<th:block th:replace="_fragment :: script">
+    <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+</th:block>
+
+</body>
+</html>

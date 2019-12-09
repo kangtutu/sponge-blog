@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kangtutu.sponge.blog.mapper.TypeMapper">
+<mapper namespace="com.kangtutu.sponge.blog.mapper.typeMapper">
 
     <!-- 新增数据 -->
-    <insert id="saveType" parameterType="com.kangtutu.sponge.blog.pojo.SKType">
+    <insert id="saveType" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO">
         insert into sk_type
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="typeName != null">type_name,</if>
             <if test="status != null">status,</if>
             <if test="creationUser != null">creation_user,</if>
-            <if test="updateUser != null">update_user,</if>
             <if test="creationTime != null">creation_time,</if>
+            <if test="updateUser != null">update_user,</if>
             <if test="updateTime != null">update_time</if>
         </trim>
         values
@@ -19,14 +19,14 @@
             <if test="typeName != null">#{typeName},</if>
             <if test="status != null">#{status},</if>
             <if test="creationUser != null">#{creationUser},</if>
-            <if test="updateUser != null">#{updateUser},</if>
             <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
             <if test="updateTime != null">#{updateTime}</if>
         </trim>
     </insert>
 
     <!-- 更新数据 -->
-    <update id="updateType" parameterType="com.kangtutu.sponge.blog.pojo.SKType">
+    <update id="updateType" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO">
         update sk_type
         <trim prefix="set" suffixOverrides=",">
             <if test="typeName != null">type_name=#{typeName},</if>
@@ -34,32 +34,20 @@
             <if test="updateUser != null">update_user=#{updateUser},</if>
             <if test="updateTime != null">update_time=#{updateTime}</if>
         </trim>
-        where type_id=#{typeId};
+        where type_id=#{typeId}
     </update>
+
+    <!-- 按照status查询 -->
+    <select id="queryTypeAll" parameterType="java.lang.Boolean" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO">
+        select * from sk_type
+        <where>
+            <if test="status != null">status=#{status}</if>
+        </where>
+    </select>
 
     <!-- 删除指定id数据 -->
     <delete id="deleteTypeById" parameterType="java.lang.Integer">
         delete from sk_type where type_id=#{typeId};
     </delete>
-
-    <!-- 查询指定id -->
-    <select id="queryTypeById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKType">
-        select * from sk_type where type_id=#{typeId};
-    </select>
-
-    <!-- 查询已经启用的标签数据 -->
-    <select id="queryTypeByStatus" parameterType="java.lang.Boolean" resultType="com.kangtutu.sponge.blog.pojo.SKType">
-        select * from sk_type where status=#{status};
-    </select>
-
-    <!-- 查询全量数据 -->
-    <select id="queryTypeAll" resultType="com.kangtutu.sponge.blog.pojo.SKType">
-        select * from sk_type;
-    </select>
-
-    <!-- 查询已经启用的标签对应的博客数据 -->
-    <select id="queryBlogByTypeStatus" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKType">
-        select * from sk_blog blog left join sk_type type on blog.type_id=type.type_id where type.status=#{status} and blog.status=#{status};
-    </select>
 
 </mapper>

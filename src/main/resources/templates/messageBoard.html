@@ -4,302 +4,213 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Sponge博客 - 留言板</title>
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>Sponge-K 博客</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <style>
-        /*阴影设置*/
-        .m-card-box-shadow{
-            border: transparent;
-            box-shadow: 0 0 8px rgba(0,0,0,0.12);
+        .m-btn-css{
+            border:1px #666666 solid;
+            color: #666666;
+        }
+        .m-btn-css:hover{
+            color: white;
+            border:1px #666666 solid;
+            background-color: #666666;
         }
     </style>
 </head>
 <body>
 <!-- 导航 -->
-<nav th:replace="_fragment :: navbar(5)" class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#" th:href="@{/blog}">
-        <img src="../static/image/logo.png" width="30" height="30" alt="">
-        <span class="small font-weight-bold">Sponge博客</span>
+<nav th:replace="_fragment :: navbar" class="navbar navbar-expand-lg pt-3 pb-3 pl-5 pr-5">
+    <a class="navbar-brand" href="#">
+        <img src="../static/image/logo.png" width="50" height="50" alt="">
     </a>
 
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog}">首页</a>
+                <a class="nav-link text-dark" href="index.html">首页</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog/type}">分类</a>
+                <a class="nav-link text-dark" href="typeList.html">分类</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link" href="#" th:href="@{/blog/label}">标签</a>
+                <a class="nav-link text-dark" href="labelList.html">标签</a>
             </li>
             <li class="nav-item pl-2 pr-2 mr-1">
-                <a class="nav-link active" href="#" th:href="@{/blog/archive}">归档</a>
+                <a class="nav-link text-dark" href="archive.html">归档</a>
+            </li>
+            <li class="nav-item pl-2 pr-2 mr-1">
+                <a class="nav-link text-dark" href="isme.html">关于</a>
             </li>
             <li class="nav-item pl-2 pr-2">
-                <a class="nav-link" href="#" th:href="@{/blog/comment}">留言</a>
+                <a class="nav-link text-dark" href="messageBoard.html">留言</a>
             </li>
         </ul>
-        <form th:action="@{/blog/search}" th:method="post" class="form-inline bg-light ml-4" style="border-radius: 5px">
+        <form class="form-inline bg-light ml-4" style="border-radius: 5px">
             <div class="input-group-sm">
                 <input class="form-control" type="search" placeholder="search"
-                       style="border: none;background-color:transparent;width: 100px" name="search">
+                       style="border: none;background-color:transparent;width: 100px">
             </div>
             <button class="btn btn-sm" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         </form>
     </div>
 </nav>
 
-<!-- 内容区 -->
-<div class="container mt-4 mb-5">
-    <!-- 说明部分 -->
-    <div class="mb-4 overflow-hidden">
-        <div class="float-left">
-            <i class="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>
-        </div>
-        <div class="float-left ml-3">
-            <h5 class="font-weight-bold" style="margin: 0 0 0 0 !important;">留言板</h5>
-            <span class="small" style="color: #b6b6b6">按照不同标签查找阅读想要的文章</span>
-        </div>
+<!-- 内容部分 -->
+<div class="container" style="margin-top: 2rem;margin-bottom: 6rem">
+    <div class="text-center" style="padding: 5rem 0;margin-bottom: 5rem">
+        <h4>留言板</h4>
+        <span class="font-weight-light">有什么想说的可以在这里告诉我哦！！！</span>
     </div>
 
-    <!-- 留言区 -->
-    <div class="mt-2">
-        <!-- 评论信息提交框 -->
-        <div class="overflow-hidden p-4" style="box-shadow: 0 0 8px rgba(0,0,0,0.12);">
-            <form>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="nickName">昵称</label>
-                        <input type="text" class="form-control" id="nickName" placeholder="请输入昵称">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="email">邮箱</label>
-                        <input type="email" class="form-control" id="email" placeholder="请输入邮箱">
-                    </div>
+    <!-- 评论信息提交框 -->
+    <div class="overflow-hidden p-4">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="nickName">昵称</label>
+                    <input type="text" class="form-control" id="nickName" placeholder="请输入昵称">
                 </div>
-                <div class="form-group">
-                    <label for="inputAddress">评论信息</label>
-                    <textarea class="form-control" id="inputAddress" rows="3"></textarea>
+                <div class="form-group col-md-4">
+                    <label for="email">邮箱</label>
+                    <input type="email" class="form-control" id="email" placeholder="请输入邮箱">
                 </div>
-
-                <button type="submit" class="btn btn-primary float-right">提交评论</button>
-            </form>
-        </div>
-        <!-- 留言信息 -->
-        <div class="mt-3 mb-4">
-            <h5 class="font-weight-bold pb-2 mb3">留言信息</h5>
-            <div class="card mb-3" style="border: transparent;box-shadow: 0 0 8px rgba(0,0,0,0.12);">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-1 pt-2 pb-2">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-11">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-1 col-1 pt-2 pb-2 text-center">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-10">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
+                <div class="form-group col-md-4">
+                    <label for="urlPath">昵称</label>
+                    <input type="text" class="form-control" id="urlPath" placeholder="请输入网址">
                 </div>
             </div>
-
-            <div class="card mb-3" style="border: transparent;box-shadow: 0 0 8px rgba(0,0,0,0.12);">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-1 pt-2 pb-2">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-11">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-1 col-1 pt-2 pb-2 text-center">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-10">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="inputAddress">评论信息</label>
+                <textarea class="form-control" id="inputAddress" rows="3"></textarea>
             </div>
-
-            <div class="card mb-3" style="border: transparent;box-shadow: 0 0 8px rgba(0,0,0,0.12);">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-1 pt-2 pb-2">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-11">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-1 col-1 pt-2 pb-2 text-center">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-10">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card mb-3" style="border: transparent;box-shadow: 0 0 8px rgba(0,0,0,0.12);">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-1 pt-2 pb-2">
-                            <p class="font-weight-bold m-auto"
-                               style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                S</p>
-                        </div>
-                        <div class="col-11">
-                            <p class="">
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                                Some quick example text to build on the card title and make up the bulk of the card's
-                                content.
-                            </p>
-                            <p class="small border-top pt-1">
-                                <span>Som</span>
-                                <span>2019-11-12 12:23:22</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <button type="submit" class="btn m-btn-css float-right">提交评论</button>
+        </form>
     </div>
+
+    <!-- 留言信息 -->
+    <div class="mb-4" id="commentLimitList">
+        <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span>66条</span></h5>
+
+        <div class="card mb-4 border-bottom" style="border: transparent;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-1 pt-2 pb-2">
+                        <p class="font-weight-bold m-auto"
+                           style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                            S</p>
+                    </div>
+                    <div class="col-11">
+                        <div class="mb-2">
+                            <span class="font-weight-bold">Som</span>
+                            <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                        </div>
+                        <p class="font-weight-light">
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-1 col-1 pt-2 pb-2">
+                        <p class="font-weight-bold m-auto"
+                           style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                            S</p>
+                    </div>
+                    <div class="col-10">
+                        <div class="mb-2">
+                            <span class="font-weight-bold">Som</span>
+                            <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                        </div>
+                        <p class="font-weight-light">
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-bottom" style="border: transparent;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-1 pt-2 pb-2">
+                        <p class="font-weight-bold m-auto"
+                           style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
+                            S</p>
+                    </div>
+                    <div class="col-11">
+                        <div class="mb-2">
+                            <span class="font-weight-bold">Som</span>
+                            <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                        </div>
+                        <p class="font-weight-light">
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                            Some quick example text to build on the card title and make up the bulk of the card's
+                            content.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 <!-- 页脚 -->
-<footer th:replace="_fragment :: footer" class="container-fluid bg-dark text-white pt-3 pb-3">
-    <div class="text-center small">
-        &copy;&nbsp;2019&nbsp;|&nbsp;Sponge博客版权所有&nbsp;|&nbsp;京备案88888-2345687
+<footer th:replace="_fragment :: footer" class="container-fluid pt-3 pb-1 text-center " style="background-color: rgba(194,189,255,0.12);color: #333333;">
+    <div class="pt-1 pb-1 small">
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">关于博主</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">热门文章</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章分类</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">文章标签</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">年度归档</a>
+        <a href="#" class="text-decoration-none text-dark pl-2 pr-2">留言板</a>
     </div>
+    <div class="pt-2 pb-2" style="color: #868686;font-size: .7rem">
+        <span>友情链接:</span>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+        <a href="#" class="text-decoration-none pl-2 pr-2" style="color: #868686">关于博主</a>
+    </div>
+    <p class="pt-1 pb-1 small">Copyright&nbsp;&copy;&nbsp;2019&nbsp;康涂涂先生-sponge-k.com 冀ICP备88886666号 站长统计 · Powered By
+        WordPress · Theme By Simplify</p>
 </footer>
 
-<!-- 相关JS -->
 <th:block th:replace="_fragment :: script">
     <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-    <script src="../static/js/bootstrap/bootstrap.min.js"></script>
-    <script src="../static/js/bootstrap/popper.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package com.kangtutu.sponge.blog.mapper;
 
-import com.kangtutu.sponge.blog.pojo.SKBlog;
-import com.kangtutu.sponge.blog.pojo.SKTerm;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,65 +9,44 @@ import java.util.List;
 public interface BlogMapper {
 
     /**
+     * 新增博客数据
+     * @param spongeBlogDO
+     */
+    void saveBlog(SpongeBlogDO spongeBlogDO);
+
+    /**
+     * 更新博客数据
+     * @param spongeBlogDO
+     */
+    void updateBlog(SpongeBlogDO spongeBlogDO);
+
+    /**
      * 查询指定id博客
      * @param blogId 博客id
      * @return
      */
-    SKBlog queryBlogById(@Param("blogId")Integer blogId);
+    SpongeBlogDO queryBlogById(@Param("blogId")Integer blogId);
 
     /**
-     * 按条件查询，支持分页查询
-     * @param skTerm 条件对象
+     * 查询阅读量排行前10的文章，按照阅读数及发布时间进行降序排序
+     * @param spongeTermDO
      * @return
      */
-    List<SKBlog> queryBlogByTerm(SKTerm skTerm);
+    List<SpongeBlogDO> queryBlogByReadingQuantity(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询热门文章
-     * @param pageSize 每页显示条数
-     * @param topCurrPage 从第几条开始
+     * 查询分类及标签数据，按照阅读数及发布时间降序排序
+     * @param spongeTermDO
      * @return
      */
-    List<SKBlog> queryHotBlogByReadingQuantity(@Param("status") Boolean status,@Param("pageSize") Integer pageSize,@Param("topCurrPage") Integer topCurrPage);
+    List<SpongeBlogDO> queryBlogLabelOrTypeByTerm(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询总条数
-     * @param status
+     * 按条件查询总条数
+     * @param spongeTermDO
      * @return
      */
-    Integer queryBlogTotal(@Param("status") Boolean status);
-
-    /**
-     * 按条件查询总数
-     * @param skTerm
-     * @return
-     */
-    Integer queryBlogByTermAndTotal(SKTerm skTerm);
-
-    /**
-     * 查询表中有哪些年份的数据
-     * @return
-     */
-    List<Integer> queryBlogPublishYear();
-
-    /**
-     * 按照年份与月份查询全量数据并按照年份及月份进行降序排序
-     * @param skTerm
-     * @return
-     */
-    List<SKBlog> queryBlogByYearAndMonth(SKTerm skTerm);
-
-    /**
-     * 新增博客数据
-     * @param skBlog
-     */
-    void saveBlog(SKBlog skBlog);
-
-    /**
-     * 更新博客数据
-     * @param skBlog
-     */
-    void updateBlog(SKBlog skBlog);
+    Integer queryCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
      * 删除博客数据

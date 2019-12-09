@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 全局异常处理类
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);

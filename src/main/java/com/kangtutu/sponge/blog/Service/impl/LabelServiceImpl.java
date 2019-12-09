@@ -2,15 +2,13 @@ package com.kangtutu.sponge.blog.Service.impl;
 
 import com.kangtutu.sponge.blog.Service.LabelService;
 import com.kangtutu.sponge.blog.mapper.LabelMapper;
-import com.kangtutu.sponge.blog.pojo.SKBlog;
-import com.kangtutu.sponge.blog.pojo.SKLabel;
+import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
+import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
 public class LabelServiceImpl implements LabelService {
 
     @Autowired
@@ -18,75 +16,60 @@ public class LabelServiceImpl implements LabelService {
 
     /**
      * 新增数据
-     * @param skLabel
+     * @param spongeLabelDO
+     * @return
      */
     @Override
-    public void saveLabel(SKLabel skLabel) {
-        //初始化参数
-        initLabel(skLabel);
-        labelMapper.saveLabel(skLabel);
+    public ResultObjectDTO saveLabel(SpongeLabelDO spongeLabelDO) {
+        initTypeParam(spongeLabelDO);
+        labelMapper.saveLabel(spongeLabelDO);
+        return ResultObjectDTO.success();
     }
 
     /**
      * 更新数据
-     * @param skLabel
+     * @param spongeLabelDO
+     * @return
      */
     @Override
-    public void updateLabel(SKLabel skLabel) {
-        Date date = new Date();
-        String updateUser = "kangtutu";
-        skLabel.setUpdateUser(updateUser);
-        skLabel.setUpdateTime(date);
-        labelMapper.updateLabel(skLabel);
+    public ResultObjectDTO updateLabel(SpongeLabelDO spongeLabelDO) {
+        spongeLabelDO.setUpdateUser("kangtutu");
+        spongeLabelDO.setUpdateTime(new Date());
+        return ResultObjectDTO.success();
     }
 
     /**
-     * 查询指定状态的标签数据
+     * 查询全部
      * @param status
      * @return
      */
     @Override
-    public List<SKLabel> getLabelByStatus(Boolean status) {
-        return labelMapper.queryLabelByStatus(status);
+    public ResultObjectDTO getLabelAll(Boolean status) {
+        List<SpongeLabelDO> labels = labelMapper.queryLabelAll(true);
+        return ResultObjectDTO.success(labels);
     }
 
     /**
-     * 查询全量的标签数据
+     * 删除数据
+     * @param labelId
      * @return
      */
     @Override
-    public List<SKLabel> getLabelAll() {
-        return labelMapper.queryLabelAll();
-    }
-
-    /**
-     * 查询指定状态的博客数据
-     * @param status 状态值
-     * @return
-     */
-    @Override
-    public List<SKBlog> queryBlogByLabelStatus(Boolean status) {
-        return labelMapper.queryBlogByLabelStatus(status);
-    }
-
-    /**
-     * 删除指定id数据
-     * @param labelId 标签id
-     */
-    @Override
-    public void deleteLabelById(Integer labelId) {
+    public ResultObjectDTO deleteLabelById(Integer labelId) {
         labelMapper.deleteLabelById(labelId);
+        return ResultObjectDTO.success();
     }
 
-    //初始化标签对象参数
-    private void initLabel(SKLabel skLabel){
+    //初始化参数
+    private void initTypeParam(SpongeLabelDO spongeLabelDO){
         Date date = new Date();
-        String user = "admin";
-        skLabel.setStatus(true);
-        skLabel.setCreationUser(user);
-        skLabel.setCreationTime(date);
-        skLabel.setUpdateUser(user);
-        skLabel.setUpdateTime(date);
-
+        String str = "admin";
+        if(spongeLabelDO.getStatus() == null){
+            spongeLabelDO.setStatus(true);
+        }
+        spongeLabelDO.setCreationUser(str);
+        spongeLabelDO.setCreationTime(date);
+        spongeLabelDO.setUpdateUser(str);
+        spongeLabelDO.setUpdateTime(date);
     }
 }

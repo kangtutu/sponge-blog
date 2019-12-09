@@ -1,6 +1,10 @@
 server:
   port: 9999
 spring:
+  servlet:
+    multipart:
+      max-request-size: 10MB #上传文件总的最大值
+      max-file-size: 1MB #单个文件的最大值
   thymeleaf:
     cache: false #不开启缓存
     suffix: .html

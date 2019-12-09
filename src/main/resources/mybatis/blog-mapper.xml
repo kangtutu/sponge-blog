@@ -4,7 +4,7 @@
 <mapper namespace="com.kangtutu.sponge.blog.mapper.BlogMapper">
 
     <!-- 新增数据 -->
-    <insert id="saveBlog" parameterType="com.kangtutu.sponge.blog.pojo.SKBlog">
+    <insert id="saveBlog" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         insert into sk_blog
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="author != null">author,</if>
@@ -18,9 +18,9 @@
             <if test="typeId != null">type_id,</if>
             <if test="readingQuantity != null">reading_quantity,</if>
             <if test="likeNumInt != null">like_num_int,</if>
-            <if test="isOpenHomeRecommend != null">is_open_home_recommend,</if>
-            <if test="isOpenCopyright != null">is_open_copyright,</if>
-            <if test="isOpenComment != null">is_open_comment,</if>
+            <if test="openHomeRecommend != null">open_home_recommend,</if>
+            <if test="openCopyright != null">open_copyright,</if>
+            <if test="openComment != null">open_comment,</if>
             <if test="status != null">status,</if>
             <if test="publishYear != null">publish_year,</if>
             <if test="publishMonth != null">publish_month,</if>
@@ -42,9 +42,9 @@
             <if test="typeId != null">#{typeId},</if>
             <if test="readingQuantity != null">#{readingQuantity},</if>
             <if test="likeNumInt != null">#{likeNumInt},</if>
-            <if test="isOpenHomeRecommend != null">#{isOpenHomeRecommend},</if>
-            <if test="isOpenCopyright != null">#{isOpenCopyright},</if>
-            <if test="isOpenComment != null">#{isOpenComment},</if>
+            <if test="openHomeRecommend != null">#{openHomeRecommend},</if>
+            <if test="openCopyright != null">#{openCopyright},</if>
+            <if test="openComment != null">#{openComment},</if>
             <if test="status != null">#{status},</if>
             <if test="publishYear != null">#{publishYear},</if>
             <if test="publishMonth != null">#{publishMonth},</if>
@@ -56,7 +56,7 @@
     </insert>
 
     <!-- 更新数据 -->
-    <update id="updateBlog" parameterType="com.kangtutu.sponge.blog.pojo.SKBlog">
+    <update id="updateBlog" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         update sk_blog
         <trim prefix="set" suffixOverrides=",">
             <if test="author != null">author=#{author},</if>
@@ -70,9 +70,9 @@
             <if test="typeId != null">type_id=#{typeId},</if>
             <if test="readingQuantity != null">reading_quantity=#{readingQuantity},</if>
             <if test="likeNumInt != null">like_num_int=#{likeNumInt},</if>
-            <if test="isOpenHomeRecommend != null">is_open_home_recommend=#{isOpenHomeRecommend},</if>
-            <if test="isOpenCopyright != null">is_open_copyright=#{isOpenCopyright},</if>
-            <if test="isOpenComment != null">is_open_comment=#{isOpenComment},</if>
+            <if test="openHomeRecommend != null">open_home_recommend=#{openHomeRecommend},</if>
+            <if test="openCopyright != null">open_copyright=#{openCopyright},</if>
+            <if test="openComment != null">open_comment=#{openComment},</if>
             <if test="status != null">status=#{status},</if>
             <if test="publishYear != null">publish_year=#{publishYear},</if>
             <if test="publishMonth != null">publish_month=#{publishMonth},</if>
@@ -82,18 +82,18 @@
         where blog_id=#{blogId}
     </update>
 
-    <!-- 删除指定id数据 -->
-    <delete id="deleteBlogById" parameterType="java.lang.Integer">
-        delete from sk_blog where blog_id=#{blogId};
-    </delete>
-
     <!-- 查询指定id -->
-    <select id="queryBlogById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+    <select id="queryBlogById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         select * from sk_blog where blog_id=#{blogId};
     </select>
 
-    <!-- 按照条件查询，支持分页查询 -->
-    <select id="queryBlogByTerm" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
+    <!-- 首页博客列表查询阅读量排行前10的文章 -->
+    <select id="queryBlogByReadingQuantity" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
+        select * from sk_blog where status=#{status} order by reading_quantity desc limit #{startPage},#{pageSize};
+    </select>
+
+    <!-- 通用查询，按照发布时间进行降序排序 -->
+    <select id="queryBlogByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         select * from sk_blog
         <where>
             <if test="labelId != null">and label_id=#{labelId}</if>
@@ -108,23 +108,27 @@
             <if test="status != null">and status=#{status}</if>
         </where>
         order by creation_time desc
-        <if test="topCurrPage != null and pageSize != null">
-            limit ${topCurrPage},${pageSize};
+        <if test="startPage != null and pageSize !=null">
+            limit #{startPage},#{pageSize}
         </if>
     </select>
 
-    <!-- 查询热门博客文章 -->
-    <select id="queryHotBlogByReadingQuantity" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
-        select * from sk_blog where status=#{status} order by reading_quantity desc limit #{topCurrPage},#{pageSize};
-    </select>
-
-    <!-- 查询总条数 -->
-    <select id="queryBlogTotal" resultType="java.lang.Integer">
-        select count(*) from sk_blog where status=#{status};
+    <!-- 查询分类及标签条件 -->
+    <select id="queryBlogLabelOrTypeByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
+        select * from sk_blog
+        <if test="labelId != null">,sk_label where sk_blog.label_id=sk_label.label_id</if>
+        <if test="typeId != null">,sk_type where sk_blog.type_id=sk_type.type_id</if>
+        <where>
+            <if test="status != null">status=#{status}</if>
+        </where>
+        order by creatime_time,reading_quantity
+        <if test="startPage != null and pageSize != null">
+            limit #{startPage},#{pageSize}
+        </if>
     </select>
 
     <!-- 按条件查询总条数 -->
-    <select id="queryBlogByTermAndTotal" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="java.lang.Integer">
+    <select id="queryCountByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="java.lang.Integer">
         select count(*) from sk_blog
         <where>
             <if test="labelId != null">and label_id=#{labelId}</if>
@@ -140,30 +144,9 @@
         </where>
     </select>
 
-    <!-- 查询表中存在哪些年份的文章 -->
-    <select id="queryBlogPublishYear" resultType="java.lang.Integer">
-        select publish_year from sk_blog group by publish_year;
-    </select>
-
-    <!-- 按照年份及月份进行分页查询并进行降序排序 -->
-    <select id="queryBlogByYearAndMonth" parameterType="com.kangtutu.sponge.blog.pojo.SKTerm" resultType="com.kangtutu.sponge.blog.pojo.SKBlog">
-        select * from sk_blog
-        <where>
-            <if test="labelId != null">and label_id=#{labelId}</if>
-            <if test="typeId != null">and type_id=#{typeId}</if>
-            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
-            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
-            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
-            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
-            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
-            <if test="publishYear != null">and publish_year=#{publishYear}</if>
-            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
-            <if test="status != null">and status=#{status}</if>
-        </where>
-        order by publish_month desc
-        <if test="topCurrPage != null and pageSize != null">
-            limit ${topCurrPage},${pageSize};
-        </if>
-    </select>
+    <!-- 删除指定id数据 -->
+    <delete id="deleteBlogById" parameterType="java.lang.Integer">
+        delete from sk_blog where blog_id=#{blogId};
+    </delete>
 
 </mapper>
