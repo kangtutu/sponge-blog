@@ -17,16 +17,16 @@ public class SpongeResultVO implements Serializable {
         return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),ResultCodeEnumVO.SUCCESS.getMessage(),null);
     }
 
-    public static SpongeResultVO success(String msg){
-        return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),msg,null);
+    public static SpongeResultVO success(Object data){
+        return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),null,data);
     }
 
     public static SpongeResultVO failure(){
         return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),ResultCodeEnumVO.FAILURE.getMessage(),null);
     }
 
-    public static SpongeResultVO failure(String msg){
-        return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),msg,null);
+    public static SpongeResultVO failure(Object data){
+        return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),null,data);
     }
 
     public SpongeResultVO(Integer code, String message, Object data) {

@@ -100,9 +100,9 @@
             <if test="typeId != null">and type_id=#{typeId}</if>
             <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
             <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
-            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
-            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
-            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
+            <if test="openHomeRecommend != null">and open_home_recommend=#{openHomeRecommend}</if>
+            <if test="openCopyright != null">and open_copyright=#{openCopyright}</if>
+            <if test="openComment != null">and open_comment=#{openComment}</if>
             <if test="publishYear != null">and publish_year=#{publishYear}</if>
             <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
             <if test="status != null">and status=#{status}</if>
@@ -115,13 +115,15 @@
 
     <!-- 查询分类及标签条件 -->
     <select id="queryBlogLabelOrTypeByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
-        select * from sk_blog
-        <if test="labelId != null">,sk_label where sk_blog.label_id=sk_label.label_id</if>
-        <if test="typeId != null">,sk_type where sk_blog.type_id=sk_type.type_id</if>
+        select * from sk_blog b
+        <if test="labelId != null">left join sk_label la on b.label_id=la.label_id</if>
+        <if test="typeId != null">left join sk_type t on b.type_id=t.type_id</if>
         <where>
-            <if test="status != null">status=#{status}</if>
+            <if test="labelId != null">and b.label_id=#{labelId}</if>
+            <if test="typeId != null">and b.type_id=#{typeId}</if>
+            <if test="status != null">and status=#{status}</if>
         </where>
-        order by creatime_time,reading_quantity
+        order by creation_time,reading_quantity
         <if test="startPage != null and pageSize != null">
             limit #{startPage},#{pageSize}
         </if>
@@ -135,9 +137,9 @@
             <if test="typeId != null">and type_id=#{typeId}</if>
             <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
             <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
-            <if test="isOpenHomeRecommend != null">and is_open_home_recommend=#{isOpenHomeRecommend}</if>
-            <if test="isOpenCopyright != null">and is_open_copyright=#{isOpenCopyright}</if>
-            <if test="isOpenComment != null">and is_open_comment=#{isOpenComment}</if>
+            <if test="openHomeRecommend != null">and open_home_recommend=#{openHomeRecommend}</if>
+            <if test="openCopyright != null">and open_copyright=#{openCopyright}</if>
+            <if test="openComment != null">and open_comment=#{openComment}</if>
             <if test="publishYear != null">and publish_year=#{publishYear}</if>
             <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
             <if test="status != null">and status=#{status}</if>

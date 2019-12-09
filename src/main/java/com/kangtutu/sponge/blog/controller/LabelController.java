@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -66,6 +68,45 @@ public class LabelController {
         model.addAttribute("labels",labelDTO.getData());
         model.addAttribute("blogLimit",limit);
         return "labelList";
+    }
+
+
+    /**
+     * 分页查询指定id数据
+     * @param startPage
+     * @return
+     */
+    @GetMapping("/page/{labelId}/{startPage}")
+    @ResponseBody
+    public SpongeResultVO blogLimit(@PathVariable("labelId") Integer labelId, @PathVariable("startPage") Integer startPage){
+        SpongeTermDO term = SpongeTermDO.getInstance();
+        Integer start = (startPage-1)*pageSize;
+        term.setStartPage(start);
+        term.setPageSize(pageSize);
+        term.setLabelId(labelId);
+        SpongeLimitVO spongeLimitVO = setLimitParam(term, startPage);
+        return SpongeResultVO.success(spongeLimitVO);
+    }
+
+
+    //封装分页数据对象
+    private SpongeLimitVO setLimitParam(SpongeTermDO term,Integer startPage){
+        ResultObjectDTO blogDTO = blogService.getBlogByLabelOrTypeByTerm(term);
+        //查询全量数据条数
+        Integer count = (Integer) blogService.getCountByTerm(term).getData();
+        //封装分页返回对象
+        SpongeLimitVO limit = new SpongeLimitVO();
+        limit.setPageSize(pageSize);
+        int pageCount = new BigDecimal(count).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
+        limit.setPageCount(pageCount);//总页数
+        limit.setCurrentPageNumber(startPage);//当前页数
+        if(count<=startPage){
+            limit.setLastPage(true);
+        }else{
+            limit.setLastPage(false);
+        }
+        limit.setData(blogDTO.getData());
+        return limit;
     }
 
 }

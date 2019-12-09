@@ -41,7 +41,8 @@ public class SpongeTermDO implements Serializable {
                 '}';
     }
 
-    public static SpongeTermDO getInstance(){
+
+    public static SpongeTermDO getInstance() {
         return spongeTermDO;
     }
 

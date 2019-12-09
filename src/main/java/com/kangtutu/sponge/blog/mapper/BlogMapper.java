@@ -35,6 +35,13 @@ public interface BlogMapper {
     List<SpongeBlogDO> queryBlogByReadingQuantity(SpongeTermDO spongeTermDO);
 
     /**
+     * 通用条件查找方法
+     * @param spongeTermDO
+     * @return
+     */
+    List<SpongeBlogDO> queryBlogByTerm(SpongeTermDO spongeTermDO);
+
+    /**
      * 查询分类及标签数据，按照阅读数及发布时间降序排序
      * @param spongeTermDO
      * @return
