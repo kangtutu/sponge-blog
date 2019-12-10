@@ -56,6 +56,12 @@ public interface BlogMapper {
     Integer queryCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
+     * 查询数据库表中有哪些归档年份
+     * @return
+     */
+    List<Integer> queryBlogPublishYear();
+
+    /**
      * 删除博客数据
      * @param blogId
      */

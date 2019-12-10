@@ -78,6 +78,27 @@ public class BlogServiceImpl implements BlogService {
         return ResultObjectDTO.success(count);
     }
 
+    /**
+     * 查询数据库表中存在的归档年份
+     * @return
+     */
+    @Override
+    public ResultObjectDTO getBlogPublishYear() {
+        List<Integer> years = blogMapper.queryBlogPublishYear();
+        return ResultObjectDTO.success(years);
+    }
+
+    /**
+     * 按条件查询文章数据
+     * @param spongeTermDO
+     * @return
+     */
+    @Override
+    public ResultObjectDTO getBlogByTerm(SpongeTermDO spongeTermDO) {
+        List<SpongeBlogDO> blogs = blogMapper.queryBlogByTerm(spongeTermDO);
+        return ResultObjectDTO.success(blogs);
+    }
+
     //删除数据
     @Override
     public ResultObjectDTO deleteBlogById(Integer blogId) {

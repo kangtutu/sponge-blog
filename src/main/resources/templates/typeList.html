@@ -17,22 +17,6 @@
             box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);
         }
 
-        /*阴影设置*/
-        .m-card-box-shadow {
-            /*border: transparent;*/
-            box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);
-        }
-        #topPage{
-            text-decoration: none;
-            color: white;
-            border: 1px #333333 solid;
-            border-radius: 1rem;
-            padding: .3rem .8rem;
-            background-color: #333333
-        }
-        #topPage:hover{
-            padding: .3rem 1.5rem;
-        }
         .m-btn-css{
             border:1px #666666 solid;
             color: #666666;
@@ -41,6 +25,12 @@
             color: white;
             border:1px #666666 solid;
             background-color: #666666;
+        }
+        /*查看更多按钮样式*/
+        .m-next-btn{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: .9rem
         }
     </style>
 </head>
@@ -90,8 +80,8 @@
     </div>
 
     <div class="text-center" style="margin-bottom: 4rem;padding-top: 1rem;padding-bottom:1rem;box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);">
-        <a th:each="type : ${types}" th:text="${type.typeName}" th:attr="href='/blog/type/page/'+${type.typeId}+'/1'" class="btn btn-sm m-btn-css mr-2">测试类型</a>
-
+        <button th:each="type : ${types}" th:text="${type.typeName}" th:data-obj-id="${type.typeId}" onclick="appendBlog(this.getAttribute('data-obj-id'),1,true)" class="btn btn-sm m-btn-css mr-2">测试类型</button>
+<!--        <a th:each="type : ${types}" th:text="${type.typeName}" th:attr="href='/blog/type/page/'+${type.typeId}+'/1'" class="btn btn-sm m-btn-css mr-2">测试类型</a>-->
     </div>
     <div id="blogLimitPage">
         <!-- 首页文章列表 -->
@@ -117,27 +107,29 @@
                 </div>
                 <div class="card-footer bg-transparent border-light small text-secondary">
                     <!-- 作者 -->
-                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
+                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                     <!-- 时间 -->
-                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime, 'yyyy-MM-dd')}"></span></span>
                     <!-- 浏览 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
+                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">11</span></span>
                     <!-- 评论 -->
-                    <span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
+                    <span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}">10</span></span>
                     <!-- 分类 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>分类</span>
+                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.typeName}">分类</span></span>
                     <!-- 标签 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>标签</span>
+                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.labelName}">标签</span></span>
                 </div>
             </div>
 
         </div>
-        <!-- 分页导航 -->
-        <div class="mt-5 text-center">
-
-            <a href="#" style="" id="topPage">查看更多</a>
-
-            <!--<a href="#" class="btn btn-sm btn-primary float-right" onclick="clickNextPage(1)" id="nextPage">下一页</a>-->
+        <!-- 查询更多 -->
+        <div class="mt-5 text-center" id="nextButton">
+            <button type="button" class="btn btn-sm btn-outline-dark m-next-btn"
+                    th:classappend="${blogLimit.lastPage}?'disabled'"
+                    th:text="${!blogLimit.lastPage}?'查看更多':'到底了'"
+                    th:data-obj-id="${blogLimit.objId}"
+                    th:data-current-page="${blogLimit.currentPageNumber+1}"
+                    onclick="appendBlog(this.getAttribute('data-obj-id'),this.getAttribute('data-current-page'),false)">查看更多</button>
         </div>
     </div>
 </div>
@@ -169,5 +161,45 @@
     <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+<script th:src="@{/js/limitPage.js}"></script>
+<script>
+    //异步调用分页查询博客数据
+    function appendBlog(objId,currentPageNumber,bo){
+        //bo若为true则清空 id为blogList标签中内容
+        if(bo){
+            $('#blogList').html('');
+        }
+        //ajax调用后台分页接口查询数据
+        $.ajax({
+            url:"/blog/type/page/"+objId+"/"+currentPageNumber,
+            type:'GET',
+            success:function(data){
+                console.log(data)
+                //获取返回的各项参数值
+                var objId = data.data.objId; //当前大类id
+                var currentPageNumber = data.data.currentPageNumber+1; //当前页码数
+                var lastPage = data.data.lastPage; //是否为末页
+                var blog = data.data.data;//返回的数据
+                //追加页面文章
+                $.each(blog,function(index,b){
+                    var str = blogTemplate(b);
+                    $('#blogList').append(str);
+                })
+
+                //重新封装查看更多按钮
+                nextButton(objId,currentPageNumber,lastPage);
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+
+    }
+
+
+
+
+
+</script>
 </body>
 </html>

@@ -3,8 +3,6 @@ package com.kangtutu.sponge.blog.controller;
 import com.kangtutu.sponge.blog.Service.BlogService;
 import com.kangtutu.sponge.blog.Service.LabelService;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
-import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
-import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeLimitVO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/blog/label")
@@ -40,31 +37,19 @@ public class LabelController {
 
     //标签首页
     @GetMapping
-    public String label(Model model){
+    public String labelIndex(Model model){
+        log.info("[标签首页] 进入方法内");
         //查询数据库中启用的标签数据
         ResultObjectDTO labelDTO = labelService.getLabelAll(true);
-
+        log.info("[标签首页] 查询到的已经启用的标签数据为:{}",labelDTO);
         //按照查询到的第一个标签数据进行数据展示
-        List<SpongeLabelDO> labels = (List<SpongeLabelDO>) labelDTO.getData();
-        SpongeTermDO term = SpongeTermDO.getInstance();
+        SpongeTermDO term = new SpongeTermDO();
         term.setStartPage(0);
         term.setPageSize(pageSize);
-        ResultObjectDTO blogDTO = blogService.getBlogByLabelOrTypeByTerm(term);
-        //查询全量数据条数
-        Integer count = (Integer) blogService.getCountByTerm(term).getData();
+        log.info("[标签首页] 用于查询文章列表的条件对象为:{}",term);
         //封装分页返回对象
-        SpongeLimitVO limit = new SpongeLimitVO();
-        limit.setPageSize(pageSize);
-        int pageCount = new BigDecimal(count).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
-        limit.setPageCount(pageCount);//总页数
-        limit.setCurrentPageNumber(1);//当前页数
-        if(count<=1){
-            limit.setLastPage(true);
-        }else{
-            limit.setLastPage(false);
-        }
-        limit.setData(blogDTO.getData());
-
+        SpongeLimitVO limit = setLimitParam(term,1,18989);
+        log.info("[标签首页] 返回页面的分页数据对象数据为:{}",limit);
         model.addAttribute("labels",labelDTO.getData());
         model.addAttribute("blogLimit",limit);
         return "labelList";
@@ -79,33 +64,41 @@ public class LabelController {
     @GetMapping("/page/{labelId}/{startPage}")
     @ResponseBody
     public SpongeResultVO blogLimit(@PathVariable("labelId") Integer labelId, @PathVariable("startPage") Integer startPage){
+        log.info("[标签分页查询] 进入分页查询方法内，传入大类id:{},分页起始值:{}",labelId,startPage);
         SpongeTermDO term = SpongeTermDO.getInstance();
         Integer start = (startPage-1)*pageSize;
         term.setStartPage(start);
         term.setPageSize(pageSize);
-        term.setLabelId(labelId);
-        SpongeLimitVO spongeLimitVO = setLimitParam(term, startPage);
+        if(labelId != 18989){
+            term.setLabelId(labelId);
+        }
+        log.info("[标签分页查询] 封装的查询条件对象为:{}",term);
+        SpongeLimitVO spongeLimitVO = setLimitParam(term, startPage,labelId);
+        log.info("[标签分页查询] 返回页面数据响应对象数据为:{}",spongeLimitVO);
         return SpongeResultVO.success(spongeLimitVO);
     }
 
 
     //封装分页数据对象
-    private SpongeLimitVO setLimitParam(SpongeTermDO term,Integer startPage){
+    private SpongeLimitVO setLimitParam(SpongeTermDO term,Integer startPage,Integer objId){
+        log.info("封装分页参数方法内,条件对象:{},分页起始数{},大类id:{}",term,startPage,objId);
         ResultObjectDTO blogDTO = blogService.getBlogByLabelOrTypeByTerm(term);
         //查询全量数据条数
         Integer count = (Integer) blogService.getCountByTerm(term).getData();
         //封装分页返回对象
         SpongeLimitVO limit = new SpongeLimitVO();
         limit.setPageSize(pageSize);
+        //计算总页数
         int pageCount = new BigDecimal(count).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
         limit.setPageCount(pageCount);//总页数
         limit.setCurrentPageNumber(startPage);//当前页数
-        if(count<=startPage){
+        if(pageCount<=startPage){
             limit.setLastPage(true);
         }else{
             limit.setLastPage(false);
         }
         limit.setData(blogDTO.getData());
+        limit.setObjId(objId);
         return limit;
     }
 

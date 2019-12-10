@@ -70,7 +70,7 @@
                 <!-- 作者 -->
                 <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                 <!-- 时间 -->
-                <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:36</span></span>
                 <!-- 浏览 -->
                 <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
                 <!-- 点赞 -->
@@ -85,18 +85,6 @@
                 看到结果来看的设计灵感枯竭的是独立思考
                 看到结果来看的设计灵感枯竭的是独立思考
                 看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
             </div>
 
             <div style="margin: 4rem 0 6rem 0">
@@ -105,10 +93,10 @@
                 <!-- 对应的标签及分类 -->
                 <div class="mb-2">
                     <!-- 点击我喜欢 -->
-                    <button class="btn btn-outline-danger btn-sm mr-3"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i>喜欢(18)</button>
+                    <button class="btn btn-outline-danger btn-sm mr-3"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i>喜欢(<span th:text="${blog.likeNumInt}">18</span>)</button>
                     <!-- 文章分类及标签 -->
-                    <a href="#" class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
-                    <a href="#" class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
+                    <a th:attr="href='/blog/type/page/'+${blog.typeId}+'/1'" class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
+                    <a th:attr="href='/blog/label/page/'+${blog.labelId}+'/1'" class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
                 </div>
             </div>
 

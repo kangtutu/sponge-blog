@@ -13,6 +13,40 @@
             font-size: .85rem;
             color: #666666;
         }
+        /*隐藏border边框*/
+        .m-border-0 {
+            border: transparent;
+        }
+
+        .m-border-0:hover {
+            box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);
+        }
+        #topPage{
+            text-decoration: none;
+            color: white;
+            border: 1px #333333 solid;
+            border-radius: 1rem;
+            padding: .3rem .8rem;
+            background-color: #333333
+        }
+        #topPage:hover{
+            padding: .3rem 1.5rem;
+        }
+        .m-btn-css{
+            border:1px #666666 solid;
+            color: #666666;
+        }
+        .m-btn-css:hover{
+            color: white;
+            border:1px #666666 solid;
+            background-color: #666666;
+        }
+        /*查看更多按钮样式*/
+        .m-next-btn{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: .9rem
+        }
     </style>
 </head>
 <body>
@@ -61,327 +95,33 @@
 
 <!-- 内容部分 -->
 <div class="container mt-4" style="margin-bottom: 6rem">
+
+    <!-- 页面导航按钮 -->
+    <div class="text-center" style="margin-bottom: 4rem;padding-top: 1rem;padding-bottom:1rem;box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);">
+        <a th:each="archive : ${archives}" th:href="'#'+${archive.year}" th:text="${archive.year}" class="btn btn-sm m-btn-css mr-2">2019</a>
+    </div>
+
     <div id="blogLimitPage">
         <!-- 首页文章列表 -->
         <div id="blogList">
             <!-- 年度归档文章列表 -->
-            <div class="mb-5">
-                <h4 class="mb-3">2019</h4>
+            <div th:each="archive : ${archives}" class="mb-5">
+                <h4 class="mb-3" th:text="${archive.year}" th:id="${archive.year}">2019</h4>
                 <ul>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
+                    <li th:each="blog : ${archive.data}" class="mb-3">
+                        <a th:href="@{/blog/get/{blogId}(blogId=${blog.blogId})}" class="text-decoration-none text-dark">
                             <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
+                                <span class="mr-2" th:text="${#dates.format(blog.creationTime, 'MM-dd')}">11.23</span>
+                                <span th:text="${blog.title}">文章标题内容</span>
                                 <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
+                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
                             </div>
                         </a>
                     </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
-            <div class="mb-5">
-                <h4 class="mb-3">2019</h4>
-                <ul>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="mb-5">
-                <h4 class="mb-3">2019</h4>
-                <ul>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-                            <div class="overflow-hidden">
-                                <span class="mr-2">11.23</span>
-                                <span>文章标题内容</span>
-                                <!-- 浏览 -->
-                                <span class="mr-4 m-read-font float-right"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>

@@ -1,75 +1,76 @@
-//========================博客列表分页相关部分 START===================================
-//将博客列表数据抽取成方法直接进行传参调用即可
-function blogLit(){
-    var title = '新数据SpringBoot自动装配原理';
-    var content = '博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介';
-    var imgUrl = '../image/lb-2.jpeg';
-    var str = '';
-    str += '<div class="card mb-3 m-card-box-shadow"><div class="card-body overflow-hidden"><div class="row"><div class="col-2">';
-    str += '<img src="'+imgUrl+'" style="width: 100%;" class="rounded"></div><div class="col-10"><h5 class="text-dark">'+title+'</h5>';
-    str += '<p class="card-text small mt-2 text-dark">'+content+'</p><a href="#" class="btn btn-primary btn-sm float-right">查看更多</a></div></div></div>';
-    str += '<div class="card-footer bg-transparent border-light small text-secondary">';
-    str += '<span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>';
-    str += '<span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>';
-    str += '<span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>';
-    str += '<span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span></div></div>';
-    $("#blogList").append(str);
+//============================= 分类及标签页面博客列表相关 START ==========================
+
+//点击更多按钮页面样式
+function nextButton(objId,currentPageNumber,lastPage){
+    //对查看更多按钮进行重新赋值操作
+    $('#nextButton').html('');
+    var btn = '<button type="button" class="btn btn-sm btn-outline-dark ';
+    if(lastPage){
+        btn += 'disabled';
+    }
+    btn += ' m-next-btn"';
+    btn += 'data-obj-id="'+objId+'"';
+    btn += 'data-current-page="'+currentPageNumber+'"';
+    if(lastPage){
+        btn += '>';
+        btn += '到底了';
+    }else{
+        btn += 'onclick="appendBlog(this.getAttribute(\'data-obj-id\'),this.getAttribute(\'data-current-page\'))">';
+        btn += '查看更多';
+    }
+    btn += '</button>';
+    $('#nextButton').html(btn);
 }
 
-//点击下一页清空之前数据并填充新数据
-function clickNextPage(nextPage){
-    var num = nextPage+1;//获取下一页数据
-    var blogLimitPage = $("#blogLimitPage");
-    blogLimitPage.html("");
-    blogLimitPage.append('<div id="blogList">');
-    for(i=0;i<10;i++){
-        blogLit();
-    }
-    blogLimitPage.append('</div>');
-    //最后添加分页按钮部分
-    var limitPage = '';
-    limitPage += '<div class="overflow-hidden mt-4">';
-    limitPage += '<a href="#" class="btn btn-sm btn-primary" id="topPage">上一页</a>';
-    limitPage += '<a href="#" class="btn btn-sm btn-primary float-right" onclick="clickNextPage('+num+')" id="nextPage">下一页</a>';
-    limitPage += '</div>';
-    $("#blogLimitPage").append(limitPage);
-}
-//========================留言/评论相关部分 START===================================
-
-function commentList(){
-    var str = '<div class="card mb-3" style="border: transparent;box-shadow: 0 0 8px rgba(0,0,0,0.12);"><div class="card-body">';
-    str += commentStr('',1);
-    if(true){
-        str += commentStr('offset-1',2);
-    }
-    str += '</div>';
-    $('#commentLimitList').append(str);
-}
-//抽取的评论数据页面样式代码，此处需要注意code==1,class样式传col-11；code==2,class样式传col-10
-function commentStr(className,code){
-    var content = '测试评论回复信息测试评论回复信息测试评论回复信息';
-    var col = '';
-    if(code == 1){
-        col = 'col-11';
-    }
-    if(code == 2){
-        col = 'col-10';
-    }
+//页面文章展示数据模板
+function blogTemplate(b){
+    var imageUrl = b.imageUrl;
+    var title = b.title;
+    var content = b.content;
+    var blogId = b.blogId;
+    var author = b.author;
+    var time = new Date(b.creationTime).Format("yyyy-MM-dd");
+    var readNumber = b.readingQuantity;
+    var linkNumber = b.likeNumInt;
+    var labelName = b.labelName;
+    var typeName = b.typeName;
     var str = '';
-    str += '<div class="row"><div class="'+className+' col-1 pt-2 pb-2">';
-    str += '<p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">S</p>';
-    str += '</div><div class="'+col+'"><p class="">'+content+'</p><p class="small border-top pt-1">';
-    str += '<span>Som</span>';
-    str += '<span>2019-11-12 12:23:22</span></p></div></div>';
+    str += '<div class="card m-border-0 mb-4"><div class="card-body overflow-hidden"><div class="row"><div class="col-3">';
+    str += '<img src="'+imageUrl+'" style="width: 100%;" class="rounded"></div><div class="col-9">';
+    str += '<h4 class="text-dark mb-3">'+title+'</h4>';
+    str += '<p class="card-text font-weight-light mt-2 text-dark">'+content+'</p>';
+    str += '<a href="/blog/get/'+blogId+'" class="btn m-btn-css btn-sm float-right">查看详情</a>';
+    str += '</div></div></div><div class="card-footer bg-transparent border-light small text-secondary">';
+    str += '<span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span>'+author+'</span></span>';
+    str += '<span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span>'+time+'</span></span>';
+    str += '<span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span>'+readNumber+'</span></span>';
+    str += '<span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i><span>'+linkNumber+'</span></span>';
+    str += '<span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span>'+typeName+'</span></span>';
+    str += '<span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span>'+labelName+'</span></span></div></div>';
     return str;
 }
 
+//============================= 分类及标签页面博客列表相关 END ==========================
 
+//日期格式化，将毫秒转为 XXXX-XX-XX 的格式
+Date.prototype.Format = function(fmt) {
+    var o = {
+        "M+" : this.getMonth() + 1, // 月份
+        "d+" : this.getDate(), // 日
+        "h+" : this.getHours(), // 小时
+        "m+" : this.getMinutes(), // 分
+        "s+" : this.getSeconds(), // 秒
+        "q+" : Math.floor((this.getMonth() + 3) / 3), // 季度
+        "S" : this.getMilliseconds()
+        // 毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+            .substr(4 - RegExp.$1.length));
+    for ( var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k])
+                : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 
-
-
-
-
-
-
-
+};

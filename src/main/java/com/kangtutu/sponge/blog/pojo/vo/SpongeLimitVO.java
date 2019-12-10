@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class SpongeLimitVO implements Serializable {
 
+    private Integer objId;//当前分页的大类id
     private Integer pageCount; //总页数
     private Integer pageSize; //每页显示条数
     private Integer currentPageNumber; //当前页数
@@ -13,7 +14,8 @@ public class SpongeLimitVO implements Serializable {
     public SpongeLimitVO() {
     }
 
-    public SpongeLimitVO(Integer pageCount, Integer pageSize, Integer currentPageNumber, Boolean lastPage, Object data) {
+    public SpongeLimitVO(Integer objId, Integer pageCount, Integer pageSize, Integer currentPageNumber, Boolean lastPage, Object data) {
+        this.objId = objId;
         this.pageCount = pageCount;
         this.pageSize = pageSize;
         this.currentPageNumber = currentPageNumber;
@@ -61,10 +63,19 @@ public class SpongeLimitVO implements Serializable {
         this.data = data;
     }
 
+    public Integer getObjId() {
+        return objId;
+    }
+
+    public void setObjId(Integer objId) {
+        this.objId = objId;
+    }
+
     @Override
     public String toString() {
         return "SpongeLimitVO{" +
-                "pageCount=" + pageCount +
+                "objId=" + objId +
+                ", pageCount=" + pageCount +
                 ", pageSize=" + pageSize +
                 ", currentPageNumber=" + currentPageNumber +
                 ", lastPage=" + lastPage +

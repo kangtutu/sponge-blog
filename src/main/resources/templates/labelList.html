@@ -36,6 +36,12 @@
             border:1px #666666 solid;
             background-color: #666666;
         }
+        /*查看更多按钮样式*/
+        .m-next-btn{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: .9rem
+        }
     </style>
 </head>
 <body>
@@ -84,8 +90,7 @@
     </div>
 
     <div class="text-center" style="margin-bottom: 4rem;padding-top: 1rem;padding-bottom:1rem;box-shadow: 0 0 10px rgba(160, 160, 160, 0.24);">
-        <a th:each="label : ${labels}" th:text="${label.labelName}" th:attr="href='/blog/label/page/'+${label.labelId}+'/1'" class="btn btn-sm m-btn-css mr-2">测试标签</a>
-
+        <button th:each="label : ${labels}" th:text="${label.labelName}" th:data-obj-id="${label.labelId}" onclick="appendBlog(this.getAttribute('data-obj-id'),1,true)" class="btn btn-sm m-btn-css mr-2">测试类型</button>
     </div>
     <div id="blogLimitPage">
         <!-- 首页文章列表 -->
@@ -111,58 +116,29 @@
                 </div>
                 <div class="card-footer bg-transparent border-light small text-secondary">
                     <!-- 作者 -->
-                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
+                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                     <!-- 时间 -->
-                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
+                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime, 'yyyy-MM-dd')}"></span></span>
                     <!-- 浏览 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                    <!-- 评论 -->
-                    <span class="mr-4"><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
+                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
+                    <!-- 点赞 -->
+                    <span class="mr-4"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}">18</span></span>
                     <!-- 分类 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>分类</span>
+                    <span class="mr-4"><i class="fa fa-folder mr-1" aria-hidden="true"></i><span th:text="${blog.typeName}">分类</span></span>
                     <!-- 标签 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>标签</span>
+                    <span class="mr-4"><i class="fa fa-tag mr-1" aria-hidden="true"></i><span th:text="${blog.labelName}">标签</span></span>
                 </div>
             </div>
-
-            <div class="card m-border-0 mb-4">
-                <div class="card-body overflow-hidden">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="../image/lb-2.jpeg" style="width: 100%;" class="rounded">
-                        </div>
-                        <div class="col-9">
-                            <h3 class="text-dark mb-3">SpringBoot自动装配原理</h3>
-                            <p class="card-text font-weight-light mt-2 text-dark">
-                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                                博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介博客文章简介
-                            </p>
-                            <a href="#" class="btn m-btn-css btn-sm float-right">查看更多</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent border-light small text-secondary">
-                    <!-- 作者 -->
-                    <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i>kangtutu</span>
-                    <!-- 时间 -->
-                    <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i>2019-11-12 12:36</span>
-                    <!-- 浏览 -->
-                    <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i>18</span>
-                    <!-- 评论 -->
-                    <span><i class="fa fa-comments-o mr-1" aria-hidden="true"></i>10</span>
-                </div>
-            </div>
-
 
         </div>
-        <!-- 分页导航 -->
-        <div class="mt-5 text-center">
-
-            <a href="#" id="topPage">查看更多</a>
-
-            <!--<a href="#" class="btn btn-sm btn-primary float-right" onclick="clickNextPage(1)" id="nextPage">下一页</a>-->
+        <!-- 查询更多 -->
+        <div class="mt-5 text-center" id="nextButton">
+            <button type="button" class="btn btn-sm btn-outline-dark m-next-btn"
+                    th:classappend="${blogLimit.lastPage}?'disabled'"
+                    th:text="${!blogLimit.lastPage}?'查看更多':'到底了'"
+                    th:data-obj-id="${blogLimit.objId}"
+                    th:data-current-page="${blogLimit.currentPageNumber+1}"
+                    onclick="appendBlog(this.getAttribute('data-obj-id'),this.getAttribute('data-current-page'),false)">查看更多</button>
         </div>
     </div>
 </div>
@@ -194,5 +170,45 @@
     <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+<script th:src="@{/js/limitPage.js}"></script>
+<script>
+    //异步调用分页查询博客数据
+    function appendBlog(objId,currentPageNumber,bo){
+        //bo若为true则清空 id为blogList标签中内容
+        if(bo){
+            $('#blogList').html('');
+        }
+        //ajax调用后台分页接口查询数据
+        $.ajax({
+            url:"/blog/type/page/"+objId+"/"+currentPageNumber,
+            type:'GET',
+            success:function(data){
+                console.log(data)
+                //获取返回的各项参数值
+                var objId = data.data.objId; //当前大类id
+                var currentPageNumber = data.data.currentPageNumber+1; //当前页码数
+                var lastPage = data.data.lastPage; //是否为末页
+                var blog = data.data.data;//返回的数据
+                //追加页面文章
+                $.each(blog,function(index,b){
+                    var str = blogTemplate(b);
+                    $('#blogList').append(str);
+                })
+
+                //重新封装查看更多按钮
+                nextButton(objId,currentPageNumber,lastPage);
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+
+    }
+
+
+
+
+
+</script>
 </body>
 </html>

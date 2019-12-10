@@ -121,9 +121,9 @@
         <where>
             <if test="labelId != null">and b.label_id=#{labelId}</if>
             <if test="typeId != null">and b.type_id=#{typeId}</if>
-            <if test="status != null">and status=#{status}</if>
+            <if test="status != null">and b.status=#{status}</if>
         </where>
-        order by creation_time,reading_quantity
+        order by b.creation_time,b.reading_quantity
         <if test="startPage != null and pageSize != null">
             limit #{startPage},#{pageSize}
         </if>
@@ -144,6 +144,11 @@
             <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
             <if test="status != null">and status=#{status}</if>
         </where>
+    </select>
+
+    <!-- 查询数据库表中的年份 -->
+    <select id="queryBlogPublishYear" resultType="java.lang.Integer">
+        select publish_year from sk_blog group by publish_year order by publish_year desc;
     </select>
 
     <!-- 删除指定id数据 -->

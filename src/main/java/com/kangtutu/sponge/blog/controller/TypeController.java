@@ -1,10 +1,11 @@
 package com.kangtutu.sponge.blog.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.kangtutu.sponge.blog.Service.BlogService;
 import com.kangtutu.sponge.blog.Service.TypeService;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
-import com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeLimitVO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
 import org.slf4j.Logger;
@@ -39,17 +40,17 @@ public class TypeController {
 
     //分类首页
     @GetMapping
-    public String type(Model model){
+    public String typeIndex(Model model){
         //查询数据库中启用的标签数据
         ResultObjectDTO typeDTO = typeService.getTypeAll(true);
-
+        log.info("[分类首页] 查询到的已经启用的分类数据为:{}",typeDTO);
         //按照查询到的第一个标签数据进行数据展示
-        //List<SpongeTypeDO> types = (List<SpongeTypeDO>) typeDTO.getData();
         SpongeTermDO term = SpongeTermDO.getInstance();
         term.setStartPage(0);
         term.setPageSize(pageSize);
-        SpongeLimitVO blogLimit = setLimitParam(term, 1);
-
+        log.info("[分类首页] 用于查询文章列表的条件对象为:{}",term);
+        SpongeLimitVO blogLimit = setLimitParam(term, 1,18989);
+        log.info("[分类首页] 返回页面的分页数据对象数据为:{}",blogLimit);
         model.addAttribute("types",typeDTO.getData());
         model.addAttribute("blogLimit",blogLimit);
         return "typeList";
@@ -63,33 +64,41 @@ public class TypeController {
     @GetMapping("/page/{typeId}/{startPage}")
     @ResponseBody
     public SpongeResultVO blogLimit(@PathVariable("typeId") Integer typeId,@PathVariable("startPage") Integer startPage){
+        log.info("[分类分页查询] 进入分页查询方法内，传入大类id:{},分页起始值:{}",typeId,startPage);
         SpongeTermDO term = SpongeTermDO.getInstance();
         Integer start = (startPage-1)*pageSize;
         term.setStartPage(start);
         term.setPageSize(pageSize);
-        term.setTypeId(typeId);
-        SpongeLimitVO spongeLimitVO = setLimitParam(term, startPage);
+        if(typeId != 18989){
+            term.setTypeId(typeId);
+        }
+        log.info("[分类分页查询] 封装的查询条件对象为:{}",term);
+        SpongeLimitVO spongeLimitVO = setLimitParam(term, startPage,typeId);
+        log.info("[分类分页查询] 返回页面数据响应对象数据为:{}",spongeLimitVO);
+        //return JSONObject.toJSONString(spongeLimitVO);
         return SpongeResultVO.success(spongeLimitVO);
     }
 
 
     //封装分页数据对象
-    private SpongeLimitVO setLimitParam(SpongeTermDO term,Integer startPage){
+    private SpongeLimitVO setLimitParam(SpongeTermDO term,Integer startPage,Integer objId){
         ResultObjectDTO blogDTO = blogService.getBlogByLabelOrTypeByTerm(term);
         //查询全量数据条数
         Integer count = (Integer) blogService.getCountByTerm(term).getData();
         //封装分页返回对象
         SpongeLimitVO limit = new SpongeLimitVO();
         limit.setPageSize(pageSize);
+        //计算总页数
         int pageCount = new BigDecimal(count).divide(new BigDecimal(pageSize),0,BigDecimal.ROUND_UP).intValue();
         limit.setPageCount(pageCount);//总页数
         limit.setCurrentPageNumber(startPage);//当前页数
-        if(count<=startPage){
+        if(pageCount<=startPage){
             limit.setLastPage(true);
         }else{
             limit.setLastPage(false);
         }
         limit.setData(blogDTO.getData());
+        limit.setObjId(objId);
         return limit;
     }
 

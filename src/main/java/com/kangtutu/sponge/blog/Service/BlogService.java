@@ -49,6 +49,18 @@ public interface BlogService {
     ResultObjectDTO getCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
+     * 查询数据库表中有哪些归档年份
+     * @return
+     */
+    ResultObjectDTO getBlogPublishYear();
+
+    /**
+     * 按条件查询文章数据
+     * @return
+     */
+    ResultObjectDTO getBlogByTerm(SpongeTermDO spongeTermDO);
+
+    /**
      * 删除博客数据
      * @param blogId
      */
