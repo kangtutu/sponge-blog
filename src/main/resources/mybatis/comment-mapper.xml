@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kangtutu.sponge.blog.mapper.CommentMapper">
+
+    <!-- 新增数据 -->
+    <insert id="saveComment" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        insert into sk_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="blogId != null">blog_id,</if>
+            <if test="title != null">title,</if>
+            <if test="parentCommentId != null">parent_comment_id,</if>
+            <if test="content != null">content,</if>
+            <if test="obServer != null">ob_server,</if>
+            <if test="headAddress != null">head_address,</if>
+            <if test="waitForReply != null">wait_for_reply,</if>
+            <if test="status != null">status,</if>
+            <if test="creationUser != null">creation_user,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="creationTime != null">creation_time,</if>
+            <if test="updateTime != null">update_time</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="blogId != null">#{blogId},</if>
+            <if test="title != null">#{title},</if>
+            <if test="parentCommentId != null">#{parentCommentId},</if>
+            <if test="content != null">#{content},</if>
+            <if test="obServer != null">#{obServer},</if>
+            <if test="headAddress != null">#{headAddress},</if>
+            <if test="waitForReply != null">#{waitForReply},</if>
+            <if test="status != null">#{status},</if>
+            <if test="creationUser != null">#{creationUser},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="creationTime != null">#{creationTime},</if>
+            <if test="updateTime != null">#{updateTime}</if>
+        </trim>
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="updateComment" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        update sk_comment
+        <trim prefix="set" suffixOverrides=",">
+            <if test="blogId != null">blog_id=#{blogId},</if>
+            <if test="title != null">title=#{title},</if>
+            <if test="content != null">content=#{content},</if>
+            <if test="parentCommentId != null">parent_comment_id=#{parentCommentId},</if>
+            <if test="obServer != null">ob_server=#{obServer},</if>
+            <if test="headAddress != null">head_address=#{headAddress},</if>
+            <if test="waitForReply != null">wait_for_reply=#{waitForReply},</if>
+            <if test="status != null">status=#{status},</if>
+            <if test="updateUser != null">update_user=#{updateUser},</if>
+            <if test="updateTime != null">update_time=#{updateTime}</if>
+        </trim>
+        where comment_id=#{commentId}
+    </update>
+
+    <!-- 按照条件查询 -->
+    <select id="queryCommentByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        select * from sk_comment
+        <where>
+            <if test="status != null">and status=#{status}</if>
+            <if test="commentId != null">and comment_id=#{commentId}</if>
+            <if test="blogId != null">and blog_id=#{blogId}</if>
+        </where>
+        order by creation_time desc
+    </select>
+
+    <!-- 按条件查询总数 -->
+    <select id="queryCommentCountByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO">
+        select count(*) from sk_comment
+        <where>
+            <if test="status != null">and status=#{status}</if>
+            <if test="blogId != null">and blog_id=#{blogId}</if>
+        </where>
+    </select>
+
+    <!-- 查询博客数据的父级或子级信息 -->
+    <select id="queryCommentParentOrChildrenByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        select count(*) from sk_comment
+        <where>
+            <if test="status != null">and status=#{status}</if>
+            <if test="blogId != null">and blog_id=#{blogId}</if>
+            <if test="code != null and code == 1">and parent_comment_id is null</if>
+            <if test="code != null and code == 2">and parent_comment_id is not null</if>
+        </where>
+        order by creation_time desc
+    </select>
+
+    <!-- 删除指定id数据 -->
+    <delete id="deleteCommentById" parameterType="java.lang.Integer">
+        delete from sk_comment where comment_id=#{commentId};
+    </delete>
+
+</mapper>
