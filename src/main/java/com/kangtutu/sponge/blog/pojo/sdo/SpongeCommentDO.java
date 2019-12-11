@@ -11,6 +11,8 @@ public class SpongeCommentDO implements Serializable {
     private Integer parentCommentId; //父级评论信息ID
     private String obServer; //评论者
     private String headAddress;//头像地址
+    private String email;//邮箱
+    private String website;//网址
     private String content; //内容
     private Boolean waitForReply;//待回复 已回复 - true  未回复 - false
     private Boolean status; //状态
@@ -28,6 +30,8 @@ public class SpongeCommentDO implements Serializable {
                 ", parentCommentId=" + parentCommentId +
                 ", obServer='" + obServer + '\'' +
                 ", headAddress='" + headAddress + '\'' +
+                ", email='" + email + '\'' +
+                ", website='" + website + '\'' +
                 ", content='" + content + '\'' +
                 ", waitForReply=" + waitForReply +
                 ", status=" + status +
@@ -140,5 +144,21 @@ public class SpongeCommentDO implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

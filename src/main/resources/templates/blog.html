@@ -102,27 +102,27 @@
 
             <!-- 评论输入框 -->
             <div class="overflow-hidden">
-                <form>
+                    <input type="hidden" id="commentBlogId" th:name="blogId" th:value="${blog.blogId}">
+                    <input type="hidden" id="commentBlogTitle" th:name="title" th:value="${blog.title}">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="nickName">昵称</label>
-                            <input type="text" class="form-control" id="nickName" placeholder="请输入昵称">
+                            <label for="obServer">昵称</label>
+                            <input th:name="obServer" type="text" class="form-control" id="obServer" placeholder="请输入昵称">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="email">邮箱</label>
-                            <input type="email" class="form-control" id="email" placeholder="请输入邮箱">
+                            <input th:name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="urlPath">昵称</label>
-                            <input type="text" class="form-control" id="urlPath" placeholder="请输入网址">
+                            <label for="website">网址</label>
+                            <input th:name="website" type="text" class="form-control" id="website" placeholder="请输入网址">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputAddress">评论信息</label>
-                        <textarea class="form-control" id="inputAddress" rows="3"></textarea>
+                        <label for="commentContent">评论信息</label>
+                        <textarea th:name="content" class="form-control" id="commentContent" rows="3"></textarea>
                     </div>
-                    <button type="submit" class="btn m-btn-css float-right">提交评论</button>
-                </form>
+                    <button type="button" class="btn m-btn-css float-right" onclick="ajaxSubmit()">提交评论</button>
             </div>
             <!-- 评论列表 -->
             <div class=" mb-4" id="commentLimitList">
@@ -136,25 +136,9 @@
                             <div class="col-11">
                                 <div class="mb-2">
                                     <span class="" th:text="${comment['parent'].obServer}">Som</span>
-                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(comment['parent'].creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
+                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(comment['parent'].creationTime, 'yyyy-MM-dd HH:mm')}">2019-11-12 12:23:22</span>
                                 </div>
-                                <p class="font-weight-light" th:text="${comment['parent'].content}">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                </p>
+                                <p class="font-weight-light" th:text="${comment['parent'].content}">评论信息内容</p>
                             </div>
                         </div>
                         <div th:each="cc : ${comment['children']}" class="row">
@@ -166,23 +150,7 @@
                                     <span class="" th:text="${cc.obServer}">Som</span>
                                     <span class="small ml-2" style="color: #848484" th:text="${#dates.format(cc.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
                                 </div>
-                                <p class="font-weight-light" th:text="${cc.content}">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                </p>
+                                <p class="font-weight-light" th:text="${cc.content}">评论信息内容</p>
                             </div>
                         </div>
                     </div>
@@ -223,6 +191,35 @@
     <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+<script>
+    function ajaxSubmit(){
+        var obServer = $('#obServer').val();
+        var email = $('#email').val();
+        var website = $('#website').val();
+        var content = $('#commentContent').val();
+        var blogId = $('#commentBlogId').val();
+        var title = $('#commentBlogTitle').val();
+        //obServer-email-content 参数进行非空判断当存在空参数时提示页面禁止提交
+        if(obServer == '' || obServer == undefined || email == '' || email == undefined || content == '' || content == undefined){
+            alert("参数不能为空")
+            return;
+        }
+        //异步提交通过返回值进行自动刷新页面
+        $.ajax({
+            url:'/blog/comment/add',
+            data:{'obServer':obServer,'email':email,'content':content,'blogId':blogId,'title':title,'website':website},
+            dataType:'JSON',
+            type:'POST',
+            success:function(data){
+                window.location.reload();
+            },
+            error:function(e){
+                console.log(e)
+            }
+        })
+    }
 
+
+</script>
 </body>
 </html>

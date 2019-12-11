@@ -3,6 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kangtutu.sponge.blog.mapper.BlogMapper">
 
+    <!-- 抽取条件判断的公共SQl -->
+    <sql id="termSQL">
+        <if test="blogId != null">and blog_id=#{blogId}</if>
+        <if test="labelId != null">and label_id=#{labelId}</if>
+        <if test="typeId != null">and type_id=#{typeId}</if>
+        <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
+        <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
+        <if test="openHomeRecommend != null">and open_home_recommend=#{openHomeRecommend}</if>
+        <if test="openCopyright != null">and open_copyright=#{openCopyright}</if>
+        <if test="openComment != null">and open_comment=#{openComment}</if>
+        <if test="publishYear != null">and publish_year=#{publishYear}</if>
+        <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
+        <if test="waitForReply != null">and wait_for_reply=#{waitForReply}</if>
+        <if test="status != null">and status=#{status}</if>
+    </sql>
+
     <!-- 新增数据 -->
     <insert id="saveBlog" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         insert into sk_blog
@@ -96,16 +112,7 @@
     <select id="queryBlogByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO">
         select * from sk_blog
         <where>
-            <if test="labelId != null">and label_id=#{labelId}</if>
-            <if test="typeId != null">and type_id=#{typeId}</if>
-            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
-            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
-            <if test="openHomeRecommend != null">and open_home_recommend=#{openHomeRecommend}</if>
-            <if test="openCopyright != null">and open_copyright=#{openCopyright}</if>
-            <if test="openComment != null">and open_comment=#{openComment}</if>
-            <if test="publishYear != null">and publish_year=#{publishYear}</if>
-            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
-            <if test="status != null">and status=#{status}</if>
+            <include refid="termSQL"></include>
         </where>
         order by creation_time desc
         <if test="startPage != null and pageSize !=null">
@@ -133,16 +140,7 @@
     <select id="queryCountByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="java.lang.Integer">
         select count(*) from sk_blog
         <where>
-            <if test="labelId != null">and label_id=#{labelId}</if>
-            <if test="typeId != null">and type_id=#{typeId}</if>
-            <if test="readingQuantity != null">and reading_quantity=#{readingQuantity}</if>
-            <if test="likeNumInt != null">and like_num_int=#{likeNumInt}</if>
-            <if test="openHomeRecommend != null">and open_home_recommend=#{openHomeRecommend}</if>
-            <if test="openCopyright != null">and open_copyright=#{openCopyright}</if>
-            <if test="openComment != null">and open_comment=#{openComment}</if>
-            <if test="publishYear != null">and publish_year=#{publishYear}</if>
-            <if test="publishMonth != null">and publish_month=#{publishMonth}</if>
-            <if test="status != null">and status=#{status}</if>
+            <include refid="termSQL"></include>
         </where>
     </select>
 
