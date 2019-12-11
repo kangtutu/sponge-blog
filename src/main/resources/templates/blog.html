@@ -24,7 +24,7 @@
 </head>
 <body>
 <!-- 导航 -->
-<nav class="navbar navbar-expand-lg pt-3 pb-3 pl-5 pr-5">
+<nav th:replace="_fragment :: navbar" class="navbar navbar-expand-lg pt-3 pb-3 pl-5 pr-5">
     <a class="navbar-brand" href="#">
         <img src="../static/image/logo.png" width="50" height="50" alt="">
     </a>
@@ -124,25 +124,21 @@
                     <button type="submit" class="btn m-btn-css float-right">提交评论</button>
                 </form>
             </div>
-
             <!-- 评论列表 -->
             <div class=" mb-4" id="commentLimitList">
-                <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span>66条</span></h5>
-
-                <div class="card mb-4 border-bottom" style="border: transparent;">
+                <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span th:text="${countComment}">0</span>条</h5>
+                <div th:each="comment : ${comments}"  class="card mb-4 border-bottom" style="border: transparent;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-1 pt-2 pb-2">
-                                <p class="font-weight-bold m-auto"
-                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                    S</p>
+                                <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(comment['parent'].obServer,0,1)}]]</p>
                             </div>
                             <div class="col-11">
                                 <div class="mb-2">
-                                    <span class="font-weight-bold">Som</span>
-                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                                    <span class="" th:text="${comment['parent'].obServer}">Som</span>
+                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(comment['parent'].creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
                                 </div>
-                                <p class="font-weight-light">
+                                <p class="font-weight-light" th:text="${comment['parent'].content}">
                                     Some quick example text to build on the card title and make up the bulk of the
                                     card's
                                     content.
@@ -159,21 +155,18 @@
                                     card's
                                     content.
                                 </p>
-
                             </div>
                         </div>
-                        <div class="row">
+                        <div th:each="cc : ${comment['children']}" class="row">
                             <div class="offset-1 col-1 pt-2 pb-2">
-                                <p class="font-weight-bold m-auto"
-                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                    S</p>
+                                <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(cc.obServer,0,1)}]]</p>
                             </div>
                             <div class="col-10">
                                 <div class="mb-2">
-                                    <span class="font-weight-bold">Som</span>
-                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
+                                    <span class="" th:text="${cc.obServer}">Som</span>
+                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(cc.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
                                 </div>
-                                <p class="font-weight-light">
+                                <p class="font-weight-light" th:text="${cc.content}">
                                     Some quick example text to build on the card title and make up the bulk of the
                                     card's
                                     content.
@@ -194,43 +187,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="card mb-4 border-bottom" style="border: transparent;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-1 pt-2 pb-2">
-                                <p class="font-weight-bold m-auto"
-                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">
-                                    S</p>
-                            </div>
-                            <div class="col-11">
-                                <div class="mb-2">
-                                    <span class="font-weight-bold">Som</span>
-                                    <span class="small ml-2" style="color: #848484">2019-11-12 12:23:22</span>
-                                </div>
-                                <p class="font-weight-light">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
         </div>

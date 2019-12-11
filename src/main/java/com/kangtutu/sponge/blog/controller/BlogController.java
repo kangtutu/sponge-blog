@@ -72,35 +72,53 @@ public class BlogController {
             return "error";
         }
         log.info("[查询指定ID博客] 查询文章ID:"+blogId+"数据成功,{}",resultObjectDTO.getData());
-        //封装指定博客ID的评论信息
-        ResultObjectDTO parentComments = commentService.getCommentParentOrChildrenByTerm(true, blogId, 1);//查询父级评论信息
-        ResultObjectDTO childrenComments = commentService.getCommentParentOrChildrenByTerm(true, blogId, 2);//查询子级评论信息
-        //创建评论信息封装对象
+
+        //查询评论信息并进行封装
+        List<Map<String, Object>> comments = setCommentParentAndChildren(blogId);
+        log.info("[查询指定ID博客] 查询文章ID:"+blogId+"的评论信息数据为:{}",comments);
+
+        SpongeTermDO term = new SpongeTermDO();
+        term.setBlogId(blogId);
+        ResultObjectDTO countComment = commentService.getCommentCountByTerm(term);
+
+        model.addAttribute("blog",resultObjectDTO.getData());
+        model.addAttribute("countComment",countComment.getData());
+        model.addAttribute("comments",comments);
+        return "blog";
+    }
+
+    //封装评论信息
+    private List<Map<String,Object>> setCommentParentAndChildren(Integer blogId){
+        log.info("进入封装评论信息方法内,博客ID:{}",blogId);
         List<Map<String,Object>> list = new ArrayList<>();
-        //父级评论id与子级评论id进行比对筛选
-        List<SpongeCommentDO> parent = (List<SpongeCommentDO>) parentComments.getData();
-        List<SpongeCommentDO> children = (List<SpongeCommentDO>) childrenComments.getData();
-        if(parentComments != null && parent.size()>0){
-            for(int i=0;i<parent.size();i++){
-                Map<String,Object> map = new HashMap<>();
-                SpongeCommentDO parentComment = parent.get(i);
-                map.put("parent",parentComment);
-                if(childrenComments != null && children.size()>0){
-                    List<SpongeCommentDO> childrenList = new ArrayList<>();
-                    for(int k=0;k<children.size();k++){
-                        SpongeCommentDO childrenComment = children.get(k);
-                        if(parentComment.getCommentId() == childrenComment.getParentCommentId()){
-                            childrenList.add(childrenComment);
+        //根据博客id获取父级评论信息
+        ResultObjectDTO parentComment = commentService.getParentComment(blogId);
+        log.info("服务层查询返回的父级评论信息数据为:{}",parentComment);
+        Object parent = parentComment.getData();
+        if(parentComment.getCode() == 200 && parent != null){
+            List<SpongeCommentDO> pComment = (List<SpongeCommentDO>)parent;
+            //根据博客id获取子级评论信息
+            if(pComment != null && pComment.size()>0){
+                for(int i=0;i<pComment.size();i++){
+                    //封装父级评论信息
+                    Map<String,Object> map = new HashMap<>();
+                    SpongeCommentDO comment = pComment.get(i);
+                    map.put("parent",comment);
+                    //查询子级评论信息
+                    ResultObjectDTO childrenComment = commentService.getChildrenComment(blogId, comment.getCommentId());
+                    log.info("服务层查询返回的子级评论信息数据为:{}",childrenComment);
+                    Object children = childrenComment.getData();
+                    if(childrenComment.getCode() == 200 && children != null){
+                        List<SpongeCommentDO> cComment = (List<SpongeCommentDO>)children;
+                        if(cComment != null && cComment.size()>0){
+                            map.put("children",cComment);
                         }
+                        list.add(map);
                     }
-                    map.put("children",childrenList);
-                    list.add(map);
                 }
             }
         }
-        System.out.println(parent);
-        model.addAttribute("blog",resultObjectDTO.getData());
-        return "blog";
+        return list;
     }
 
 }

@@ -20,6 +20,11 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+    /**
+     * 新增评论
+     * @param spongeCommentDO
+     * @return
+     */
     @Override
     public ResultObjectDTO saveComment(SpongeCommentDO spongeCommentDO) {
         //初始化参数
@@ -28,6 +33,11 @@ public class CommentServiceImpl implements CommentService {
         return ResultObjectDTO.success();
     }
 
+    /**
+     * 修改评论数据
+     * @param spongeCommentDO
+     * @return
+     */
     @Override
     public ResultObjectDTO updateComment(SpongeCommentDO spongeCommentDO) {
         spongeCommentDO.setUpdateUser("kangtutu");
@@ -36,31 +46,73 @@ public class CommentServiceImpl implements CommentService {
         return ResultObjectDTO.success();
     }
 
+    /**
+     * 按条件查询评论数据
+     * @param spongeTermDO
+     * @return
+     */
     @Override
     public ResultObjectDTO getCommentByTerm(SpongeTermDO spongeTermDO) {
         List<SpongeCommentDO> comments = commentMapper.queryCommentByTerm(spongeTermDO);
         return ResultObjectDTO.success(comments);
     }
 
+    /**
+     * 按条件获取评论总条数
+     * @param spongeTermDO
+     * @return
+     */
     @Override
     public ResultObjectDTO getCommentCountByTerm(SpongeTermDO spongeTermDO) {
         Integer count = commentMapper.queryCommentCountByTerm(spongeTermDO);
         return ResultObjectDTO.success(count);
     }
 
+    /**
+     * 获取父级评论信息
+     * @param blogId
+     * @return
+     */
     @Override
-    public ResultObjectDTO getCommentParentOrChildrenByTerm(Boolean status, Integer blogId, Integer code) {
-        List<SpongeCommentDO> comments = commentMapper.queryCommentParentOrChildrenByTerm(true, blogId, code);
+    public ResultObjectDTO getParentComment(Integer blogId) {
+        List<SpongeCommentDO> comments = commentMapper.queryParentComment(true, blogId);
+//        if(comments!= null && comments.size()>0 && comments.get(0) != null){
+//            return ResultObjectDTO.success(comments);
+//        }
         return ResultObjectDTO.success(comments);
     }
 
+    /**
+     * 获取子级评论信息
+     * @param blogId
+     * @param parentCommentId
+     * @return
+     */
+    @Override
+    public ResultObjectDTO getChildrenComment(Integer blogId, Integer parentCommentId) {
+        List<SpongeCommentDO> comments = commentMapper.queryChildrenComment(true, blogId, parentCommentId);
+//        if(comments!= null && comments.size()>0 && comments.get(0) != null){
+//            return ResultObjectDTO.success(comments);
+//        }
+        return ResultObjectDTO.success(comments);
+    }
+
+
+    /**
+     * 删除指定id评论
+     * @param commentId
+     * @return
+     */
     @Override
     public ResultObjectDTO deleteCommentById(Integer commentId) {
         commentMapper.deleteCommentById(commentId);
-        return ResultObjectDTO.success();
+        return ResultObjectDTO.success(null);
     }
 
-    //初始化参数
+    /**
+     * 初始化参数
+     * @param comment
+     */
     private void initCommentParam(SpongeCommentDO comment){
         Date date = new Date();
         String str = "admin";

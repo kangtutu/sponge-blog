@@ -67,7 +67,7 @@
     </select>
 
     <!-- 按条件查询总数 -->
-    <select id="queryCommentCountByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO">
+    <select id="queryCommentCountByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="java.lang.Integer">
         select count(*) from sk_comment
         <where>
             <if test="status != null">and status=#{status}</if>
@@ -75,17 +75,16 @@
         </where>
     </select>
 
-    <!-- 查询博客数据的父级或子级信息 -->
-    <select id="queryCommentParentOrChildrenByTerm" parameterType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
-        select count(*) from sk_comment
-        <where>
-            <if test="status != null">and status=#{status}</if>
-            <if test="blogId != null">and blog_id=#{blogId}</if>
-            <if test="code != null and code == 1">and parent_comment_id is null</if>
-            <if test="code != null and code == 2">and parent_comment_id is not null</if>
-        </where>
-        order by creation_time desc
+    <!-- 查询博客数据的父级 -->
+    <select id="queryParentComment" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        select * from sk_comment where status=#{status} and blog_id=#{blogId} and parent_comment_id is null order by creation_time desc;
     </select>
+
+    <!-- 查询博客数据的子级信息 -->
+    <select id="queryChildrenComment" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        select * from sk_comment where status=#{status} and blog_id=#{blogId} and parent_comment_id=#{parentCommentId} order by creation_time desc;
+    </select>
+
 
     <!-- 删除指定id数据 -->
     <delete id="deleteCommentById" parameterType="java.lang.Integer">

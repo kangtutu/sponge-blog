@@ -38,13 +38,18 @@ public interface CommentService {
     ResultObjectDTO getCommentCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询博客数据的父级或子级信息
-     * @param status
+     * 查询博客数据的父级信息
      * @param blogId
-     * @param code 1-父级 2-子级
      * @return
      */
-    ResultObjectDTO getCommentParentOrChildrenByTerm(Boolean status,Integer blogId,Integer code);
+    ResultObjectDTO getParentComment(Integer blogId);
+
+    /**
+     * 查询博客数据的子级信息
+     * @param blogId
+     * @return
+     */
+    ResultObjectDTO getChildrenComment(Integer blogId,Integer parentCommentId);
 
     /**
      * 删除数据

@@ -39,13 +39,21 @@ public interface CommentMapper {
     Integer queryCommentCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
-     * 查询博客数据的父级或子级信息
+     * 查询博客数据的父级信息
      * @param status
      * @param blogId
-     * @param code 1-父级 2-子级
      * @return
      */
-    List<SpongeCommentDO> queryCommentParentOrChildrenByTerm(@Param("status") Boolean status,@Param("blogId") Integer blogId,@Param("code") Integer code);
+    List<SpongeCommentDO> queryParentComment(@Param("status") Boolean status,@Param("blogId") Integer blogId);
+
+    /**
+     * 查询博客数据的子级信息
+     * @param status
+     * @param blogId
+     * @return
+     */
+    List<SpongeCommentDO> queryChildrenComment(@Param("status") Boolean status,@Param("blogId") Integer blogId,@Param("parentCommentId") Integer parentCommentId);
+
 
     /**
      * 删除数据

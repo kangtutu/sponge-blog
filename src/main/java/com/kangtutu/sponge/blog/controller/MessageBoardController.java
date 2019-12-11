@@ -13,4 +13,8 @@ public class MessageBoardController {
     public String board(){
         return "messageBoard";
     }
+
+
+
 }
+
