@@ -70,15 +70,19 @@
                 <!-- 作者 -->
                 <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                 <!-- 时间 -->
-                <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span th:text="${#dates.format(blog.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:36</span></span>
+                <span class="mr-4"><i class="fa fa-calendar mr-1" aria-hidden="true"></i><span
+                        th:text="${#dates.format(blog.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:36</span></span>
                 <!-- 浏览 -->
-                <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span th:text="${blog.readingQuantity}">18</span></span>
+                <span class="mr-4"><i class="fa fa-eye mr-1" aria-hidden="true"></i><span
+                        th:text="${blog.readingQuantity}">18</span></span>
                 <!-- 点赞 -->
-                <span class="mr-4"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i><span th:text="${blog.likeNumInt}">18</span></span>
+                <span class="mr-4"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i><span
+                        th:text="${blog.likeNumInt}">18</span></span>
                 <!-- 分类 -->
                 <span class="mr-4"><i class="fa fa-folder mr-1" aria-hidden="true"></i><span th:text="${blog.typeName}">分类</span></span>
                 <!-- 标签 -->
-                <span class="mr-4"><i class="fa fa-tag mr-1" aria-hidden="true"></i><span th:text="${blog.labelName}">标签</span></span>
+                <span class="mr-4"><i class="fa fa-tag mr-1" aria-hidden="true"></i><span
+                        th:text="${blog.labelName}">标签</span></span>
             </div>
 
             <div th:text="${blog.content}">
@@ -93,62 +97,73 @@
                 <!-- 对应的标签及分类 -->
                 <div class="mb-2">
                     <!-- 点击我喜欢 -->
-                    <button class="btn btn-outline-danger btn-sm mr-3"><i class="fa fa-heartbeat mr-1" aria-hidden="true"></i>喜欢(<span th:text="${blog.likeNumInt}">18</span>)</button>
+                    <button class="btn btn-outline-danger btn-sm mr-3"><i class="fa fa-heartbeat mr-1"
+                                                                          aria-hidden="true"></i>喜欢(<span
+                            th:text="${blog.likeNumInt}">18</span>)
+                    </button>
                     <!-- 文章分类及标签 -->
-                    <a th:attr="href='/blog/type/page/'+${blog.typeId}+'/1'" class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
-                    <a th:attr="href='/blog/label/page/'+${blog.labelId}+'/1'" class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
+                    <a th:attr="href='/blog/type/page/'+${blog.typeId}+'/1'"
+                       class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
+                    <a th:attr="href='/blog/label/page/'+${blog.labelId}+'/1'"
+                       class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
                 </div>
             </div>
 
             <!-- 评论输入框 -->
             <div class="overflow-hidden">
-                    <input type="hidden" id="commentBlogId" th:name="blogId" th:value="${blog.blogId}">
-                    <input type="hidden" id="commentBlogTitle" th:name="title" th:value="${blog.title}">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="obServer">昵称</label>
-                            <input th:name="obServer" type="text" class="form-control" id="obServer" placeholder="请输入昵称">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="email">邮箱</label>
-                            <input th:name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="website">网址</label>
-                            <input th:name="website" type="text" class="form-control" id="website" placeholder="请输入网址">
-                        </div>
+                <input type="hidden" id="commentBlogId" th:name="blogId" th:value="${blog.blogId}">
+                <input type="hidden" id="commentBlogTitle" th:name="title" th:value="${blog.title}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="obServer">昵称</label>
+                        <input th:name="obServer" type="text" class="form-control" id="obServer" placeholder="请输入昵称">
                     </div>
-                    <div class="form-group">
-                        <label for="commentContent">评论信息</label>
-                        <textarea th:name="content" class="form-control" id="commentContent" rows="3"></textarea>
+                    <div class="form-group col-md-4">
+                        <label for="email">邮箱</label>
+                        <input th:name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
                     </div>
-                    <button type="button" class="btn m-btn-css float-right" onclick="ajaxSubmit()">提交评论</button>
+                    <div class="form-group col-md-4">
+                        <label for="website">网址</label>
+                        <input th:name="website" type="text" class="form-control" id="website" placeholder="请输入网址">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="commentContent">评论信息</label>
+                    <textarea th:name="content" class="form-control" id="commentContent" rows="3"></textarea>
+                </div>
+                <button type="button" class="btn m-btn-css float-right" onclick="ajaxSubmit()">提交评论</button>
             </div>
             <!-- 评论列表 -->
             <div class=" mb-4" id="commentLimitList">
                 <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span th:text="${countComment}">0</span>条</h5>
-                <div th:each="comment : ${comments}"  class="card mb-4 border-bottom" style="border: transparent;">
+                <div th:each="comment : ${comments}" class="card mb-4 border-bottom" style="border: transparent;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-1 pt-2 pb-2">
-                                <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(comment['parent'].obServer,0,1)}]]</p>
+                                <p class="font-weight-bold m-auto"
+                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">
+                                    [[${#strings.substring(comment['parent'].obServer,0,1)}]]</p>
                             </div>
                             <div class="col-11">
                                 <div class="mb-2">
                                     <span class="" th:text="${comment['parent'].obServer}">Som</span>
-                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(comment['parent'].creationTime, 'yyyy-MM-dd HH:mm')}">2019-11-12 12:23:22</span>
+                                    <span class="small ml-2" style="color: #848484"
+                                          th:text="${#dates.format(comment['parent'].creationTime, 'yyyy-MM-dd HH:mm')}">2019-11-12 12:23:22</span>
                                 </div>
                                 <p class="font-weight-light" th:text="${comment['parent'].content}">评论信息内容</p>
                             </div>
                         </div>
                         <div th:each="cc : ${comment['children']}" class="row">
                             <div class="offset-1 col-1 pt-2 pb-2">
-                                <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(cc.obServer,0,1)}]]</p>
+                                <p class="font-weight-bold m-auto"
+                                   style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">
+                                    [[${#strings.substring(cc.obServer,0,1)}]]</p>
                             </div>
                             <div class="col-10">
                                 <div class="mb-2">
                                     <span class="" th:text="${cc.obServer}">Som</span>
-                                    <span class="small ml-2" style="color: #848484" th:text="${#dates.format(cc.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
+                                    <span class="small ml-2" style="color: #848484"
+                                          th:text="${#dates.format(cc.creationTime, 'yyyy-MM-dd')}">2019-11-12 12:23:22</span>
                                 </div>
                                 <p class="font-weight-light" th:text="${cc.content}">评论信息内容</p>
                             </div>
@@ -192,7 +207,7 @@
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
 <script>
-    function ajaxSubmit(){
+    function ajaxSubmit() {
         var obServer = $('#obServer').val();
         var email = $('#email').val();
         var website = $('#website').val();
@@ -200,20 +215,27 @@
         var blogId = $('#commentBlogId').val();
         var title = $('#commentBlogTitle').val();
         //obServer-email-content 参数进行非空判断当存在空参数时提示页面禁止提交
-        if(obServer == '' || obServer == undefined || email == '' || email == undefined || content == '' || content == undefined){
+        if (obServer == '' || obServer == undefined || email == '' || email == undefined || content == '' || content == undefined) {
             alert("参数不能为空")
             return;
         }
         //异步提交通过返回值进行自动刷新页面
         $.ajax({
-            url:'/blog/comment/add',
-            data:{'obServer':obServer,'email':email,'content':content,'blogId':blogId,'title':title,'website':website},
-            dataType:'JSON',
-            type:'POST',
-            success:function(data){
+            url: '/blog/comment/add',
+            data: {
+                'obServer': obServer,
+                'email': email,
+                'content': content,
+                'blogId': blogId,
+                'title': title,
+                'website': website
+            },
+            dataType: 'JSON',
+            type: 'POST',
+            success: function (data) {
                 window.location.reload();
             },
-            error:function(e){
+            error: function (e) {
                 console.log(e)
             }
         })
