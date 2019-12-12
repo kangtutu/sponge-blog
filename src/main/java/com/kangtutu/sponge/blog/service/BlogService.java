@@ -1,10 +1,8 @@
-package com.kangtutu.sponge.blog.Service;
+package com.kangtutu.sponge.blog.service;
 
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
-
-import java.util.List;
 
 public interface BlogService {
 

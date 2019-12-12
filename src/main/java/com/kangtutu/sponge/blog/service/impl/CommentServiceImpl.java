@@ -1,6 +1,6 @@
-package com.kangtutu.sponge.blog.Service.impl;
+package com.kangtutu.sponge.blog.service.impl;
 
-import com.kangtutu.sponge.blog.Service.CommentService;
+import com.kangtutu.sponge.blog.service.CommentService;
 import com.kangtutu.sponge.blog.mapper.CommentMapper;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;

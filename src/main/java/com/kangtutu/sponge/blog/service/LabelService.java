@@ -1,8 +1,7 @@
-package com.kangtutu.sponge.blog.Service;
+package com.kangtutu.sponge.blog.service;
 
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;
-import org.apache.ibatis.annotations.Param;
 
 public interface LabelService {
 

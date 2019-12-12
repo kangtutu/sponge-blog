@@ -1,6 +1,6 @@
-package com.kangtutu.sponge.blog.Service.impl;
+package com.kangtutu.sponge.blog.service.impl;
 
-import com.kangtutu.sponge.blog.Service.LabelService;
+import com.kangtutu.sponge.blog.service.LabelService;
 import com.kangtutu.sponge.blog.mapper.LabelMapper;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;

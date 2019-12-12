@@ -1,7 +1,7 @@
 package com.kangtutu.sponge.blog.controller;
 
-import com.kangtutu.sponge.blog.Service.BlogService;
-import com.kangtutu.sponge.blog.Service.LabelService;
+import com.kangtutu.sponge.blog.service.BlogService;
+import com.kangtutu.sponge.blog.service.LabelService;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeLimitVO;

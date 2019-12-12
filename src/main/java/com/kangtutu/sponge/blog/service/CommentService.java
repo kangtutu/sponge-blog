@@ -1,10 +1,8 @@
-package com.kangtutu.sponge.blog.Service;
+package com.kangtutu.sponge.blog.service;
 
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
-
-import java.util.List;
 
 /**
  * @Create 海绵之家 - [ www.sponge-k.tech ]

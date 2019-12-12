@@ -1,6 +1,6 @@
 package com.kangtutu.sponge.blog.controller.background;
 
-import com.kangtutu.sponge.blog.Service.BlogService;
+import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
 import org.springframework.beans.factory.annotation.Autowired;

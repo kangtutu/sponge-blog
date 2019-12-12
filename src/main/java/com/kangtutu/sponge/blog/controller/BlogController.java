@@ -1,7 +1,7 @@
 package com.kangtutu.sponge.blog.controller;
 
-import com.kangtutu.sponge.blog.Service.BlogService;
-import com.kangtutu.sponge.blog.Service.CommentService;
+import com.kangtutu.sponge.blog.service.BlogService;
+import com.kangtutu.sponge.blog.service.CommentService;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;

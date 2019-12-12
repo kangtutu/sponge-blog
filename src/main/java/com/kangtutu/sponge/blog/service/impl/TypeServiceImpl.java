@@ -1,6 +1,6 @@
-package com.kangtutu.sponge.blog.Service.impl;
+package com.kangtutu.sponge.blog.service.impl;
 
-import com.kangtutu.sponge.blog.Service.TypeService;
+import com.kangtutu.sponge.blog.service.TypeService;
 import com.kangtutu.sponge.blog.mapper.TypeMapper;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO;
