@@ -8,7 +8,8 @@ public class SpongeBlogDO implements Serializable {
     private Integer blogId;
     private String author; //作者
     private String title; //标题
-    private String content; //内容
+    private String content; //内容-解析成html格式的
+    private String markdownContent;//内容-未作任何解析的，直接放入编辑器中进行解析修改内容即可
     private String imageUrl; //首图地址
     private String labelName;//标签名称
     private Integer publishYear;//发布年份
@@ -36,6 +37,7 @@ public class SpongeBlogDO implements Serializable {
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", markdownContent='" + markdownContent + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", labelName='" + labelName + '\'' +
                 ", publishYear=" + publishYear +
@@ -240,5 +242,13 @@ public class SpongeBlogDO implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getMarkdownContent() {
+        return markdownContent;
+    }
+
+    public void setMarkdownContent(String markdownContent) {
+        this.markdownContent = markdownContent;
     }
 }

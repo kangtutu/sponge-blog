@@ -88,15 +88,21 @@
         <button type="button" onclick="ajaxSubmit()" class="btn m-btn-css float-right">提交评论</button>
     </div>
 
+    <!-- 暂无更多评论提示语 -->
+    <div class="mt-5 mb-5 p-5 text-center small" th:classappend="${countComment != 0}?'d-none'" style="color: #848484">
+        <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
+        <span>暂无留言信息，快来抢沙发吧！</span>
+    </div>
+
     <!-- 留言信息 -->
-    <div class="mb-4" id="commentLimitList">
-        <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span th:text="${countComment}">0</span>条</h5>
+    <div class="mb-4" th:classappend="${countComment == 0}?'d-none'" id="commentLimitList">
+        <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言:&nbsp;<span th:text="${countComment}">0</span>&nbsp;条</h5>
 
         <div th:each="comment : ${comments}"  class="card mb-4 border-bottom" style="border: transparent;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-1 pt-2 pb-2">
-                        <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(comment['parent'].obServer,0,1)}]]</p>
+                        <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(comment['parent'].obServer,0,1)}]]</p>
                     </div>
                     <div class="col-11">
                         <div class="mb-2">
@@ -108,7 +114,7 @@
                 </div>
                 <div th:each="cc : ${comment['children']}" class="row">
                     <div class="offset-1 col-1 pt-2 pb-2">
-                        <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 40px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(cc.obServer,0,1)}]]</p>
+                        <p class="font-weight-bold m-auto" style="width: 40px;height: 40px;border-radius: 50%;line-height: 35px;text-align: center;border:1px blue solid;color: blue">[[${#strings.substring(cc.obServer,0,1)}]]</p>
                     </div>
                     <div class="col-10">
                         <div class="mb-2">

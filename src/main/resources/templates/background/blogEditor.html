@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: head(~{::title},~{::style})">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sponge-K 博客</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- mk样式包 -->
+    <link rel="stylesheet" href="../static/lib/editor.mb-master/css/editormd.min.css">
+    <style>
+        .m-btn-css {
+            border: 1px #666666 solid;
+            color: #666666;
+        }
+
+        .m-btn-css:hover {
+            color: white;
+            border: 1px #666666 solid;
+            background-color: #666666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid mt-5 mb-5">
+    <div class="row">
+        <!-- 页面右侧内容 -->
+        <div class="col-12">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <!-- 博客标题 -->
+                    <div class="form-group">
+                        <label for="title">博客标题</label>
+                        <input type="text" class="form-control" id="title" th:name="title" placeholder="请输入博客标题">
+                    </div>
+                    <!-- 首图地址 -->
+                    <div class="form-group">
+                        <label for="imageUrl">首图地址</label>
+                        <input type="text" class="form-control" id="imageUrl" th:name="imageUrl" placeholder="请输入首图地址">
+                    </div>
+
+                    <!-- 分类-标签 -->
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label for="blogNature">博客性质</label>
+                            <select id="blogNature" class="form-control" th:name="blogNature">
+                                <option th:value="1" selected>原创</option>
+                                <option th:value="2">转载</option>
+                                <option th:value="3">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="typeId">博客分类</label>
+                            <select id="typeId" class="form-control" th:name="typeId">
+                                <option selected>请选择分类</option>
+                                <option th:value="1">测试分类1</option>
+                                <option th:value="2">测试分类2</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="qx">博客标签</label>
+                            <select id="qx" class="form-control" th:name="labelId">
+                                <option selected>请选择标签</option>
+                                <option th:value="1">测试标签1</option>
+                                <option th:value="2">测试标签2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 首页推荐-评论功能-版权信息 -->
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label for="tj">首页推荐</label>
+                            <select id="tj" class="form-control" th:name="openHomeRecommend">
+                                <option th:value="true">开启</option>
+                                <option th:value="false">禁用</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="bq">版权信息</label>
+                            <select id="bq" class="form-control" th:name="openCopyright">
+                                <option th:value="true">开启</option>
+                                <option th:value="false">禁用</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="pl">评论功能</label>
+                            <select id="pl" class="form-control" th:name="openComment">
+                                <option th:value="true">开启</option>
+                                <option th:value="false">禁用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="test-editormd" style="z-index: 999 !important;">
+                        <label for="textContent">文章内容</label>
+                        <textarea style="display:none;" id="textContent" name="textContent"></textarea>
+                        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                        <textarea id="text" class="editormd-html-textarea" name="text"></textarea>
+                    </div>
+                    <button type="button" onclick="saveHtml()" class="btn btn-outline-primary float-lg-right pl-5 pr-5">
+                        发布
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:replace="_fragment :: script">
+    <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+</th:block>
+<script>
+    var testEditor;
+
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            placeholder: '本编辑器支持Markdown编辑，左边编写，右边预览',  //默认显示的文字，这里就不解释了
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "/lib/editor.mb-master/lib/",
+            //theme: "dark",//工具栏主题
+            //previewTheme: "dark",//预览主题
+            //editorTheme: "pastel-on-dark",//编辑主题
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/file",
+            //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+            saveHTMLToTextarea: true,
+            //emoji: false,
+            //taskList: true,
+            //tocm: true,         // Using [TOCM]
+            //tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            //flowChart: true,             // 开启流程图支持，默认关闭
+            //sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            toolbarIcons: function () {  //自定义工具栏，后面有详细介绍
+                return editormd.toolbarModes['simple']; // full, simple, mini
+            },
+        });
+    });
+
+    function saveHtml() {
+        // console.log($("#text").text());
+        console.log($("#textContent").text());
+        $.ajax({
+            url: "/editor/add",
+            type: "post",
+            async: true,
+            data: {
+                "title": $('#title').val(),
+                "imageUrl": $('#imageUrl').val(),
+                "content": $("#text").text(),
+                "markdownContent": $("#textContent").text(),
+                "blogNature": $('#blogNature').val(),
+                "openHomeRecommend": $('#openHomeRecommend').val(),
+                "openCopyright": $('#openCopyright').val(),
+                "openComment": $('#openComment').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data.message);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus); // paser error;
+            }
+        });
+    }
+</script>
+</body>
+</html>

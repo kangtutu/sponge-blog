@@ -14,19 +14,35 @@ public class SpongeResultVO implements Serializable {
     private SpongeResultVO() {}
 
     public static SpongeResultVO success(){
-        return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),ResultCodeEnumVO.SUCCESS.getMessage(),null);
+        return SpongeResultVO.success(null);
     }
 
     public static SpongeResultVO success(Object data){
-        return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),null,data);
+        return SpongeResultVO.success(ResultCodeEnumVO.SUCCESS.getMessage(),data);
+    }
+
+    public static SpongeResultVO success(String msg,Object data){
+        return new SpongeResultVO(ResultCodeEnumVO.SUCCESS.getCode(),msg,data);
     }
 
     public static SpongeResultVO failure(){
-        return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),ResultCodeEnumVO.FAILURE.getMessage(),null);
+        return SpongeResultVO.failure(null,null);
+    }
+
+    public static SpongeResultVO failure(String msg){
+        return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),msg,null);
     }
 
     public static SpongeResultVO failure(Object data){
-        return new SpongeResultVO(ResultCodeEnumVO.FAILURE.getCode(),null,data);
+        return SpongeResultVO.failure(ResultCodeEnumVO.FAILURE.getCode(),ResultCodeEnumVO.FAILURE.getMessage(),data);
+    }
+
+    public static SpongeResultVO failure(String msg,Object data){
+        return SpongeResultVO.failure(ResultCodeEnumVO.FAILURE.getCode(),msg,data);
+    }
+
+    public static SpongeResultVO failure(Integer code,String msg,Object data){
+        return new SpongeResultVO(code,msg,data);
     }
 
     public SpongeResultVO(Integer code, String message, Object data) {

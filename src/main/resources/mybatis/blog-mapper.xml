@@ -26,6 +26,7 @@
             <if test="author != null">author,</if>
             <if test="title != null">title,</if>
             <if test="content != null">content,</if>
+            <if test="markdownContent != null">markdown_content,</if>
             <if test="imageUrl != null">image_url,</if>
             <if test="blogNature != null">blog_nature,</if>
             <if test="labelName != null">label_name,</if>
@@ -50,6 +51,7 @@
             <if test="author != null">#{author},</if>
             <if test="title != null">#{title},</if>
             <if test="content != null">#{content},</if>
+            <if test="markdownContent != null">#{markdownContent},</if>
             <if test="imageUrl != null">#{imageUrl},</if>
             <if test="blogNature != null">#{blogNature},</if>
             <if test="labelName != null">#{labelName},</if>
@@ -78,6 +80,7 @@
             <if test="author != null">author=#{author},</if>
             <if test="title != null">title=#{title},</if>
             <if test="content != null">content=#{content},</if>
+            <if test="markdownContent != null">markdown_content=#{markdownContent},</if>
             <if test="imageUrl != null">image_url=#{imageUrl},</if>
             <if test="blogNature != null">blog_nature=#{blogNature},</if>
             <if test="labelName != null">label_name=#{labelName},</if>

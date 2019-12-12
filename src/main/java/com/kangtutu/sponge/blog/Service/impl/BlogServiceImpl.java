@@ -110,6 +110,13 @@ public class BlogServiceImpl implements BlogService {
     private void initBlogParam(SpongeBlogDO spongeBlogDO){
         Date date = new Date();
         String str = "admin";
+        spongeBlogDO.setAuthor("kangtutu");
+        spongeBlogDO.setReadingQuantity(0);
+        spongeBlogDO.setLikeNumInt(0);
+        //默认文章类型为原创
+        if(spongeBlogDO.getBlogNature() == null){
+            spongeBlogDO.setBlogNature(1);
+        }
         spongeBlogDO.setCreationUser(str);
         spongeBlogDO.setCreationTime(date);
         spongeBlogDO.setUpdateUser(str);

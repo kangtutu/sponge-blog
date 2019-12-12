@@ -65,8 +65,8 @@
     <div class="row">
         <!-- 文章详情 -->
         <div class="col-9">
-            <h4 class="" th:text="${blog.title}">溃疡回家金克拉记录卡撒旦解放了看似简单</h4>
-            <div class="small mt-3 mb-5 text-secondary">
+            <h4 class="" th:text="${blog.title}">文章标题</h4>
+            <div class="small mt-3 mb-4 text-secondary pb-2" style="border-bottom: 1px #eeeeee solid">
                 <!-- 作者 -->
                 <span class="mr-4"><i class="fa fa-user mr-1" aria-hidden="true"></i><span th:text="${blog.author}">kangtutu</span></span>
                 <!-- 时间 -->
@@ -85,15 +85,13 @@
                         th:text="${blog.labelName}">标签</span></span>
             </div>
 
-            <div th:text="${blog.content}">
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-                看到结果来看的设计灵感枯竭的是独立思考
-            </div>
+            <!-- 因为我们使用了dark主题，所以在容器div上加上dark的主题类，实现我们自定义的代码样式 -->
+<!--            <div class="content editormd-preview-theme" id="content" th:text="${blog.content}">文章内容</div>-->
+            <div class="" id="content"></div>
 
             <div style="margin: 4rem 0 6rem 0">
                 <!-- 版权信息 -->
-                <p class="small mt-3">本文由 @康涂涂先生 原创发布。如若转载，请注明出处：《XX文章标题》</p>
+                <p class="small mt-3">本文由 @康涂涂先生 原创发布。如若转载，请注明出处：《<span th:text="${blog.title}"></span>》</p>
                 <!-- 对应的标签及分类 -->
                 <div class="mb-2">
                     <!-- 点击我喜欢 -->
@@ -102,9 +100,9 @@
                             th:text="${blog.likeNumInt}">18</span>)
                     </button>
                     <!-- 文章分类及标签 -->
-                    <a th:attr="href='/blog/type/page/'+${blog.typeId}+'/1'"
+                    <a th:text="${blog.typeName}" th:attr="href='/blog/type/page/'+${blog.typeId}+'/1'"
                        class="btn btn-sm btn-outline-secondary mr-3">测试分类</a>
-                    <a th:attr="href='/blog/label/page/'+${blog.labelId}+'/1'"
+                    <a th:text="${blog.labelName}" th:attr="href='/blog/label/page/'+${blog.labelId}+'/1'"
                        class="btn btn-sm btn-outline-secondary mr-3">测试标题</a>
                 </div>
             </div>
@@ -133,9 +131,16 @@
                 </div>
                 <button type="button" class="btn m-btn-css float-right" onclick="ajaxSubmit()">提交评论</button>
             </div>
+
+            <!-- 暂无更多评论提示语 -->
+            <div class="mt-5 mb-5 p-5 text-center small" th:classappend="${countComment != 0}?'d-none'" style="color: #848484">
+                <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
+                <span>暂无留言信息，快来抢沙发吧！</span>
+            </div>
+
             <!-- 评论列表 -->
-            <div class=" mb-4" id="commentLimitList">
-                <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言：<span th:text="${countComment}">0</span>条</h5>
+            <div class=" mb-4" th:classappend="${countComment == 0}?'d-none'" id="commentLimitList">
+                <h5 class="" style="margin-top: 4rem;margin-bottom: 2rem">全部留言:&nbsp;<span th:text="${countComment}">0</span>&nbsp;条</h5>
                 <div th:each="comment : ${comments}" class="card mb-4 border-bottom" style="border: transparent;">
                     <div class="card-body">
                         <div class="row">
@@ -206,6 +211,8 @@
     <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+<script th:src="@{/lib/editor.mb-master/lib/marked.min.js}"></script>
+<script th:src="@{/lib/editor.mb-master/lib/prettify.min.js}"></script>
 <script>
     function ajaxSubmit() {
         var obServer = $('#obServer').val();
@@ -242,6 +249,14 @@
     }
 
 
+    //回显页面内容
+    //editormd.markdownToHTML("content");
+
 </script>
+<script th:inline="javascript">
+    var str = [[${blog.content}]];
+    $("#content").addClass("markdown-body").append(str);
+</script>
+
 </body>
 </html>
