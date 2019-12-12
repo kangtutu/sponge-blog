@@ -1,8 +1,10 @@
 package com.kangtutu.sponge.blog.controller.background;
 
-import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
+import com.kangtutu.sponge.blog.service.BlogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,23 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 //后台文章操作
 @Controller
-@RequestMapping("/editor")
-public class BlogEditorController {
+@RequestMapping("/blog/background/type")
+public class BackgroundTypeController {
 
-    @Autowired
-    private BlogService blogService;
+    private static final Logger log = LoggerFactory.getLogger(BackgroundTypeController.class);
 
-    @GetMapping
-    public String index(){
-        return "background/blogEditor";
-    }
-
-    //新增文章
-    @PostMapping("/add")
-    @ResponseBody
-    public SpongeResultVO add(SpongeBlogDO spongeBlogDO){
-        blogService.saveBlog(spongeBlogDO);
-        return SpongeResultVO.success();
-    }
+   @GetMapping
+    public String type(){
+       log.info("[后台分类]");
+       //查询所有分类
+       return "";
+   }
 
 }
