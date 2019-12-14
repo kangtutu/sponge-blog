@@ -14,6 +14,9 @@ public interface TypeService {
     //查询全量数据
     ResultObjectDTO getTypeAll(Boolean status);
 
+    //根据id查询指定信息
+    ResultObjectDTO getTypeById(Integer typeId);
+
     //删除
     ResultObjectDTO deleteTypeById(Integer typeId);
 

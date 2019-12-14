@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>首页</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="../css/custom/background/custom.css">-->
+    <style>
+        body {
+            height: 100% !important;
+        }
+
+        .m-left-font {
+            font-size: .8rem;
+        }
+
+        .m-dropdown-divider {
+            height: 0;
+            margin: .8rem 0;
+            overflow: hidden;
+            border-top: 1px solid #53575a;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航部分 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">
+        <img src="../image/logo.png" width="30" height="30" alt="">
+        <span class="small">Sponge博客管理后台</span>
+    </a>
+
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="rounded-circle border border-white" src="../image/lb-1.jpeg" width="30px" height="30px">
+                    <span>超级管理员</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">系统信息</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">个人信息</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出登录</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- 页面左侧内容 -->
+        <div class="col-2 pt-3 bg-dark text-white m-left-font height-100">
+            <!-- 管理导航列表 -->
+            <a class="btn btn-sm btn-block btn-outline-primary active" href="index.html"><i
+                    class="fa fa-area-chart mr-2" aria-hidden="true"></i>Dashboard</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="blog.html"><i class="fa fa-book mr-2"
+                                                                                    aria-hidden="true"></i>博客管理</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="comment.html"><i class="fa fa-comments mr-2"
+                                                                                       aria-hidden="true"></i>评论管理</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="type.html"><i class="fa fa-clipboard mr-2"
+                                                                                    aria-hidden="true"></i>分类管理</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="label.html"><i class="fa fa-bookmark mr-2"
+                                                                                     aria-hidden="true"></i>标签管理</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="user.html"><i class="fa fa-user-circle-o mr-2"
+                                                                                    aria-hidden="true"></i>用户管理</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="#"><i class="fa fa-cogs mr-2"
+                                                                            aria-hidden="true"></i>系统配置</a>
+            <div class="m-dropdown-divider"></div>
+            <a class="btn btn-sm btn-block btn-outline-primary" href="#"><i class="fa fa-link mr-2"
+                                                                            aria-hidden="true"></i>友情链接</a>
+            <div class="text-center" style="margin-top: 4rem;color: #82888d">个人博客后台管理系统 v1.0</div>
+        </div>
+
+        <!-- 页面右侧内容 -->
+        <div class="col-10 pt-3">
+            <ul class="nav nav-pills mb-3 border-bottom pb-2" id="pills-tab" role="tablist">
+                <li class="nav-item"><span class="m-btn-css">编辑用户</span></li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <form>
+                        <input type="hidden" name="userId" value="1">
+                        <div class="form-group">
+                            <label for="zh">账号</label>
+                            <input type="text" class="form-control" id="zh" placeholder="请输入账号" value="kangtutu" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">密码</label>
+                            <input type="text" class="form-control" id="pwd" placeholder="请输入用户密码" value="123456">
+                        </div>
+                        <div class="form-group">
+                            <label for="nickName">昵称</label>
+                            <input type="text" class="form-control" id="nickName" placeholder="请输入昵称" value="超级管理员">
+                        </div>
+                        <!-- 昵称-状态-权限 -->
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="zt">账号状态</label>
+                                <select id="zt" class="form-control">
+                                    <option selected>启用</option>
+                                    <option>禁用</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="qx">用户权限</label>
+                                <select id="qx" class="form-control">
+                                    <option>请选择用户权限</option>
+                                    <option selected>普通权限</option>
+                                    <option>一般权限</option>
+                                    <option>中级权限</option>
+                                    <option>高级权限</option>
+                                    <option>超级权限</option>
+                                    <option>顶级权限</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 用户等级-会员等级 -->
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">用户等级</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="请输入用户等级" value="99">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">会员等级</label>
+                                <input type="text" class="form-control" id="inputPassword4" placeholder="请输入会员等级" value="99">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary float-lg-right pl-5 pr-5">注册</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+<script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+</body>
+</html>

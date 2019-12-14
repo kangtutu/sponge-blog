@@ -16,6 +16,9 @@ public interface TypeMapper {
     //查询全量数据
     List<SpongeTypeDO> queryTypeAll(@Param("status") Boolean status);
 
+    //查询指定id数据
+    SpongeTypeDO queryTypeById(@Param("typeId")Integer typeId);
+
     //删除
     void deleteTypeById(@Param("labelId") Integer LabelId);
 

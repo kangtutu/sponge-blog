@@ -51,6 +51,12 @@ public class LabelServiceImpl implements LabelService {
         return ResultObjectDTO.success(labels);
     }
 
+    @Override
+    public ResultObjectDTO getLabelById(Integer labelId) {
+        SpongeLabelDO label = labelMapper.queryLabelById(labelId);
+        return ResultObjectDTO.success(label);
+    }
+
     /**
      * 删除数据
      * @param labelId

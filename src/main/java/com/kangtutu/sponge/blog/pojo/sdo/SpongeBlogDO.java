@@ -24,7 +24,7 @@ public class SpongeBlogDO implements Serializable {
     private Boolean openCopyright; //版权信息
     private Boolean openComment; //评论功能
     private List<SpongeCommentDO> comments; //评论信息
-    private Boolean status; //状态 0-启动 1-禁用 2-停用
+    private Boolean status; //状态 1-启动 0-禁用
     private String creationUser; //创建者
     private Date creationTime; //创建时间
     private String updateUser; //更新者

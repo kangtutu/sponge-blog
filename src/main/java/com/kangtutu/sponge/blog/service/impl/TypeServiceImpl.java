@@ -48,6 +48,12 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
+    public ResultObjectDTO getTypeById(Integer typeId) {
+        SpongeTypeDO type = typeMapper.queryTypeById(typeId);
+        return ResultObjectDTO.success(type);
+    }
+
+    @Override
     public ResultObjectDTO deleteTypeById(Integer typeId) {
         typeMapper.deleteTypeById(typeId);
         return ResultObjectDTO.success();

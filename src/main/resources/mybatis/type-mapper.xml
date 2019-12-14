@@ -45,6 +45,11 @@
         </where>
     </select>
 
+    <!-- 学习新技术 -->
+    <select id="queryTypeById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO">
+        select * from sk_type where type_id=#{typeId};
+    </select>
+
     <!-- 删除指定id数据 -->
     <delete id="deleteTypeById" parameterType="java.lang.Integer">
         delete from sk_type where type_id=#{typeId};

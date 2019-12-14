@@ -45,6 +45,11 @@
         </where>
     </select>
 
+    <!-- 学习新技术 -->
+    <select id="queryLabelById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO">
+        select * from sk_label where label_id=#{labelId};
+    </select>
+
     <!-- 删除指定id数据 -->
     <delete id="deleteLabelById" parameterType="java.lang.Integer">
         delete from sk_label where label_id=#{labelId};

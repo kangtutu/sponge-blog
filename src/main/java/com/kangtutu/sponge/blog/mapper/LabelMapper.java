@@ -16,6 +16,9 @@ public interface LabelMapper {
     //查询全量数据
     List<SpongeLabelDO> queryLabelAll(@Param("status") Boolean status);
 
+    //查询指定id数据
+    SpongeLabelDO queryLabelById(@Param("labelId")Integer labelId);
+
     //删除
     void deleteLabelById(@Param("labelId") Integer LabelId);
 

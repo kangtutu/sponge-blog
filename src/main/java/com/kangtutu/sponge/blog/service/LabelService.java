@@ -14,6 +14,9 @@ public interface LabelService {
     //查询全量数据
     ResultObjectDTO getLabelAll(Boolean status);
 
+    //根据id查询指定信息
+    ResultObjectDTO getLabelById(Integer labelId);
+
     //删除
     ResultObjectDTO deleteLabelById(Integer labelId);
 
