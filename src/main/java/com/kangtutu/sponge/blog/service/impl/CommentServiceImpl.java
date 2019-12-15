@@ -97,6 +97,17 @@ public class CommentServiceImpl implements CommentService {
         return ResultObjectDTO.success(comments);
     }
 
+    /**
+     * 删除指定博客id的全部评论信息
+     * @param blogId
+     * @return
+     */
+    @Override
+    public ResultObjectDTO deleteCommentByBlogId(Integer blogId) {
+        commentMapper.deleteCommentByBlogId(blogId);
+        return ResultObjectDTO.success();
+    }
+
 
     /**
      * 删除指定id评论
@@ -106,7 +117,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ResultObjectDTO deleteCommentById(Integer commentId) {
         commentMapper.deleteCommentById(commentId);
-        return ResultObjectDTO.success(null);
+        return ResultObjectDTO.success();
     }
 
     /**

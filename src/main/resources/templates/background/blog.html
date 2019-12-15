@@ -82,7 +82,7 @@
                        aria-controls="pills-profile" aria-selected="false">发布博客</a>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
+            <div class="tab-content mb-5" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <!-- 列表 -->
                     <table class="table table-hover table-bordered">
@@ -109,6 +109,7 @@
                             <td>
                                 <span class="badge badge-info" th:if="${blog.blogNature == 1}">原创</span>
                                 <span class="badge badge-warning text-white" th:if="${blog.blogNature == 2}">转载</span>
+                                <span class="badge badge-secondary text-white" th:if="${blog.blogNature == 3}">其他</span>
                             </td>
                             <td>
                                 <span class="badge badge-success" th:if="${blog.status}">发布</span>
@@ -116,7 +117,7 @@
                             </td>
                             <td>
                                 <span class="badge badge-success" th:if="${blog.openHomeRecommend}">启用</span>
-                                <span class="badge badge-danger" th:if="${!blog.openHomeRecommend}">草稿</span>
+                                <span class="badge badge-danger" th:if="${!blog.openHomeRecommend}">禁用</span>
                             </td>
                             <td>
                                 <span class="badge badge-success" th:if="${blog.openComment}">启用</span>
@@ -148,43 +149,42 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form>
+                <div class="tab-pane fade overflow-hidden" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <form th:action="@{/bg/blog/add}" th:method="post">
                         <!-- 博客标题 -->
                         <div class="form-group">
-                            <label for="blogTitle">博客标题</label>
-                            <input type="text" class="form-control" id="blogTitle" placeholder="请输入博客标题">
+                            <label for="title">博客标题</label>
+                            <input type="text" class="form-control" id="title" placeholder="请输入博客标题" th:name="title">
                         </div>
                         <!-- 首图地址 -->
                         <div class="form-group">
-                            <label for="topImage">首图地址</label>
-                            <input type="text" class="form-control" id="topImage" placeholder="请输入首图地址">
+                            <label for="imageUrl">首图地址</label>
+                            <input type="text" class="form-control" id="imageUrl" placeholder="请输入首图地址" th:name="imageUrl">
                         </div>
 
                         <!-- 分类-标签 -->
                         <div class="form-row">
                             <div class="form-group col-4">
                                 <label for="bx">博客性质</label>
-                                <select id="bx" class="form-control">
-                                    <option selected>原创</option>
-                                    <option>转载</option>
-                                    <option>其他</option>
+                                <select id="bx" class="form-control" th:name="blogNature">
+                                    <option selected>请选择</option>
+                                    <option th:value="1">原创</option>
+                                    <option th:value="2">转载</option>
+                                    <option th:value="3">其他</option>
                                 </select>
                             </div>
                             <div class="form-group col-4">
-                                <label for="zt">博客分类</label>
-                                <select id="zt" class="form-control">
-                                    <option selected>请选择分类</option>
-                                    <option>日常笔记</option>
-                                    <option>技术分享</option>
+                                <label for="type">博客分类</label>
+                                <select id="type" class="form-control" th:name="typeId">
+                                    <option selected>请选择</option>
+                                    <option th:each="type : ${types}" th:value="${type.typeId}" th:text="${type.typeName}">日常笔记</option>
                                 </select>
                             </div>
                             <div class="form-group col-4">
-                                <label for="qx">博客标签</label>
-                                <select id="qx" class="form-control">
-                                    <option selected>请选择标签</option>
-                                    <option>Docker相关</option>
-                                    <option>Git相关</option>
+                                <label for="label">博客标签</label>
+                                <select id="label" class="form-control" th:name="labelId">
+                                    <option selected>请选择</option>
+                                    <option th:each="label : ${labels}" th:value="${label.labelId}" th:text="${label.labelName}">测试标签</option>
                                 </select>
                             </div>
                         </div>
@@ -192,37 +192,39 @@
                         <!-- 首页推荐-评论功能-版权信息 -->
                         <div class="form-row">
                             <div class="form-group col-4">
-                                <label for="tj">首页推荐</label>
-                                <select id="tj" class="form-control">
-                                    <option selected>开启</option>
-                                    <option>禁用</option>
+                                <label for="openHomeRecommend">首页推荐</label>
+                                <select id="openHomeRecommend" class="form-control" th:name="openHomeRecommend">
+                                    <option selected>请选择</option>
+                                    <option th:value="true">开启</option>
+                                    <option th:value="false">禁用</option>
                                 </select>
                             </div>
                             <div class="form-group col-4">
-                                <label for="bq">版权信息</label>
-                                <select id="bq" class="form-control">
-                                    <option selected>开启</option>
-                                    <option>禁用</option>
+                                <label for="openCopyright">版权信息</label>
+                                <select id="openCopyright" class="form-control" th:name="openCopyright">
+                                    <option selected>请选择</option>
+                                    <option th:value="true">开启</option>
+                                    <option th:value="false">禁用</option>
                                 </select>
                             </div>
                             <div class="form-group col-4">
-                                <label for="pl">评论功能</label>
-                                <select id="pl" class="form-control">
-                                    <option selected>开启</option>
-                                    <option>禁用</option>
+                                <label for="openComment">评论功能</label>
+                                <select id="openComment" class="form-control" th:name="openComment">
+                                    <option  selected>请选择</option>
+                                    <option th:value="true">开启</option>
+                                    <option th:value="false">禁用</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="blogContent">文章内容</label>
-                            <textarea class="form-control" id="blogContent" rows="10"></textarea>
+                            <textarea class="form-control" id="blogContent" rows="10" th:name="content"></textarea>
                         </div>
-                        <button type="button" class="btn btn-outline-primary float-lg-right pl-5 pr-5">发布</button>
+                        <button type="submit" class="btn btn-outline-primary float-lg-right pl-5 pr-5">发布</button>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

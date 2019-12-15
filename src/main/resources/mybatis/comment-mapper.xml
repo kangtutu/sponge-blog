@@ -85,6 +85,10 @@
         select * from sk_comment where status=#{status} and blog_id=#{blogId} and parent_comment_id=#{parentCommentId} order by creation_time desc;
     </select>
 
+    <!-- 删除指定博客id对应的全部数据 -->
+    <delete id="deleteCommentByBlogId" parameterType="java.lang.Integer">
+        delete from sk_comment where blog_id=#{blogId};
+    </delete>
 
     <!-- 删除指定id数据 -->
     <delete id="deleteCommentById" parameterType="java.lang.Integer">

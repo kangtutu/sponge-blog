@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: head(~{::title},~{::style})">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,27 +8,10 @@
     <title>首页</title>
     <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--<link rel="stylesheet" href="../css/custom/background/custom.css">-->
-    <style>
-        body {
-            height: 100% !important;
-        }
-
-        .m-left-font {
-            font-size: .8rem;
-        }
-
-        .m-dropdown-divider {
-            height: 0;
-            margin: .8rem 0;
-            overflow: hidden;
-            border-top: 1px solid #53575a;
-        }
-    </style>
 </head>
 <body>
 <!-- 导航部分 -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav th:replace="background/bg_fragment :: top_nav" class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="#">
         <img src="../image/logo.png" width="30" height="30" alt="">
         <span class="small">Sponge博客管理后台</span>
@@ -56,7 +39,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- 页面左侧内容 -->
-        <div class="col-2 pt-3 bg-dark text-white m-left-font height-100">
+        <div th:replace="background/bg_fragment :: left_nav(3)" class="col-2 pt-3 bg-dark text-white m-left-font height-100">
             <!-- 管理导航列表 -->
             <a class="btn btn-sm btn-block btn-outline-primary active" href="index.html"><i
                     class="fa fa-area-chart mr-2" aria-hidden="true"></i>Dashboard</a>
@@ -114,9 +97,10 @@
     </div>
 </div>
 
-
-<script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-<script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+<th:block th:replace="background/bg_fragment :: script">
+    <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+</th:block>
 </body>
 </html>

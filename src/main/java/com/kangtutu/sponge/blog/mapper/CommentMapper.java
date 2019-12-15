@@ -1,5 +1,6 @@
 package com.kangtutu.sponge.blog.mapper;
 
+import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import org.apache.ibatis.annotations.Param;
@@ -54,11 +55,18 @@ public interface CommentMapper {
      */
     List<SpongeCommentDO> queryChildrenComment(@Param("status") Boolean status,@Param("blogId") Integer blogId,@Param("parentCommentId") Integer parentCommentId);
 
+    /**
+     * 删除指定博客id的全部评论数据
+     * @param blogId
+     * @return
+     */
+    void deleteCommentByBlogId(@Param("blogId") Integer blogId);
 
     /**
      * 删除数据
      * @param commentId
      */
     void deleteCommentById(@Param("commentId") Integer commentId);
+
 
 }

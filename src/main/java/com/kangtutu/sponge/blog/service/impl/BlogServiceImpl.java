@@ -139,6 +139,5 @@ public class BlogServiceImpl implements BlogService {
         if(spongeBlogDO.getOpenCopyright() == null){
             spongeBlogDO.setOpenCopyright(true);
         }
-        spongeBlogDO.setBlogNature(1);
     }
 }

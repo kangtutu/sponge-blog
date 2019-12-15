@@ -51,6 +51,12 @@ public interface CommentService {
 
     /**
      * 删除数据
+     * @param blogId
+     */
+    ResultObjectDTO deleteCommentByBlogId(Integer blogId);
+
+    /**
+     * 删除数据
      * @param commentId
      */
     ResultObjectDTO deleteCommentById(Integer commentId);
