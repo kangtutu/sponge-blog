@@ -36,6 +36,13 @@ public interface CommentService {
     ResultObjectDTO getCommentCountByTerm(SpongeTermDO spongeTermDO);
 
     /**
+     * 按照id查询指定评论信息
+     * @param commentId
+     * @return
+     */
+    ResultObjectDTO getCommentById(Integer commentId);
+
+    /**
      * 查询博客数据的父级信息
      * @param blogId
      * @return

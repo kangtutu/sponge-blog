@@ -69,6 +69,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
+     * 获取指定id的评论数据
+     * @param commentId
+     * @return
+     */
+    @Override
+    public ResultObjectDTO getCommentById(Integer commentId) {
+        SpongeCommentDO comment = commentMapper.queryCommentById(commentId);
+        return ResultObjectDTO.success(comment);
+    }
+
+    /**
      * 获取父级评论信息
      * @param blogId
      * @return

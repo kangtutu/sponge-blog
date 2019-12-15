@@ -56,6 +56,12 @@ public interface CommentMapper {
     List<SpongeCommentDO> queryChildrenComment(@Param("status") Boolean status,@Param("blogId") Integer blogId,@Param("parentCommentId") Integer parentCommentId);
 
     /**
+     * 查询指定id的评论数据
+     * @return
+     */
+    SpongeCommentDO queryCommentById(@Param("commentId") Integer commentId);
+
+    /**
      * 删除指定博客id的全部评论数据
      * @param blogId
      * @return

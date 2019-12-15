@@ -101,7 +101,8 @@
                             <span th:if="${!comment.waitForReply}" class="badge badge-danger">待回复</span>
                         </td>
                         <td>
-                            <a th:href="@{/bg/comment/update/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">更新</a>
+                            <a th:if="${!comment.waitForReply}"th:href="@{/bg/comment/toUpdate/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">回复</a>
+                            <a th:if="${comment.waitForReply}" class="btn btn-sm btn-secondary text-white pl-3 pr-3 mr-2">回复</a>
                             <a th:href="@{/bg/comment/delete/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
                         </td>
                     </tr>

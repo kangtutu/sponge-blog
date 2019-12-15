@@ -13,6 +13,8 @@
             <if test="content != null">content,</if>
             <if test="obServer != null">ob_server,</if>
             <if test="headAddress != null">head_address,</if>
+            <if test="email != null">email,</if>
+            <if test="website != null">website,</if>
             <if test="waitForReply != null">wait_for_reply,</if>
             <if test="status != null">status,</if>
             <if test="creationUser != null">creation_user,</if>
@@ -28,6 +30,8 @@
             <if test="content != null">#{content},</if>
             <if test="obServer != null">#{obServer},</if>
             <if test="headAddress != null">#{headAddress},</if>
+            <if test="email != null">#{email},</if>
+            <if test="website != null">#{website},</if>
             <if test="waitForReply != null">#{waitForReply},</if>
             <if test="status != null">#{status},</if>
             <if test="creationUser != null">#{creationUser},</if>
@@ -47,6 +51,8 @@
             <if test="parentCommentId != null">parent_comment_id=#{parentCommentId},</if>
             <if test="obServer != null">ob_server=#{obServer},</if>
             <if test="headAddress != null">head_address=#{headAddress},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="website != null">website=#{website},</if>
             <if test="waitForReply != null">wait_for_reply=#{waitForReply},</if>
             <if test="status != null">status=#{status},</if>
             <if test="updateUser != null">update_user=#{updateUser},</if>
@@ -83,6 +89,10 @@
     <!-- 查询博客数据的子级信息 -->
     <select id="queryChildrenComment" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
         select * from sk_comment where status=#{status} and blog_id=#{blogId} and parent_comment_id=#{parentCommentId} order by creation_time desc;
+    </select>
+
+    <select id="queryCommentById" parameterType="java.lang.Integer" resultType="com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO">
+        select * from sk_comment where comment_id=#{commentId}
     </select>
 
     <!-- 删除指定博客id对应的全部数据 -->
