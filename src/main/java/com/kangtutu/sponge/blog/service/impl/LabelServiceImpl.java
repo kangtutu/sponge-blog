@@ -37,6 +37,7 @@ public class LabelServiceImpl implements LabelService {
     public ResultObjectDTO updateLabel(SpongeLabelDO spongeLabelDO) {
         spongeLabelDO.setUpdateUser("kangtutu");
         spongeLabelDO.setUpdateTime(new Date());
+        labelMapper.updateLabel(spongeLabelDO);
         return ResultObjectDTO.success();
     }
 
@@ -47,7 +48,7 @@ public class LabelServiceImpl implements LabelService {
      */
     @Override
     public ResultObjectDTO getLabelAll(Boolean status) {
-        List<SpongeLabelDO> labels = labelMapper.queryLabelAll(true);
+        List<SpongeLabelDO> labels = labelMapper.queryLabelAll(status);
         return ResultObjectDTO.success(labels);
     }
 

@@ -127,7 +127,7 @@
                                 <span class="badge badge-danger" th:if="${!blog.openCopyright}">禁用</span>
                             </td>
                             <td>
-                                <a th:href="@{/bg/blog/update/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">编辑</a>
+                                <a th:href="@{/bg/blog/toUpdate/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">编辑</a>
                                 <a th:href="@{/bg/blog/delete/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
                             </td>
                         </tr>

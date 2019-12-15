@@ -96,8 +96,8 @@
                             <th th:text="${num.count}" scope="row">1</th>
                             <td th:text="${#strings.abbreviate(comment.title,14)}"></td>
                             <td>
-                                <span th:if="${comment.blogId == 99999}" class="badge badge-success">留言信息</span>
-                                <span th:if="${comment.blogId != 99999}" class="badge badge-danger">评论信息</span>
+                                <span th:if="${comment.blogId == 99999}" class="badge badge-secondary">留言信息</span>
+                                <span th:if="${comment.blogId != 99999}" class="badge badge-primary">评论信息</span>
                             </td>
                             <td th:text="${comment.obServer}">小兔兔</td>
                             <td th:text="${comment.email}">xiaotutu@qq.com</td>

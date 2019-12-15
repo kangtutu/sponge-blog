@@ -78,18 +78,18 @@
                         <input type="hidden" th:name="labelId" th:value="${label.labelId}">
                         <!-- 标签名称 -->
                         <div class="form-group">
-                            <label for="blogTitle">标签名称</label>
-                            <input type="text" class="form-control" id="blogTitle" placeholder="请输入博客标题" th:name="labelName" th:value="${label.labelName}">
+                            <label for="labelName">标签名称</label>
+                            <input type="text" class="form-control" id="labelName" placeholder="请输入博客标题" th:name="labelName" th:value="${label.labelName}">
                         </div>
                         <!-- 标签状态 -->
                         <div class="form-group">
                             <label for="tj">标签状态</label>
                             <select th:name="status" id="tj" class="form-control">
-                                <option th:value="true" th:if="${label.status}?'selected'">开启</option>
-                                <option th:value="false" th:if="${!label.status}?'selected'">禁用</option>
+                                <option th:value="true" th:selected="${label.status eq true}">开启</option>
+                                <option th:value="false" th:selected="${label.status eq false}">禁用</option>
                             </select>
                         </div>
-                        <button type="button" class="btn btn-outline-primary float-lg-right pl-5 pr-5">提交</button>
+                        <button type="submit" class="btn btn-outline-primary float-lg-right pl-5 pr-5">提交</button>
                     </form>
                 </div>
             </div>

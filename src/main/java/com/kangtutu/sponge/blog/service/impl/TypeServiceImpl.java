@@ -43,7 +43,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public ResultObjectDTO getTypeAll(Boolean status) {
-        List<SpongeTypeDO> types = typeMapper.queryTypeAll(true);
+        List<SpongeTypeDO> types = typeMapper.queryTypeAll(status);
         return ResultObjectDTO.success(types);
     }
 
