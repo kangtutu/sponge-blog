@@ -31,8 +31,10 @@ public class BlogServiceImpl implements BlogService {
     //更新数据
     @Override
     public ResultObjectDTO updateBlog(SpongeBlogDO spongeBlogDO) {
+        spongeBlogDO.setUpdateUser("kangtutu");
+        spongeBlogDO.setUpdateTime(new Date());
         blogMapper.updateBlog(spongeBlogDO);
-        return new ResultObjectDTO();
+        return ResultObjectDTO.success();
     }
 
     //通过id查询

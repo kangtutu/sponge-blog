@@ -59,10 +59,13 @@
 </nav>
 
 <!-- 左侧导航栏 -->
-<div th:fragment="left_nav(n)" class="col-2 pt-5 text-white m-left-font height-100">
+<div th:fragment="left_nav(n)" class="col-2 pt-4 text-white m-left-font height-100">
     <!-- 管理导航列表 -->
     <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg}" th:classappend="${n==1}?'active'">
-        <i class="fa fa-area-chart mr-2" aria-hidden="true"></i>Dashboard
+        <i class="fa fa-pie-chart mr-2" aria-hidden="true"></i>Dashboard
+    </a>
+    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/blog/toAdd}">
+        <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>发布博客
     </a>
     <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/blog}" th:classappend="${n==2}?'active'">
         <i class="fa fa-book mr-2" aria-hidden="true"></i>博客管理
@@ -77,7 +80,7 @@
         <i class="fa fa-bookmark mr-2" aria-hidden="true"></i>标签管理
     </a>
     <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/user}" th:classappend="${n==6}?'active'">
-        <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i>用户管理
+        <i class="fa fa-address-book mr-2" aria-hidden="true"></i>用户管理
     </a>
     <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/sz}" th:classappend="${n==7}?'active'">
         <i class="fa fa-cogs mr-2" aria-hidden="true"></i>系统配置

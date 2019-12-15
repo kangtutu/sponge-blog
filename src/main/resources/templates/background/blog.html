@@ -72,157 +72,71 @@
 
         <!-- 页面右侧内容 -->
         <div class="col-10 pt-3">
-            <ul class="nav nav-pills mb-3 border-bottom pb-2" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-                       aria-controls="pills-home" aria-selected="true">博客列表</a>
-                </li>
-                <li class="nav-item ml-2 mr-2">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                       aria-controls="pills-profile" aria-selected="false">发布博客</a>
-                </li>
-            </ul>
-            <div class="tab-content mb-5" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <!-- 列表 -->
-                    <table class="table table-hover table-bordered">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">标题</th>
-                            <th scope="col">浏览</th>
-                            <th scope="col">点赞</th>
-                            <th scope="col">类型</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">首推</th>
-                            <th scope="col">评论</th>
-                            <th scope="col">版权</th>
-                            <th scope="col">管理</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="blog,num : ${blogs}">
-                            <td scope="row" th:text="${num.count}">1</td>
-                            <td th:text="${#strings.abbreviate(blog.title,14)}"></td>
-                            <td th:text="${blog.readingQuantity}">189</td>
-                            <td th:text="${blog.likeNumInt}">21</td>
-                            <td>
-                                <span class="badge badge-info" th:if="${blog.blogNature == 1}">原创</span>
-                                <span class="badge badge-warning text-white" th:if="${blog.blogNature == 2}">转载</span>
-                                <span class="badge badge-secondary text-white" th:if="${blog.blogNature == 3}">其他</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-success" th:if="${blog.status}">发布</span>
-                                <span class="badge badge-danger" th:if="${!blog.status}">草稿</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-success" th:if="${blog.openHomeRecommend}">启用</span>
-                                <span class="badge badge-danger" th:if="${!blog.openHomeRecommend}">禁用</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-success" th:if="${blog.openComment}">启用</span>
-                                <span class="badge badge-danger" th:if="${!blog.openComment}">禁用</span>
-                            </td>
-                            <td>
-                                <span class="badge badge-success" th:if="${blog.openCopyright}">启用</span>
-                                <span class="badge badge-danger" th:if="${!blog.openCopyright}">禁用</span>
-                            </td>
-                            <td>
-                                <a th:href="@{/bg/blog/toUpdate/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">编辑</a>
-                                <a th:href="@{/bg/blog/delete/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!-- 分页 -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">&laquo;</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">&raquo;</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="tab-pane fade overflow-hidden" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <form th:action="@{/bg/blog/add}" th:method="post">
-                        <!-- 博客标题 -->
-                        <div class="form-group">
-                            <label for="title">博客标题</label>
-                            <input type="text" class="form-control" id="title" placeholder="请输入博客标题" th:name="title">
-                        </div>
-                        <!-- 首图地址 -->
-                        <div class="form-group">
-                            <label for="imageUrl">首图地址</label>
-                            <input type="text" class="form-control" id="imageUrl" placeholder="请输入首图地址" th:name="imageUrl">
-                        </div>
-
-                        <!-- 分类-标签 -->
-                        <div class="form-row">
-                            <div class="form-group col-4">
-                                <label for="bx">博客性质</label>
-                                <select id="bx" class="form-control" th:name="blogNature">
-                                    <option selected>请选择</option>
-                                    <option th:value="1">原创</option>
-                                    <option th:value="2">转载</option>
-                                    <option th:value="3">其他</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="type">博客分类</label>
-                                <select id="type" class="form-control" th:name="typeId">
-                                    <option selected>请选择</option>
-                                    <option th:each="type : ${types}" th:value="${type.typeId}" th:text="${type.typeName}">日常笔记</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="label">博客标签</label>
-                                <select id="label" class="form-control" th:name="labelId">
-                                    <option selected>请选择</option>
-                                    <option th:each="label : ${labels}" th:value="${label.labelId}" th:text="${label.labelName}">测试标签</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- 首页推荐-评论功能-版权信息 -->
-                        <div class="form-row">
-                            <div class="form-group col-4">
-                                <label for="openHomeRecommend">首页推荐</label>
-                                <select id="openHomeRecommend" class="form-control" th:name="openHomeRecommend">
-                                    <option selected>请选择</option>
-                                    <option th:value="true">开启</option>
-                                    <option th:value="false">禁用</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="openCopyright">版权信息</label>
-                                <select id="openCopyright" class="form-control" th:name="openCopyright">
-                                    <option selected>请选择</option>
-                                    <option th:value="true">开启</option>
-                                    <option th:value="false">禁用</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="openComment">评论功能</label>
-                                <select id="openComment" class="form-control" th:name="openComment">
-                                    <option  selected>请选择</option>
-                                    <option th:value="true">开启</option>
-                                    <option th:value="false">禁用</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="blogContent">文章内容</label>
-                            <textarea class="form-control" id="blogContent" rows="10" th:name="content"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-outline-primary float-lg-right pl-5 pr-5">发布</button>
-                    </form>
-                </div>
+            <div class="">
+                <!-- 列表 -->
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">标题</th>
+                        <th scope="col">浏览</th>
+                        <th scope="col">点赞</th>
+                        <th scope="col">类型</th>
+                        <th scope="col">状态</th>
+                        <th scope="col">首推</th>
+                        <th scope="col">评论</th>
+                        <th scope="col">版权</th>
+                        <th scope="col">管理</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="blog,num : ${blogs}">
+                        <td scope="row" th:text="${num.count}">1</td>
+                        <td th:text="${#strings.abbreviate(blog.title,14)}"></td>
+                        <td th:text="${blog.readingQuantity}">189</td>
+                        <td th:text="${blog.likeNumInt}">21</td>
+                        <td>
+                            <span class="badge badge-info" th:if="${blog.blogNature == 1}">原创</span>
+                            <span class="badge badge-warning text-white" th:if="${blog.blogNature == 2}">转载</span>
+                            <span class="badge badge-secondary text-white" th:if="${blog.blogNature == 3}">其他</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-success" th:if="${blog.status}">发布</span>
+                            <span class="badge badge-danger" th:if="${!blog.status}">草稿</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-success" th:if="${blog.openHomeRecommend}">启用</span>
+                            <span class="badge badge-danger" th:if="${!blog.openHomeRecommend}">禁用</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-success" th:if="${blog.openComment}">启用</span>
+                            <span class="badge badge-danger" th:if="${!blog.openComment}">禁用</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-success" th:if="${blog.openCopyright}">启用</span>
+                            <span class="badge badge-danger" th:if="${!blog.openCopyright}">禁用</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/bg/blog/toUpdate/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">编辑</a>
+                            <a th:href="@{/bg/blog/delete/{blogId}(blogId=${blog.blogId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -234,5 +148,64 @@
     <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
     <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
 </th:block>
+<script>
+    var testEditor;
+
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            placeholder: '本编辑器支持Markdown编辑，左边编写，右边预览',  //默认显示的文字，这里就不解释了
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "/lib/editor.mb-master/lib/",
+            //theme: "dark",//工具栏主题
+            //previewTheme: "dark",//预览主题
+            //editorTheme: "pastel-on-dark",//编辑主题
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/file",
+            //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+            saveHTMLToTextarea: true,
+            //emoji: false,
+            //taskList: true,
+            //tocm: true,         // Using [TOCM]
+            //tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            //flowChart: true,             // 开启流程图支持，默认关闭
+            //sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            toolbarIcons: function () {  //自定义工具栏，后面有详细介绍
+                return editormd.toolbarModes['simple']; // full, simple, mini
+            },
+        });
+    });
+
+    function saveHtml() {
+        // console.log($("#text").text());
+        console.log($("#textContent").text());
+        $.ajax({
+            url: "/editor/add",
+            type: "post",
+            async: true,
+            data: {
+                "title": $('#title').val(),
+                "imageUrl": $('#imageUrl').val(),
+                "content": $("#text").text(),
+                "markdownContent": $("#textContent").text(),
+                "blogNature": $('#blogNature').val(),
+                "openHomeRecommend": $('#openHomeRecommend').val(),
+                "openCopyright": $('#openCopyright').val(),
+                "openComment": $('#openComment').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data.message);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus); // paser error;
+            }
+        });
+    }
+</script>
 </body>
 </html>

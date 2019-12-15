@@ -70,64 +70,57 @@
 
         <!-- 页面右侧内容 -->
         <div class="col-10 pt-3">
-            <ul class="nav nav-pills mb-3 border-bottom pb-2" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">评论列表</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <!-- 列表 -->
-                    <table class="table table-hover table-bordered">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">博客标题</th>
-                            <th scope="col">类型</th>
-                            <th scope="col">昵称</th>
-                            <th scope="col">邮箱</th>
-                            <th scope="col">网址</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">管理</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="comment,num : ${comments}">
-                            <th th:text="${num.count}" scope="row">1</th>
-                            <td th:text="${#strings.abbreviate(comment.title,14)}"></td>
-                            <td>
-                                <span th:if="${comment.blogId == 99999}" class="badge badge-secondary">留言信息</span>
-                                <span th:if="${comment.blogId != 99999}" class="badge badge-primary">评论信息</span>
-                            </td>
-                            <td th:text="${comment.obServer}">小兔兔</td>
-                            <td th:text="${comment.email}">xiaotutu@qq.com</td>
-                            <td th:text="${comment.website}">www.sponge-k.com</td>
-                            <td>
-                                <span th:if="${comment.waitForReply}" class="badge badge-success">已回复</span>
-                                <span th:if="${!comment.waitForReply}" class="badge badge-danger">待回复</span>
-                            </td>
-                            <td>
-                                <a th:href="@{/bg/comment/update/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">更新</a>
-                                <a th:href="@{/bg/comment/delete/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!-- 分页 -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">&laquo;</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">&raquo;</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="">
+                <!-- 列表 -->
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">博客标题</th>
+                        <th scope="col">类型</th>
+                        <th scope="col">昵称</th>
+                        <th scope="col">邮箱</th>
+                        <th scope="col">网址</th>
+                        <th scope="col">状态</th>
+                        <th scope="col">管理</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="comment,num : ${comments}">
+                        <th th:text="${num.count}" scope="row">1</th>
+                        <td th:text="${#strings.abbreviate(comment.title,14)}"></td>
+                        <td>
+                            <span th:if="${comment.blogId == 99999}" class="badge badge-secondary">留言信息</span>
+                            <span th:if="${comment.blogId != 99999}" class="badge badge-primary">评论信息</span>
+                        </td>
+                        <td th:text="${comment.obServer}">小兔兔</td>
+                        <td th:text="${comment.email}">xiaotutu@qq.com</td>
+                        <td th:text="${comment.website}">www.sponge-k.com</td>
+                        <td>
+                            <span th:if="${comment.waitForReply}" class="badge badge-success">已回复</span>
+                            <span th:if="${!comment.waitForReply}" class="badge badge-danger">待回复</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/bg/comment/update/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-primary pl-3 pr-3 mr-2">更新</a>
+                            <a th:href="@{/bg/comment/delete/{commentId}(commentId=${comment.commentId})}" class="btn btn-sm btn-outline-danger pl-3 pr-3">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
