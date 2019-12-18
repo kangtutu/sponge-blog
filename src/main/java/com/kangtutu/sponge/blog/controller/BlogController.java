@@ -6,6 +6,10 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.ResultCodeEnumVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/blog")
+@Api(tags = "Sponge-k 个人技术博客文章数据接口")
 public class BlogController {
 
     private static final Logger log = LoggerFactory.getLogger(BlogController.class);
@@ -43,6 +48,7 @@ public class BlogController {
     }
 
     @GetMapping("/index")
+    @ApiOperation("博客首页数据接口")
     public Object list(Model model) {
         log.info("[博客首页] 进入博客首页方法内");
         //查询页面需要展示的博客文章
@@ -62,6 +68,8 @@ public class BlogController {
     }
 
     @GetMapping("/get/{blogId}")
+    @ApiOperation("按照指定博客id查询博客信息")
+    @ApiImplicitParam(name = "blogId",value = "博客id")
     public Object getBlogById(@PathVariable("blogId")Integer blogId,Model model){
         log.info("[查询指定ID博客] 进入方法内,ID参数:{}",blogId);
         ResultObjectDTO resultObjectDTO = blogService.getBlogById(blogId);
