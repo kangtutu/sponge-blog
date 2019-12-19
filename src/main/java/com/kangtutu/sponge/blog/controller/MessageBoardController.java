@@ -5,6 +5,7 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/blog/board")
+@Api(tags = "[前台] 留言板相关接口")
 public class MessageBoardController {
 
     private static final Logger log = LoggerFactory.getLogger(MessageBoardController.class);

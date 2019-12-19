@@ -6,6 +6,7 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeLimitVO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/blog/label")
+@Api(tags = "[前台] 标签相关接口")
 public class LabelController {
 
     private static final Logger log = LoggerFactory.getLogger(LabelController.class);
@@ -37,6 +39,11 @@ public class LabelController {
 
     //标签首页
     @GetMapping
+    @ApiOperation("标签文章列表首页数据接口")
+    @ApiResponses({
+            @ApiResponse(code=200,message = "查询成功"),
+            @ApiResponse(code=500,message = "系统异常")
+    })
     public String labelIndex(Model model){
         log.info("[标签首页] 进入方法内");
         //查询数据库中启用的标签数据
@@ -55,7 +62,6 @@ public class LabelController {
         return "labelList";
     }
 
-
     /**
      * 分页查询指定id数据
      * @param startPage
@@ -63,6 +69,15 @@ public class LabelController {
      */
     @GetMapping("/page/{labelId}/{startPage}")
     @ResponseBody
+    @ApiOperation("标签分页查询接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query",name = "labelId",dataType = "Integer",required = true,value = "标签id"),
+            @ApiImplicitParam(paramType = "query",name = "startPage",dataType = "Integer",required = true,value = "起始页数")
+    })
+    @ApiResponses({
+            @ApiResponse(code=200,message = "查询成功"),
+            @ApiResponse(code=500,message = "系统异常")
+    })
     public SpongeResultVO blogLimit(@PathVariable("labelId") Integer labelId, @PathVariable("startPage") Integer startPage){
         log.info("[标签分页查询] 进入分页查询方法内，传入大类id:{},分页起始值:{}",labelId,startPage);
         SpongeTermDO term = SpongeTermDO.getInstance();

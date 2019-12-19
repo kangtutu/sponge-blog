@@ -6,6 +6,7 @@ import com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
 import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.service.TypeService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 //后台文章操作
 @Controller
 @RequestMapping("/bg/type")
+@Api(tags = "[管理后台] 分类管理相关接口")
 public class BackgroundTypeController {
 
     private static final Logger log = LoggerFactory.getLogger(BackgroundTypeController.class);

@@ -1,5 +1,6 @@
 package com.kangtutu.sponge.blog.controller.background;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @Controller
 @RequestMapping("/bg")
+@Api(tags = "[管理后台] 首页相关接口")
 public class BackgroundIndexController {
 
     private static final Logger log = LoggerFactory.getLogger(BackgroundIndexController.class);

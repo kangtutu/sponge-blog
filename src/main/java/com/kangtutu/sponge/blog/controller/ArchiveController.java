@@ -4,6 +4,7 @@ import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeArchiveVO;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/blog/archive")
+@Api(tags = "[前台] 归档信息相关接口")
 public class ArchiveController {
 
     private static final Logger log = LoggerFactory.getLogger(ArchiveController.class);

@@ -27,7 +27,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/blog")
-@Api(tags = "Sponge-k 个人技术博客文章数据接口")
+@Api(tags = "[前台] 文章操作相关接口")
 public class BlogController {
 
     private static final Logger log = LoggerFactory.getLogger(BlogController.class);
@@ -42,34 +42,9 @@ public class BlogController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping
-    public String index(){
-        return "redirect:/blog/index";
-    }
-
-    @GetMapping("/index")
-    @ApiOperation("博客首页数据接口")
-    public Object list(Model model) {
-        log.info("[博客首页] 进入博客首页方法内");
-        //查询页面需要展示的博客文章
-        SpongeTermDO term = SpongeTermDO.getInstance();
-        term.setStartPage(0);
-        term.setPageSize(pageSize);
-        ResultObjectDTO resultObjectDTO = blogService.getBlogByReadingQuantity(term);
-        log.info("[博客首页] 查询到的博客列表数据,{}",resultObjectDTO);
-        if(!resultObjectDTO.getStatus()){
-            log.info("[博客首页] 查询博客列表数据失败");
-            model.addAttribute("code",ResultCodeEnumVO.FAILURE.getCode());
-            model.addAttribute("message","查询首页列表数据失败");
-            return "error";
-        }
-        model.addAttribute("blogs",resultObjectDTO.getData());
-        return "index";
-    }
-
     @GetMapping("/get/{blogId}")
-    @ApiOperation("按照指定博客id查询博客信息")
-    @ApiImplicitParam(name = "blogId",value = "博客id")
+    @ApiOperation("获取指定id的文章数据")
+    @ApiImplicitParam(paramType = "query",name = "blogId",dataType = "Integer",required = true,value = "博客id")
     public Object getBlogById(@PathVariable("blogId")Integer blogId,Model model){
         log.info("[查询指定ID博客] 进入方法内,ID参数:{}",blogId);
         ResultObjectDTO resultObjectDTO = blogService.getBlogById(blogId);

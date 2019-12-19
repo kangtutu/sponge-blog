@@ -6,6 +6,7 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeLimitVO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/blog/type")
+@Api(tags = "[前台] 分类相关接口")
 public class TypeController {
 
     private static final Logger log = LoggerFactory.getLogger(TypeController.class);
