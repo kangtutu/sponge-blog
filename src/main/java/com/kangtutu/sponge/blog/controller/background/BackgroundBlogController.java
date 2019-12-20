@@ -3,11 +3,11 @@ package com.kangtutu.sponge.blog.controller.background;
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
-import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
 import com.kangtutu.sponge.blog.service.CommentService;
 import com.kangtutu.sponge.blog.service.LabelService;
 import com.kangtutu.sponge.blog.service.TypeService;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 //后台文章操作
 @Controller
 @RequestMapping("/bg/blog")
+@Slf4j
 @Api(tags = "[管理后台] 文章管理相关接口")
 public class BackgroundBlogController {
 

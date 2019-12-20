@@ -64,6 +64,11 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true # 开启驼峰命名
 
+
 blog:
   limit:
     page-size: 10 #自定义属性，用于规定分页查询每页显示的条数
+
+# 日志文件保存地址
+#logging:
+#  path: E:/sponge-app-log

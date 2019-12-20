@@ -8,18 +8,23 @@ import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 //博客文章服务层
 @Service
+@Transactional(readOnly = true,timeout = 5)
 public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogMapper blogMapper;
 
     //添加数据
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO saveBlog(SpongeBlogDO spongeBlogDO) {
         //初始化参数
@@ -29,6 +34,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     //更新数据
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO updateBlog(SpongeBlogDO spongeBlogDO) {
         spongeBlogDO.setUpdateUser("kangtutu");
@@ -102,6 +108,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     //删除数据
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO deleteBlogById(Integer blogId) {
         blogMapper.deleteBlogById(blogId);

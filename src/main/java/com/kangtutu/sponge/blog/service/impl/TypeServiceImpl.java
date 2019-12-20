@@ -6,11 +6,15 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true,timeout = 5)
 public class TypeServiceImpl implements TypeService {
 
     @Autowired
@@ -21,6 +25,7 @@ public class TypeServiceImpl implements TypeService {
      * @param spongeTypeDO
      * @return
      */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO saveType(SpongeTypeDO spongeTypeDO) {
         initTypeParam(spongeTypeDO);
@@ -33,6 +38,7 @@ public class TypeServiceImpl implements TypeService {
      * @param spongeTypeDO
      * @return
      */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO updateType(SpongeTypeDO spongeTypeDO) {
         spongeTypeDO.setUpdateUser("kangtutu");
@@ -53,6 +59,12 @@ public class TypeServiceImpl implements TypeService {
         return ResultObjectDTO.success(type);
     }
 
+    /**
+     * 删除指定id的分类数据
+     * @param typeId
+     * @return
+     */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO deleteTypeById(Integer typeId) {
         typeMapper.deleteTypeById(typeId);

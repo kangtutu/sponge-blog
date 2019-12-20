@@ -19,8 +19,9 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <alibaba.druid.springboot.version>1.1.20</alibaba.druid.springboot.version>
-        <alibaba.fastjson.version>1.2.33</alibaba.fastjson.version>
+        <alibaba.fastjson.version>1.2.62</alibaba.fastjson.version>
         <mybatis.springboot.version>2.1.1</mybatis.springboot.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>
@@ -77,12 +78,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
         <!-- 整合swagger2 END -->
 

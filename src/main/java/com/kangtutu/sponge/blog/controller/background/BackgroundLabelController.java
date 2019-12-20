@@ -4,8 +4,7 @@ import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeLabelDO;
 import com.kangtutu.sponge.blog.service.LabelService;
 import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //后台文章操作
 @Controller
 @RequestMapping("/bg/label")
+@Slf4j
 @Api(tags = "[管理后台] 标签管理相关接口")
 public class BackgroundLabelController {
-
-    private static final Logger log = LoggerFactory.getLogger(BackgroundLabelController.class);
 
     @Autowired
     private LabelService labelService;

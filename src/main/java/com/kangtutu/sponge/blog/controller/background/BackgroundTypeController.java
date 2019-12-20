@@ -1,14 +1,10 @@
 package com.kangtutu.sponge.blog.controller.background;
 
 import com.kangtutu.sponge.blog.pojo.dto.ResultObjectDTO;
-import com.kangtutu.sponge.blog.pojo.sdo.SpongeBlogDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTypeDO;
-import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
-import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.service.TypeService;
 import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 //后台文章操作
 @Controller
 @RequestMapping("/bg/type")
+@Slf4j
 @Api(tags = "[管理后台] 分类管理相关接口")
 public class BackgroundTypeController {
 
-    private static final Logger log = LoggerFactory.getLogger(BackgroundTypeController.class);
 
     @Autowired
     private TypeService typeService;

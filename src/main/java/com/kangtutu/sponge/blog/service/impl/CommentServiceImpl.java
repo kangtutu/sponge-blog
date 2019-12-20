@@ -7,6 +7,9 @@ import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
  * @Create 海绵之家 - [ www.sponge-k.tech ]
  **/
 @Service
+@Transactional(readOnly = true,timeout = 5)
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
@@ -25,6 +29,7 @@ public class CommentServiceImpl implements CommentService {
      * @param spongeCommentDO
      * @return
      */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO saveComment(SpongeCommentDO spongeCommentDO) {
         //初始化参数
@@ -38,6 +43,7 @@ public class CommentServiceImpl implements CommentService {
      * @param spongeCommentDO
      * @return
      */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO updateComment(SpongeCommentDO spongeCommentDO) {
         spongeCommentDO.setUpdateUser("kangtutu");
@@ -113,6 +119,7 @@ public class CommentServiceImpl implements CommentService {
      * @param blogId
      * @return
      */
+    @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW,isolation = Isolation.READ_COMMITTED)
     @Override
     public ResultObjectDTO deleteCommentByBlogId(Integer blogId) {
         commentMapper.deleteCommentByBlogId(blogId);

@@ -6,8 +6,7 @@ import com.kangtutu.sponge.blog.pojo.sdo.SpongeCommentDO;
 import com.kangtutu.sponge.blog.pojo.sdo.SpongeTermDO;
 import com.kangtutu.sponge.blog.pojo.vo.SpongeResultVO;
 import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +22,9 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/blog/board")
+@Slf4j
 @Api(tags = "[前台] 留言板相关接口")
 public class MessageBoardController {
-
-    private static final Logger log = LoggerFactory.getLogger(MessageBoardController.class);
 
     @Autowired
     private CommentService commentService;

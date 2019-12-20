@@ -7,8 +7,7 @@ import com.kangtutu.sponge.blog.service.BlogService;
 import com.kangtutu.sponge.blog.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/blog")
+@Slf4j
 @Api(tags = "[前台] 博客首页相关接口")
 public class IndexController {
-
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 
     //分页查询每页显示条数
     @Value("${blog.limit.page-size}")

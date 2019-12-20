@@ -1,8 +1,7 @@
 package com.kangtutu.sponge.blog.controller.background;
 
 import io.swagger.annotations.Api;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //后台文章操作
 @Controller
 @RequestMapping("/bg/user")
+@Slf4j
 @Api(tags = "[管理后台] 用户信息管理相关接口")
 public class BackgroundUserController {
-
-    private static final Logger log = LoggerFactory.getLogger(BackgroundUserController.class);
 
    @GetMapping
     public String userIndex(){
