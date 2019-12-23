@@ -53,6 +53,7 @@ public class BackgroundCommentController {
         //先保存回复信息
         SpongeCommentDO hComment = spongeCommentDO;
         hComment.setCommentId(null);
+        hComment.setObServer("kangtutu");
         hComment.setParentCommentId(parentCommentId);
         hComment.setWaitForReply(true);
         ResultObjectDTO resultSave = commentService.saveComment(hComment);

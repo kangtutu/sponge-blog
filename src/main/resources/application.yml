@@ -54,8 +54,8 @@ spring:
         enabled: true
         url-pattern: /druid/*
         # 登录监控界面的用户名以及密码，登录url为localhost:8080/druid
-        login-username: admin
-        login-password: admin
+        #login-username: admin
+        #login-password: admin
         allow:
         deny:
 

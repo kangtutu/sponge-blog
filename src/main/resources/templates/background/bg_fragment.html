@@ -61,32 +61,35 @@
 <!-- 左侧导航栏 -->
 <div th:fragment="left_nav(n)" class="col-2 pt-4 text-white m-left-font height-100">
     <!-- 管理导航列表 -->
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg}" th:classappend="${n==1}?'active'">
-        <i class="fa fa-pie-chart mr-2" aria-hidden="true"></i>Dashboard
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg}" th:classappend="${n==1}?'active'">
+        <i class="fa fa-tachometer mr-2" aria-hidden="true"></i>Dashboard
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/blog/toAdd}">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/blog/toAdd}">
         <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>发布博客
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/blog}" th:classappend="${n==2}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/blog}" th:classappend="${n==2}?'active'">
         <i class="fa fa-book mr-2" aria-hidden="true"></i>博客管理
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4"  th:href="@{/bg/comment}" th:classappend="${n==3}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3"  th:href="@{/bg/comment}" th:classappend="${n==3}?'active'">
         <i class="fa fa-comments mr-2" aria-hidden="true"></i>评论管理
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/type}" th:classappend="${n==4}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/type}" th:classappend="${n==4}?'active'">
         <i class="fa fa-clipboard mr-2" aria-hidden="true"></i>分类管理
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/label}" th:classappend="${n==5}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/label}" th:classappend="${n==5}?'active'">
         <i class="fa fa-bookmark mr-2" aria-hidden="true"></i>标签管理
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/user}" th:classappend="${n==6}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/user}" th:classappend="${n==6}?'active'">
         <i class="fa fa-address-book mr-2" aria-hidden="true"></i>用户管理
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/sz}" th:classappend="${n==7}?'active'">
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/sz}" th:classappend="${n==7}?'active'">
         <i class="fa fa-cogs mr-2" aria-hidden="true"></i>系统配置
     </a>
-    <a class="btn btn-sm btn-block btn-outline-primary mb-4" th:href="@{/bg/f}" th:classappend="${n==8}?'active'">
-        <i class="fa fa-link mr-2" aria-hidden="true"></i>友情链接
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/comprehensive/druid}" th:classappend="${n==8}?'active'">
+        <i class="fa fa-pie-chart mr-2" aria-hidden="true"></i>Druid监控
+    </a>
+    <a class="btn btn-sm btn-block btn-outline-primary mb-3" th:href="@{/bg/comprehensive/swagger}" th:classappend="${n==9}?'active'">
+        <i class="fa fa-file-code-o mr-2" aria-hidden="true"></i>Swagger
     </a>
 </div>
 
