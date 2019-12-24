@@ -32,13 +32,13 @@ public class IndexController {
     private CommentService commentService;
 
     @GetMapping
-    @ApiOperation("博客首页重定向到index")//接口说明
+    @ApiOperation(value = "博客首页重定向到index",notes = "博客首页重定向到index")//接口说明
     public String index(){
         return "redirect:/blog/index";
     }
 
     @GetMapping("/index")
-    @ApiOperation("获取首页数据")
+    @ApiOperation(value = "获取首页数据",notes = "获取首页数据")
     public String indexData(Model model) {
         log.info("[博客首页] 进入博客首页方法内");
         //查询页面需要展示的博客文章

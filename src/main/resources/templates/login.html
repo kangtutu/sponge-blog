@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragment :: head(~{::title},~{::style})">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Sponge-K 登录</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <style>
+        #topPage {
+            text-decoration: none;
+            color: white;
+            border: 1px #333333 solid;
+            border-radius: 1rem;
+            padding: .3rem .8rem;
+            background-color: #333333
+        }
+
+        #topPage:hover {
+            padding: .3rem 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">登录页面</h1>
+    <form th:action="@{/login}" th:method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">用户名</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="username">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">密码</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">记住我</label>
+        </div>
+        <button type="submit" class="btn btn-primary">登录</button>
+    </form>
+</div>
+
+<th:block th:replace="_fragment :: script">
+    <script src="../static/js/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../static/lib/bootstrap-4.3.1/js/popper.min.js"></script>
+</th:block>
+</body>
+</html>
