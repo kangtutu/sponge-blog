@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head(title)">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -58,6 +58,7 @@
     </div>
 </nav>
 
+<!-- sec:authorize="hasRole('VIP1')" -->
 <!-- 左侧导航栏 -->
 <div th:fragment="left_nav(n)" class="col-2 pt-4 text-white m-left-font height-100">
     <!-- 管理导航列表 -->
