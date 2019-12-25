@@ -37,22 +37,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/login").permitAll()
-            .antMatchers("/**").fullyAuthenticated()
+            .antMatchers("/","/blog/**","/login").permitAll()
+            .antMatchers("/bg/**").fullyAuthenticated()
             .and()
             .formLogin()
-                .usernameParameter("uname")//自定义表单中用户名的属性名
-                .passwordParameter("pwd")//自定义表单中密码的属性名
-                .loginPage("/")//跳转到自定义的登录表单
+                //.usernameParameter("uname")//自定义表单中用户名的属性名
+                //.passwordParameter("pwd")//自定义表单中密码的属性名
+                //.loginPage("/")//跳转到自定义的登录表单
                 //.loginProcessingUrl("/")//自定义登录请求的处理路径，不配置此值则默认使用loginPage()中配置的路径
-                .defaultSuccessUrl("/")//自定义登陆成功跳转到的页面
-                .failureUrl("/")//自定义登录失败跳转到的页面
-            .and()
-            .logout()//开启注销功能
-                .logoutSuccessUrl("/login")//注销成功后跳转到的页面
-            .and()
-            .rememberMe()//开启记住我功能
-                .rememberMeParameter("remember")//自定义表单中记住我的属性名
+                //.defaultSuccessUrl("/")//自定义登陆成功跳转到的页面
+                //.failureUrl("/")//自定义登录失败跳转到的页面
+            //.and()
+            //.logout()//开启注销功能
+                //.logoutSuccessUrl("/login")//注销成功后跳转到的页面
+            //.and()
+            //.rememberMe()//开启记住我功能
+                //.rememberMeParameter("remember")//自定义表单中记住我的属性名
             .and()
             .csrf().disable();
     }

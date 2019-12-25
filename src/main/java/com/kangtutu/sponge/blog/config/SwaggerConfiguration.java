@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger配置类
- * @Create 海绵之家 - [ www.sponge-k.tech ]
  **/
 @Configuration
 @EnableSwagger2

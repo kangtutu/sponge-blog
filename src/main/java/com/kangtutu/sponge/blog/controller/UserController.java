@@ -14,7 +14,7 @@ public class UserController {
 
     @GetMapping
     public String userIndex(){
-        return "background/user.html";
+        return "background/user";
     }
 
 }

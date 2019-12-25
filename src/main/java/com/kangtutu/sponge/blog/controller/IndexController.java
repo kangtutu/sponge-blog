@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/")
 @Slf4j
 @Api(tags = "[前台] 博客首页相关接口")
 public class IndexController {
@@ -37,7 +37,7 @@ public class IndexController {
         return "redirect:/blog/index";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/blog/index")
     @ApiOperation(value = "获取首页数据",notes = "获取首页数据")
     public String indexData(Model model) {
         log.info("[博客首页] 进入博客首页方法内");
